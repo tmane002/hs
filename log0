@@ -1,0 +1,9 @@
+2023-01-27 11:21:34.020066 [net info] loaded configuration from hotstuff.conf
+2023-01-27 11:21:34.020170 [net info] loading extra configuration from ./hotstuff.gen-sec0.conf
+2023-01-27 11:21:34.020182 [hotstuff info] s split in opt_replicas is : , À\B¾QV, …B¾QV
+2023-01-27 11:21:34.020193 [hotstuff info] s split in opt_replicas is : °‡B¾QV,  ˆB¾QV, Ð‡B¾QV
+2023-01-27 11:21:34.020199 [hotstuff info] s split in opt_replicas is : , pŠB¾QV,  ŠB¾QV
+2023-01-27 11:21:34.020205 [hotstuff info] s split in opt_replicas is : 0‹B¾QV,  ‹B¾QV, P‹B¾QV
+2023-01-27 11:21:34.025622 [net info] starting all threads...
+terminate called after throwing an instance of 'salticidae::ConnPoolError'
+  what():  unable to listen: Address already in use
