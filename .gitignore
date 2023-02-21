@@ -24,3 +24,6 @@ include/hotstuff/config.h
 core
 scripts/*
 test/*
+.ipynb_checkpoints/*
+.idea/*
+ServerSetup.ipynb
