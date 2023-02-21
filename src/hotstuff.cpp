@@ -349,23 +349,23 @@ void HotStuffBase::req_blk_handler(MsgReqBlock &&msg, const Net::conn_t &conn) {
     {
         pms.push_back(async_fetch_blk(h, nullptr));
 
-//        if (int(jo)==1)
-//        {
-//            block_t tempBlock = storage->find_blk(h);
-//
-//            while(tempBlock!=get_genesis())
-//            {
-//                for (const auto &temp_hash: tempBlock->get_parent_hashes())
-//                {
-//                    LOG_INFO("-------xXXXXXx------ Appending DATA");
-//                    pms.push_back(async_fetch_blk(temp_hash, nullptr));
-//
-//                    temp_hash1 = temp_hash;
-//                }
-//                tempBlock = storage->find_blk(temp_hash1);
-//            }
-//
-//        }
+        if (int(jo)==1)
+        {
+            block_t tempBlock = storage->find_blk(h);
+
+            while(tempBlock!=get_genesis())
+            {
+                for (const auto &temp_hash: tempBlock->get_parent_hashes())
+                {
+                    LOG_INFO("-------xXXXXXx------ Appending DATA");
+                    pms.push_back(async_fetch_blk(temp_hash, nullptr));
+
+                    temp_hash1 = temp_hash;
+                }
+                tempBlock = storage->find_blk(temp_hash1);
+            }
+
+        }
     }
 
 
