@@ -23,7 +23,6 @@ include/hotstuff/config.h
 /test/test_concurrent_queue
 core
 scripts/*
-test/*
 .ipynb_checkpoints/*
 .idea/*
 ServerSetup.ipynb
