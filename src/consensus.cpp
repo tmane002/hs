@@ -153,7 +153,7 @@ void HotStuffCore::update(const block_t &nblk) {
         do_consensus(blk);
         LOG_PROTO("commit %s", std::string(*blk).c_str());
 
-        if (int(blk->height) ==20000)
+        if (int(get_id())==1)
         {
             std::this_thread::sleep_for(std::chrono::seconds(5));
         }
