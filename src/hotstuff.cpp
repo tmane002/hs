@@ -365,7 +365,7 @@ void HotStuffBase::req_blk_handler(MsgReqBlock &&msg, const Net::conn_t &conn) {
                 tempBlock = storage->find_blk(temp_hash1);
                 count_sent++;
 
-                if (count_sent > 1000) break;
+                if (count_sent > 2000) break;
 
             }
 
