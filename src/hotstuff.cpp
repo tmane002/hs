@@ -184,7 +184,7 @@ promise_t HotStuffBase::async_fetch_blk(const uint256_t &blk_hash,
         uint32_t test_join_or_not = 5;
 
 
-        if ((int(get_id()==4) &&(join_start==0)))
+        if ((int(get_id()==4)))
         {
             test_join_or_not = 1;
             join_start = 1;
@@ -365,7 +365,7 @@ void HotStuffBase::req_blk_handler(MsgReqBlock &&msg, const Net::conn_t &conn) {
                 tempBlock = storage->find_blk(temp_hash1);
                 count_sent++;
 
-//                if (count_sent > 2000) break;
+                if (count_sent > 4000) break;
 
             }
 
