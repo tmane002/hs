@@ -148,6 +148,12 @@ void HotStuffCore::update(const block_t &nblk) {
         blk->decision = 1;
         do_consensus(blk);
         LOG_PROTO("commit %s", std::string(*blk).c_str());
+
+        if (int(blk->height) ==20000)
+        {
+            std::this_thread::sleep_for(std::chrono::seconds(5));
+        }
+
         for (size_t i = 0; i < blk->cmds.size(); i++)
             do_decide(Finality(id, 1, i, blk->height,
                                 blk->cmds[i], blk->get_hash()));
