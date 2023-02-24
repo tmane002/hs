@@ -184,7 +184,7 @@ promise_t HotStuffBase::async_fetch_blk(const uint256_t &blk_hash,
         uint32_t test_join_or_not = 5;
 
 
-        if ((int(get_id()==4)))
+        if ((int(get_id()>7)))
         {
             test_join_or_not = 1;
             join_start = 1;
