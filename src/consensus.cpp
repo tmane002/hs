@@ -21,6 +21,10 @@
 #include "hotstuff/util.h"
 #include "hotstuff/consensus.h"
 
+#include <chrono>
+#include <thread>
+
+
 #define LOG_INFO HOTSTUFF_LOG_INFO
 #define LOG_DEBUG HOTSTUFF_LOG_DEBUG
 #define LOG_WARN HOTSTUFF_LOG_WARN
