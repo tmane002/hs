@@ -344,7 +344,7 @@ void HotStuffBase::req_blk_handler(MsgReqBlock &&msg, const Net::conn_t &conn) {
     std::vector<promise_t> pms;
 
     uint256_t temp_hash1;
-    uint256_t count_sent = 0;
+    int count_sent = 0;
     for (const auto &h: blk_hashes)
     {
         pms.push_back(async_fetch_blk(h, nullptr));
@@ -365,7 +365,7 @@ void HotStuffBase::req_blk_handler(MsgReqBlock &&msg, const Net::conn_t &conn) {
                 tempBlock = storage->find_blk(temp_hash1);
                 count_sent++;
 
-                if (count_sent > 2000) break;
+//                if (count_sent > 2000) break;
 
             }
 
