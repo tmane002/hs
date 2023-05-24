@@ -79,12 +79,18 @@ void connect_all()
     cluster_map[1] = 0;
     cluster_map[2] = 0;
     cluster_map[3] = 0;
-
-
     cluster_map[4] = 1;
     cluster_map[5] = 1;
     cluster_map[6] = 1;
     cluster_map[7] = 1;
+    cluster_map[8] = 2;
+    cluster_map[9] = 2;
+    cluster_map[10] = 2;
+    cluster_map[11] = 2;
+    cluster_map[12] = 3;
+    cluster_map[13] = 3;
+    cluster_map[14] = 3;
+    cluster_map[15] = 3;
 
 //    cluster_map[9] = 2;
 //    cluster_map[10] = 2;
