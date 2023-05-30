@@ -219,7 +219,7 @@ void HotStuffCore::update(const block_t &nblk) {
             bool leader_check = check_leader();
 
             LOG_INFO("Sending Join Init message with height %d", int(blk->height));
-    //        if (leader_check )
+//            if (leader_check )
             {
                 {
                     do_broadcast_proposal(prop_join_init);
@@ -231,7 +231,7 @@ void HotStuffCore::update(const block_t &nblk) {
             Proposal prop_other_clusters(id, blk, nullptr, cluster_id, cluster_id, blk->height, 1);
             bool leader_check = check_leader();
             LOG_INFO("leader_check is %d", int(leader_check));
-//        if (leader_check )
+        if (leader_check )
             {
             if (!(cluster_id==0 && blk->height==3000))
                 {
