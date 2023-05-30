@@ -263,8 +263,8 @@ namespace hotstuff {
                 auto finished_mc_cids_it = finished_mc_cids.find(int(prop.oc_blk_height));
                 if (finished_mc_cids_it==finished_mc_cids.end())
                 {
-                    auto it = cid_to_cluster_tracker_array.find(prop.oc_blk_height);
-                    if (it == cid_to_cluster_tracker_array.end())
+                    auto it = cid_to_cluster_tracker_array0.find(prop.oc_blk_height);
+                    if (it == cid_to_cluster_tracker_array0.end())
                     {
                         cluster_tracker_array = std::vector<int>();
                         for(int x;x < n_clusters; x++ ) cluster_tracker_array.push_back(0);
@@ -272,7 +272,7 @@ namespace hotstuff {
                     }
                     else
                     {
-                        cluster_tracker_array = cid_to_cluster_tracker_array[prop.oc_blk_height];
+                        cluster_tracker_array = cid_to_cluster_tracker_array0[prop.oc_blk_height];
                     }
 
 
@@ -318,7 +318,7 @@ namespace hotstuff {
 
 
 
-                    cid_to_cluster_tracker_array[prop.oc_blk_height] = cluster_tracker_array;
+                    cid_to_cluster_tracker_array0[prop.oc_blk_height] = cluster_tracker_array;
                 }
                 else
                 {
@@ -337,11 +337,12 @@ namespace hotstuff {
                  prop.proposer, prop.msg_type, cluster_id, prop.cluster_number, int(cluster_id==prop.cluster_number));
 
 
-        if ((cluster_id==prop.cluster_number) && (prop.msg_type==2))
+//        if ((cluster_id==prop.cluster_number) && (prop.msg_type==2))
+        if ((prop.msg_type==2))
         {
 
-            LOG_INFO("2nd MC message: Reached here proposer %d, cluster number,  = %d, prop.oc_blk_height = %d, height = %d",
-                     prop.proposer, prop.cluster_number, prop.oc_blk_height, blk->get_height());
+            LOG_INFO("2nd MC message: Reached here proposer %d, cluster number,  = %d, prop.pre_amp_cluster_number = %d, prop.oc_blk_height = %d, height = %d",
+                     prop.proposer, prop.cluster_number, prop.pre_amp_cluster_number,prop.oc_blk_height, blk->get_height());
 
 //                if (prop.oc_blk_height > cluster_msg_count)
             auto finished_mc_cids_it = finished_mc_cids.find(int(prop.oc_blk_height));
@@ -365,16 +366,6 @@ namespace hotstuff {
                 }
 
 
-//                LOG_INFO("YOLO with clustertracker_array's size %d and n_clusters: %d",
-//                         cluster_tracker_array.size(), n_clusters);
-//
-//                if (cluster_tracker_array.size()<n_clusters)
-//                {
-//                    for(int x;x < n_clusters; x++ ) cluster_tracker_array.push_back(0);
-//                    cluster_tracker_array[cluster_id] = 1;
-//                }
-
-
                 cluster_tracker_array[prop.pre_amp_cluster_number] = cluster_tracker_array[prop.cluster_number] + 1;
                 bool test_flag = true;
 
@@ -386,8 +377,8 @@ namespace hotstuff {
                     }
                 }
 
-                LOG_INFO("test_flag = %d,  cluster_tracker_array[0], cluster_tracker_array[1] = %d, %d",
-                         test_flag, cluster_tracker_array[0], cluster_tracker_array[1] );
+                LOG_INFO("test_flag = %d,  cluster_tracker_array[0], cluster_tracker_array[1], cluster_tracker_array[2] = %d, %d, %d",
+                         test_flag, cluster_tracker_array[0], cluster_tracker_array[1],  cluster_tracker_array[2]);
 
                 if (test_flag)
                 {

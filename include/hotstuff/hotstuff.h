@@ -156,7 +156,7 @@ class HotStuffBase: public HotStuffCore {
     int cluster_id;
     int n_clusters;
 
-    int rvct_timeout = 4;
+    int rvct_timeout = 10;
 
 //    TimerEvent remote_view_change_timer;
     std::unordered_map<int, TimerEvent> cid_to_remote_view_change_timer;
@@ -289,6 +289,8 @@ class HotStuffBase: public HotStuffCore {
     std::vector<int> cluster_tracker_array;
 
     std::unordered_map<int, std::vector<int>> cid_to_cluster_tracker_array;
+    std::unordered_map<int, std::vector<int>> cid_to_cluster_tracker_array0;
+
     std::set<int> finished_mc_cids;
     std::set<int> finished_j1_cids;
     std::set<int> finished_j2_cids;
