@@ -233,7 +233,7 @@ void HotStuffCore::update(const block_t &nblk) {
             LOG_INFO("leader_check is %d", int(leader_check));
         if (leader_check )
             {
-            if (!(cluster_id==0 && blk->height==7000))
+//            if (!(cluster_id==0 && blk->height==7000))
                 {
                     LOG_INFO("Sending other cluster message with height %d", int(blk->height));
                     do_broadcast_proposal_other_clusters(prop_other_clusters);
