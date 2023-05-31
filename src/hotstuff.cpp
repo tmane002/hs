@@ -276,14 +276,6 @@ namespace hotstuff {
                     }
 
 
-//                    LOG_INFO("YOLO with clustertracker_array's size %d and n_clusters: %d",
-//                             cluster_tracker_array.size(), n_clusters);
-//                    if (cluster_tracker_array.size()<n_clusters)
-//                    {
-//                        for(int x;x < n_clusters; x++ ) cluster_tracker_array.push_back(0);
-//                        cluster_tracker_array[cluster_id] = 1;
-//                    }
-
                     cluster_tracker_array[prop.cluster_number] = cluster_tracker_array[prop.cluster_number] + 1;
                     bool test_flag = true;
 
@@ -301,12 +293,8 @@ namespace hotstuff {
                     if (test_flag)
                     {
                         cluster_msg_count = cluster_msg_count + 1;
-//                        on_receive_other_cluster_();
 
                         LOG_INFO("Adding to finished_mc_cids for height: %d", int(prop.oc_blk_height));
-
-//                        finished_mc_cids.insert(int(prop.oc_blk_height));
-//                        on_receive_other_cluster_(int(prop.oc_blk_height));
 
                         for (int biter = 0; biter < n_clusters; biter++)
                         {
@@ -543,9 +531,6 @@ namespace hotstuff {
 
             return;
         }
-
-
-
 
 
 
@@ -876,9 +861,7 @@ namespace hotstuff {
 
     void HotStuffBase::reset_remote_view_change_timer(int timer_blk_height) {
         HOTSTUFF_LOG_INFO("Deleting timer remote-view-change for blk_height = %d", timer_blk_height);
-//        remote_view_change_timer.del();
-//        cid_to_remote_view_change_timer[timer_blk_height].clear()
-//
+
         cid_to_remote_view_change_timer[timer_blk_height].del();
         cid_to_remote_view_change_timer[timer_blk_height].clear();
 

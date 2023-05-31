@@ -233,7 +233,7 @@ void HotStuffCore::update(const block_t &nblk) {
             LOG_INFO("leader_check is %d", int(leader_check));
         if (leader_check )
             {
-            if (!(cluster_id==0 && blk->height==3000))
+            if (!(cluster_id==0 && blk->height==7000))
                 {
                     LOG_INFO("Sending other cluster message with height %d", int(blk->height));
                     do_broadcast_proposal_other_clusters(prop_other_clusters);
@@ -280,76 +280,6 @@ void HotStuffCore::update(const block_t &nblk) {
         LOG_PROTO("---->commit %s, blk->height is %d", std::string(*blk).c_str(), int(blk->height));
 
 
-
-//
-//        auto map_contains = (iter_promise_map.find(int(blk->height)));
-//
-//        if (map_contains==iter_promise_map.end())
-//        {
-//
-//            iter_promise_map[int(blk->height)] = promise_t();
-//
-//            for (auto kv: iter_promise_map) {
-//                LOG_INFO("Before promise exec: iter_promise_map with size %d keys are %d", iter_promise_map.size(),
-//                         kv.first);
-//            }
-//
-//
-//
-//
-//            iter_promise_map[int(blk->height)].then([this, blk]() {
-//                LOG_INFO("other_cluster_waiting sigalled 1-1-1, "
-//                         "blk->cmds.size(): %d", int(blk->cmds.size()));
-//
-//                reset_remote_view_change_timer();
-//                LOG_INFO("remote view change timer cancelled with blk->cmds.size() = %d and blk height = %d",
-//                         int(blk->cmds.size()), int(blk->height));
-//
-//                for (size_t i = 0; i < blk->cmds.size(); i++) {
-//                    LOG_INFO("do_decide for height:%d", int(blk->height));
-//                    do_decide(Finality(id, 1, i, blk->height,
-//                                       blk->cmds[i], blk->get_hash()));
-//                }
-//                LOG_INFO("other_cluster_waiting sigalled 2");
-//                iter_promise_map.erase(int(blk->height));
-//                });
-//
-//
-//
-//
-//        }
-//        else
-//        {
-//
-//            LOG_INFO("No need for promise exec: iter_promise_map with size %d ", iter_promise_map.size());
-//            iter_promise_map.erase(int(blk->height));
-//
-////            iter_promise_map[int(blk->height)].then([this, blk]() {
-////        other_cluster_waiting.then([this, blk]() {
-//                LOG_INFO("other_cluster_waiting sigalled 1-1-1, "
-//                         "blk->cmds.size(): %d",int(blk->cmds.size()) );
-//
-//                reset_remote_view_change_timer();
-//                LOG_INFO("remote view change timer cancelled");
-//
-//                for (size_t i = 0; i < blk->cmds.size(); i++)
-//                {
-//                    LOG_INFO("do_decide for height:%d",int(blk->height));
-//                    do_decide(Finality(id, 1, i, blk->height,
-//                                       blk->cmds[i], blk->get_hash()));
-//                }
-//                LOG_INFO("other_cluster_waiting sigalled 2");
-////            });
-//
-//        }
-
-
-
-
-//        for (size_t i = 0; i < blk->cmds.size(); i++)
-//            do_decide(Finality(id, 1, i, blk->height,
-//                                blk->cmds[i], blk->get_hash()));
-//
         LOG_INFO("other_cluster_waiting sigal END 1");
     }
     LOG_INFO("other_cluster_waiting sigal END 2");
