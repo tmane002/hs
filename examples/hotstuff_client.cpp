@@ -153,7 +153,7 @@ bool try_send(bool check = true) {
     {
 //        HOTSTUFF_LOG_INFO("cid is %d",int(cid));
         auto cmd = new CommandDummy(cid, cnt++);
-        
+
         MsgReqCmd msg(*cmd);
 
         int count = 0;
