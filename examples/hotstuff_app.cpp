@@ -113,13 +113,6 @@ class HotStuffApp: public HotStuff {
 
     void state_machine_execute(const Finality &fin) override {
 
-//        std::stringstream ss;
-//        ss << std::this_thread::get_id();
-//        uint64_t id = std::stoull(ss.str());
-//
-//        HOTSTUFF_LOG_INFO("state_machine_execute: thread_id is %d", int(id));
-
-
         reset_imp_timer();
 #ifndef HOTSTUFF_ENABLE_BENCHMARK
         HOTSTUFF_LOG_INFO("replicated %s", std::string(fin).c_str());
@@ -253,10 +246,10 @@ int main(int argc, char **argv) {
     cluster_map[5] = 1;
     cluster_map[6] = 1;
     cluster_map[7] = 1;
-    cluster_map[8] = 2;
-    cluster_map[9] = 2;
-    cluster_map[10] = 2;
-    cluster_map[11] = 2;
+//    cluster_map[8] = 2;
+//    cluster_map[9] = 2;
+//    cluster_map[10] = 2;
+//    cluster_map[11] = 2;
 //    cluster_map[12] = 1;
 //    cluster_map[13] = 1;
 //    cluster_map[14] = 1;
