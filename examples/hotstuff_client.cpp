@@ -153,73 +153,17 @@ bool try_send(bool check = true) {
     {
 //        HOTSTUFF_LOG_INFO("cid is %d",int(cid));
         auto cmd = new CommandDummy(cid, cnt++);
-
-
+        
         MsgReqCmd msg(*cmd);
 
-//        for (auto &p: conns) mn->send_msg(msg, p.second);
-
-//        auto cmd1 = new CommandDummy(cid, cnt);
-//        MsgReqCmd msg1(*cmd1);
-
         int count = 0;
-//        int nclusters = 2;
-
-//        for (auto &p: conns) mn->send_msg(msg, p.second);
 
         for (auto &p: conns)
         {
-            if (cid % n_clusters == cluster_map[count])
-            {
-//                HOTSTUFF_LOG_INFO("Sending from client:%d, to connection %d, with cnt: %d\n",
-//                                  cid, count, cnt);
-//                mn->send_msg(msg, p.second);
-
-            }
-
-//            if (cluster_map[count]==0)
-//            if (max_iter_num%2==0)
-            {
-//                if (cluster_map[count]==0)
-                {
-                    mn->send_msg(msg, p.second);
-                }
-            }
-//            if (max_iter_num%2==1)
-            {
-//                if (cluster_map[count]==1)
-                {
-//                    mn->send_msg(msg, p.second);
-                }
-
-            }
-
-//            mn->send_msg(msg, p.second);
-
+            mn->send_msg(msg, p.second);
             count++;
-//            count++;
         }
 
-
-//
-//#ifndef HOTSTUFF_ENABLE_BENCHMARK
-//        HOTSTUFF_LOG_INFO("send new cmd %.10s",
-//                            get_hex(cmd1->get_hash()).c_str());
-//        HOTSTUFF_LOG_INFO("send new cmd %.10s",
-//                          get_hex(cmd->get_hash()).c_str());
-//#endif
-//        waiting.insert(std::make_pair(
-//            cmd1->get_hash(), Request(cmd1)));
-//        waiting.insert(std::make_pair(
-//                cmd->get_hash(), Request(cmd)));
-//
-//        if (max_iter_num > 1)
-//        {
-//            max_iter_num--;
-////            max_iter_num--;
-//        }
-//
-//        return true;
 
 #ifndef HOTSTUFF_ENABLE_BENCHMARK
         HOTSTUFF_LOG_INFO("send new cmd %.10s",
