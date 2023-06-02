@@ -235,7 +235,6 @@ int main(int argc, char **argv) {
     std::vector<std::tuple<std::string, std::string, std::string>> other_replicas;
     std::vector<std::tuple<std::string, std::string, std::string>> all_replicas;
 
-
     std::unordered_map<int, int> cluster_map;
 
     cluster_map[0] = 0;
@@ -254,20 +253,6 @@ int main(int argc, char **argv) {
     cluster_map[10] = 2;
     cluster_map[11] = 2;
 
-    cluster_map[12] = 3;
-    cluster_map[13] = 3;
-    cluster_map[14] = 3;
-    cluster_map[15] = 3;
-
-    cluster_map[16] = 4;
-    cluster_map[17] = 4;
-    cluster_map[18] = 4;
-    cluster_map[19] = 4;
-
-    cluster_map[20] = 5;
-    cluster_map[21] = 5;
-    cluster_map[22] = 5;
-    cluster_map[23] = 5;
 
 
 
