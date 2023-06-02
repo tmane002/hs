@@ -243,21 +243,31 @@ int main(int argc, char **argv) {
     cluster_map[2] = 0;
     cluster_map[3] = 0;
 
-    cluster_map[4] = 0;
-    cluster_map[5] = 0;
+
+    cluster_map[4] = 1;
+    cluster_map[5] = 1;
     cluster_map[6] = 1;
     cluster_map[7] = 1;
 
-    cluster_map[8] = 1;
-    cluster_map[9] = 1;
-    cluster_map[10] = 1;
-    cluster_map[11] = 1;
-//    cluster_map[12] = 2;
-//    cluster_map[13] = 2;
-//    cluster_map[14] = 2;
-//    cluster_map[15] = 2;
-//    cluster_map[16] = 2;
-//    cluster_map[17] = 2;
+    cluster_map[8] = 2;
+    cluster_map[9] = 2;
+    cluster_map[10] = 2;
+    cluster_map[11] = 2;
+
+    cluster_map[12] = 3;
+    cluster_map[13] = 3;
+    cluster_map[14] = 3;
+    cluster_map[15] = 3;
+
+    cluster_map[16] = 4;
+    cluster_map[17] = 4;
+    cluster_map[18] = 4;
+    cluster_map[19] = 4;
+
+    cluster_map[20] = 5;
+    cluster_map[21] = 5;
+    cluster_map[22] = 5;
+    cluster_map[23] = 5;
 
 
 
