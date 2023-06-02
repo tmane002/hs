@@ -106,8 +106,28 @@ void connect_all()
     cluster_map[22] = 5;
     cluster_map[23] = 5;
 
+//    cluster_map[14] = 1;
+//    cluster_map[15] = 1;
+
+//    cluster_map[9] = 2;
+//    cluster_map[10] = 2;
+//    cluster_map[11] = 2;
 
 
+//    cluster_map[12] = 0;
+//    cluster_map[13] = 0;
+//    cluster_map[14] = 0;
+//    cluster_map[15] = 0;
+//    cluster_map[16] = 0;
+//    cluster_map[17] = 0;
+//    cluster_map[18] = 0;
+//    cluster_map[19] = 0;
+//
+//    cluster_map[20] = 1;
+//    cluster_map[21] = 1;
+//    cluster_map[22] = 1;
+//    cluster_map[23] = 1;
+//    cluster_map[24] = 1;
 //    cluster_map[25] = 1;
 //    cluster_map[26] = 1;
 //    cluster_map[27] = 1;
