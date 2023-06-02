@@ -245,8 +245,8 @@ int main(int argc, char **argv) {
     cluster_map[4] = 0;
     cluster_map[5] = 0;
     cluster_map[6] = 0;
-    cluster_map[7] = 0;
-    cluster_map[8] = 0;
+    cluster_map[7] = 1;
+    cluster_map[8] = 1;
     cluster_map[9] = 1;
     cluster_map[10] = 1;
     cluster_map[11] = 1;
