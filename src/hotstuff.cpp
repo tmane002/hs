@@ -294,7 +294,6 @@ namespace hotstuff {
                     {
                         cluster_msg_count = cluster_msg_count + 1;
 
-                        LOG_INFO("Adding to finished_mc_cids for height: %d", int(prop.oc_blk_height));
 
                         for (int biter = 0; biter < n_clusters; biter++)
                         {
