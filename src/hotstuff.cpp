@@ -255,7 +255,7 @@ namespace hotstuff {
             if (prop.msg_type==1)
             {
 
-                if (int(prop.oc_blk_height)==2500) LOG_INFO("LatencyPlot: Received 1st MC message") ;
+                if (int(prop.oc_blk_height)==800) LOG_INFO("LatencyPlot: Received 1st MC message") ;
 
 
 
@@ -318,7 +318,7 @@ namespace hotstuff {
                 }
 
                 do_broadcast_proposal(prop_same_cluster);
-                if (int(prop.oc_blk_height)==2500) LOG_INFO("LatencyPlot: Sent 2nd MC message") ;
+                if (int(prop.oc_blk_height)==800) LOG_INFO("LatencyPlot: Sent 2nd MC message") ;
 
 
             }
@@ -337,7 +337,7 @@ namespace hotstuff {
         if ((prop.msg_type==2))
         {
 
-            if (int(prop.oc_blk_height)==2500) LOG_INFO("LatencyPlot: Receieved 2nd MC message") ;
+            if (int(prop.oc_blk_height)==800) LOG_INFO("LatencyPlot: Receieved 2nd MC message") ;
 
 
             LOG_INFO("2nd MC message: Reached here proposer %d, cluster number,  = %d, prop.pre_amp_cluster_number = %d, prop.oc_blk_height = %d, height = %d",
@@ -387,7 +387,7 @@ namespace hotstuff {
                     LOG_INFO("Adding to finished_mc_cids for height: %d", int(prop.oc_blk_height));
                     finished_mc_cids.insert(int(prop.oc_blk_height));
 
-                    if (int(prop.oc_blk_height)==2500) LOG_INFO("LatencyPlot: going to execute based on 2nd MC message") ;
+                    if (int(prop.oc_blk_height)==800) LOG_INFO("LatencyPlot: going to execute based on 2nd MC message") ;
 
                     on_receive_other_cluster_(int(prop.oc_blk_height));
 
@@ -451,7 +451,7 @@ namespace hotstuff {
         // First join message for every round
         if (prop.msg_type==4)
         {
-            if (int(prop.oc_blk_height)==2500) LOG_INFO("LatencyPlot: Received initial join message") ;
+            if (int(prop.oc_blk_height)==800) LOG_INFO("LatencyPlot: Received initial join message") ;
 
 
 
@@ -493,7 +493,7 @@ namespace hotstuff {
                 LOG_INFO("Sent 2nd join message for cmd_height = %d", int(prop.oc_blk_height));
 
                 finished_j1_cids.insert(int(prop.oc_blk_height));
-                if (int(prop.oc_blk_height)==2500) LOG_INFO("LatencyPlot: Sent response to  initial join message") ;
+                if (int(prop.oc_blk_height)==800) LOG_INFO("LatencyPlot: Sent response to  initial join message") ;
 
             }
 
@@ -509,7 +509,7 @@ namespace hotstuff {
         {
 
 
-            if (int(prop.oc_blk_height)==2500) LOG_INFO("LatencyPlot: Received second join message") ;
+            if (int(prop.oc_blk_height)==800) LOG_INFO("LatencyPlot: Received second join message") ;
 
 
             LOG_WARN("Received Second join message: cmd_height = %d", int(prop.oc_blk_height));
@@ -549,7 +549,7 @@ namespace hotstuff {
                 }
 
                 finished_j2_cids.insert(int(prop.oc_blk_height));
-                if (int(prop.oc_blk_height)==2500) LOG_INFO("LatencyPlot: Sent multicluster message") ;
+                if (int(prop.oc_blk_height)==800) LOG_INFO("LatencyPlot: Sent multicluster message") ;
 
 
             }
@@ -963,7 +963,7 @@ namespace hotstuff {
 
         }
 
-        if (int(blk_height)==2500) LOG_INFO("LatencyPlot: Finished execution") ;
+        if (int(blk_height)==800) LOG_INFO("LatencyPlot: Finished execution") ;
 
 //        auto it = finished_mc_cids.find(blk_height);
 

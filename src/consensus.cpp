@@ -226,14 +226,14 @@ void HotStuffCore::update(const block_t &nblk) {
         }
 
 
-        if (int(blk->height)==2500) LOG_INFO("LatencyPlot: before initial join message") ;
+        if (int(blk->height)==800) LOG_INFO("LatencyPlot: before initial join message") ;
 
 
 
 
 
 //       if (1>2)
-        if (int(blk->height)%2500 ==0)
+        if (int(blk->height)%800 ==0)
         {
 
             join_nodes();
@@ -256,7 +256,7 @@ void HotStuffCore::update(const block_t &nblk) {
             LOG_INFO("leader_check is %d", int(leader_check));
         if (leader_check )
             {
-                if (int(blk->height)==2500) LOG_INFO("LatencyPlot: before sending first mc message") ;
+                if (int(blk->height)==800) LOG_INFO("LatencyPlot: before sending first mc message") ;
 
 //            if (!(cluster_id==0 && blk->height==7000))
                 {
@@ -345,7 +345,7 @@ block_t HotStuffCore::on_propose(const std::vector<uint256_t> &cmds,
             ));
 
     LOG_INFO("NewBlock: height: %d",int(parents[0]->height + 1) ) ;
-    if (int(parents[0]->height + 1)==2500) LOG_INFO("LatencyPlot: Processing message from client") ;
+    if (int(parents[0]->height + 1)==800) LOG_INFO("LatencyPlot: Processing message from client") ;
 
     const uint256_t bnew_hash = bnew->get_hash();
     bnew->self_qc = create_quorum_cert(bnew_hash);
