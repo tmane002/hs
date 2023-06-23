@@ -67,6 +67,17 @@ struct MsgRespCmd {
 class CommandDummy: public Command {
     uint32_t cid;
     uint32_t n;
+
+    uint32_t ip_p1;
+    uint32_t ip_p2;
+    uint32_t ip_p3;
+    uint32_t ip_p4;
+    uint32_t new_node_id;
+    uint32_t new_node_cluster_id;
+    uint32_t new_node_key1;
+    uint32_t new_node_key2;
+
+
     uint256_t hash;
 #if HOTSTUFF_CMD_REQSIZE > 0
     uint8_t payload[HOTSTUFF_CMD_REQSIZE];
@@ -77,17 +88,17 @@ class CommandDummy: public Command {
     ~CommandDummy() override {}
 
     CommandDummy(uint32_t cid, uint32_t n):
-        cid(cid), n(n), hash(salticidae::get_hash(*this)) {}
+        cid(cid), n(n),  hash(salticidae::get_hash(*this)) {}
 
     void serialize(DataStream &s) const override {
-        s << cid << n;
+        s << cid << n ;
 #if HOTSTUFF_CMD_REQSIZE > 0
         s.put_data(payload, payload + sizeof(payload));
 #endif
     }
 
     void unserialize(DataStream &s) override {
-        s >> cid >> n;
+        s >> cid >> n ;
 #if HOTSTUFF_CMD_REQSIZE > 0
         auto base = s.get_data_inplace(HOTSTUFF_CMD_REQSIZE);
         memmove(payload, base, sizeof(payload));
@@ -102,6 +113,22 @@ class CommandDummy: public Command {
     const uint32_t &get_cid() const {
         return n;
     }
+
+        const uint32_t &get_ip1() const {
+            return ip_p1;
+        }
+
+        const uint32_t &get_ip2() const {
+            return ip_p2;
+        }
+
+        const uint32_t &get_ip3() const {
+            return ip_p3;
+        }
+
+        const uint32_t &get_ip4() const {
+            return ip_p4;
+        }
 
     bool verify() const override {
         return true;

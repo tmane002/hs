@@ -98,6 +98,14 @@ class Command: public Serializable {
     virtual ~Command() = default;
     virtual const uint256_t &get_hash() const = 0;
     virtual const uint32_t &get_cid() const = 0;
+    virtual const uint32_t &get_ip1() const = 0;
+    virtual const uint32_t &get_ip2() const = 0;
+    virtual const uint32_t &get_ip3() const = 0;
+    virtual const uint32_t &get_ip4() const = 0;
+
+
+
+
     virtual bool verify() const = 0;
     virtual operator std::string () const {
         DataStream s;

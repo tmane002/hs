@@ -226,6 +226,9 @@ class HotStuffBase: public HotStuffCore {
     inline bool conn_handler(const salticidae::ConnPool::conn_t &, bool);
 
     void do_broadcast_proposal(const Proposal &) override;
+
+    void join_nodes() override;
+    void do_broadcast_proposal_to_leader(const Proposal &) override;
     void do_broadcast_proposal_other_clusters(const Proposal &) override;
     void do_vote(ReplicaID, const Vote &) override;
     void do_decide(Finality &&) override;
@@ -294,6 +297,10 @@ class HotStuffBase: public HotStuffCore {
     std::set<int> finished_mc_cids;
     std::set<int> finished_j1_cids;
     std::set<int> finished_j2_cids;
+
+    std::set<int> tentative_join_set;
+    std::set<int> tentative_leave_set;
+
     std::set<int> finished_update_cids;
 
 //    std::unordered_map<int, uint256_t> cid_to_blkhash_after_mc;

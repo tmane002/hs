@@ -249,11 +249,16 @@ namespace hotstuff {
 
 
 //        if ((prop.proposer==0) && (peer != get_config().get_peer_id(prop.proposer)))
-        if ((cluster_id!=prop.cluster_number) && (peer != get_config().get_peer_id(prop.proposer)) && (prop.msg_type!=3))
+        if ((cluster_id!=prop.cluster_number) && (peer != get_config().get_peer_id(prop.proposer)) && (prop.msg_type!=3) && (prop.msg_type!=6))
         {
 
             if (prop.msg_type==1)
             {
+
+                if (int(prop.oc_blk_height)==2500) LOG_INFO("LatencyPlot: Received 1st MC message") ;
+
+
+
                 LOG_INFO("1st MC message: Reached here proposer %d, cluster_id = %d, prop.cluster number  = %d, prop.oc_blk_height=%d, height = %d, storage->get_blk_cache_size is %d, cluster_msg_count is %d, prop.oc_blk_height > cluster_msg_count = %d ",
                          prop.proposer, cluster_id, prop.cluster_number, prop.oc_blk_height, blk->get_height(), int(storage->get_blk_cache_size()), cluster_msg_count, int(prop.oc_blk_height > cluster_msg_count) );
 
@@ -313,8 +318,12 @@ namespace hotstuff {
                 }
 
                 do_broadcast_proposal(prop_same_cluster);
+                if (int(prop.oc_blk_height)==2500) LOG_INFO("LatencyPlot: Sent 2nd MC message") ;
+
 
             }
+
+
 
 
             return;
@@ -327,6 +336,9 @@ namespace hotstuff {
 //        if ((cluster_id==prop.cluster_number) && (prop.msg_type==2))
         if ((prop.msg_type==2))
         {
+
+            if (int(prop.oc_blk_height)==2500) LOG_INFO("LatencyPlot: Receieved 2nd MC message") ;
+
 
             LOG_INFO("2nd MC message: Reached here proposer %d, cluster number,  = %d, prop.pre_amp_cluster_number = %d, prop.oc_blk_height = %d, height = %d",
                      prop.proposer, prop.cluster_number, prop.pre_amp_cluster_number,prop.oc_blk_height, blk->get_height());
@@ -375,6 +387,7 @@ namespace hotstuff {
                     LOG_INFO("Adding to finished_mc_cids for height: %d", int(prop.oc_blk_height));
                     finished_mc_cids.insert(int(prop.oc_blk_height));
 
+                    if (int(prop.oc_blk_height)==2500) LOG_INFO("LatencyPlot: going to execute based on 2nd MC message") ;
 
                     on_receive_other_cluster_(int(prop.oc_blk_height));
 
@@ -386,6 +399,9 @@ namespace hotstuff {
                 }
 
                 cid_to_cluster_tracker_array[prop.oc_blk_height] = cluster_tracker_array;
+
+
+
 
 
             }
@@ -435,6 +451,10 @@ namespace hotstuff {
         // First join message for every round
         if (prop.msg_type==4)
         {
+            if (int(prop.oc_blk_height)==2500) LOG_INFO("LatencyPlot: Received initial join message") ;
+
+
+
 
             LOG_WARN("Received First join message: cmd_height = %d", int(prop.oc_blk_height));
 
@@ -473,16 +493,24 @@ namespace hotstuff {
                 LOG_INFO("Sent 2nd join message for cmd_height = %d", int(prop.oc_blk_height));
 
                 finished_j1_cids.insert(int(prop.oc_blk_height));
+                if (int(prop.oc_blk_height)==2500) LOG_INFO("LatencyPlot: Sent response to  initial join message") ;
+
             }
+
+
 
 
             return;
         }
 
 
-        // First join message for every round
+        // Second join message for every round
         if (prop.msg_type==5)
         {
+
+
+            if (int(prop.oc_blk_height)==2500) LOG_INFO("LatencyPlot: Received second join message") ;
+
 
             LOG_WARN("Received Second join message: cmd_height = %d", int(prop.oc_blk_height));
 
@@ -521,6 +549,7 @@ namespace hotstuff {
                 }
 
                 finished_j2_cids.insert(int(prop.oc_blk_height));
+                if (int(prop.oc_blk_height)==2500) LOG_INFO("LatencyPlot: Sent multicluster message") ;
 
 
             }
@@ -530,6 +559,29 @@ namespace hotstuff {
 
             return;
         }
+
+        // receiving message of this type from new node
+
+        if (prop.msg_type==6)
+        {
+            LOG_INFO("LatencyPlot: Received first message with new node info") ;
+            // sending tentative set to leader
+            Proposal prop_same_cluster(id, blk, nullptr, cluster_id, prop.cluster_number, prop.oc_blk_height, 7);
+            do_broadcast_proposal_to_leader(prop_same_cluster);
+
+        }
+
+        if (prop.msg_type==7)
+        {
+            LOG_INFO("LatencyPlot: Leader received with tentative sets from all peer nodes") ;
+            Proposal prop_same_cluster(id, blk, nullptr, cluster_id, prop.cluster_number, prop.oc_blk_height, 7);
+            // Adding to tentative set
+
+            tentative_join_set.insert(int(prop.oc_blk_height));
+        }
+
+
+
 
 
 
@@ -733,6 +785,22 @@ namespace hotstuff {
     }
 
 
+    void HotStuffBase::join_nodes() {
+        //MsgPropose prop_msg(prop);rao
+        HOTSTUFF_LOG_INFO("Tentative set size %d\n", tentative_join_set.size());
+        tentative_join_set = std::set<int>();
+        //for (const auto &replica: peers)
+        //    pn.send_msg(prop_msg, replica);
+    }
+
+
+    void HotStuffBase::do_broadcast_proposal_to_leader(const Proposal &prop) {
+        pn.send_msg(MsgPropose(prop), peers[pmaker->get_proposer()]);
+    }
+
+
+
+
     void HotStuffBase::do_broadcast_proposal_other_clusters(const Proposal &prop) {
         //MsgPropose prop_msg(prop);
 
@@ -895,6 +963,7 @@ namespace hotstuff {
 
         }
 
+        if (int(blk_height)==2500) LOG_INFO("LatencyPlot: Finished execution") ;
 
 //        auto it = finished_mc_cids.find(blk_height);
 

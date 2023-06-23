@@ -47,6 +47,7 @@ EventContext ec;
 ReplicaID proposer;
 size_t max_async_num;
 int max_iter_num;
+int join_client;
 uint32_t cid;
 uint32_t cnt = 0;
 uint32_t nfaulty;
@@ -86,10 +87,13 @@ void connect_all()
     cluster_map[6] = 1;
     cluster_map[7] = 1;
 
-    cluster_map[8] = 2;
-    cluster_map[9] = 2;
-    cluster_map[10] = 2;
-    cluster_map[11] = 2;
+//    cluster_map[8] = 0;
+
+
+//    cluster_map[8] = 2;
+//    cluster_map[9] = 2;
+//    cluster_map[10] = 2;
+//    cluster_map[11] = 2;
 
 //    cluster_map[14] = 1;
 //    cluster_map[15] = 1;
@@ -154,6 +158,8 @@ bool try_send(bool check = true) {
     if ((!check || waiting.size() < max_async_num) && max_iter_num)
     {
 //        HOTSTUFF_LOG_INFO("cid is %d",int(cid));
+
+//        auto cmd = new CommandDummy(cid, cnt++, 127,0,0,1);
         auto cmd = new CommandDummy(cid, cnt++);
 
         MsgReqCmd msg(*cmd);
@@ -236,6 +242,8 @@ int main(int argc, char **argv) {
     Config config("hotstuff.gen.conf");
 
     auto opt_idx = Config::OptValInt::create(0);
+    auto opt_join_client = Config::OptValInt::create(0);
+
     auto opt_replicas = Config::OptValStrVec::create();
     auto opt_max_iter_num = Config::OptValInt::create(100);
     auto opt_max_async_num = Config::OptValInt::create(10);
@@ -253,6 +261,7 @@ int main(int argc, char **argv) {
     mn->start();
 
     config.add_opt("idx", opt_idx, Config::SET_VAL);
+    config.add_opt("join_client", opt_join_client, Config::SET_VAL);
     config.add_opt("cid", opt_cid, Config::SET_VAL);
     config.add_opt("replica", opt_replicas, Config::APPEND);
     config.add_opt("iter", opt_max_iter_num, Config::SET_VAL);
@@ -261,6 +270,7 @@ int main(int argc, char **argv) {
     config.parse(argc, argv);
     auto idx = opt_idx->get();
     max_iter_num = opt_max_iter_num->get();
+    join_client = opt_join_client->get();
     max_async_num = opt_max_async_num->get();
     std::vector<std::string> raw;
 

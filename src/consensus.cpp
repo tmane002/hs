@@ -211,10 +211,33 @@ void HotStuffCore::update(const block_t &nblk) {
 
 
 
-//       if (1>2)
-//        if (int(blk->height)%1000 ==0)
-        if (1>2)
+        if (int(blk->height)==500)
         {
+            Proposal prop_join_tent(id, blk, nullptr, cluster_id, cluster_id, blk->height, 6);
+            bool leader_check = check_leader();
+            if (get_id()==0 )
+            {
+                LOG_INFO("LatencyPlot: new node sending join request message") ;
+
+                do_broadcast_proposal_other_clusters(prop_join_tent);
+
+            }
+
+        }
+
+
+        if (int(blk->height)==2500) LOG_INFO("LatencyPlot: before initial join message") ;
+
+
+
+
+
+//       if (1>2)
+        if (int(blk->height)%2500 ==0)
+        {
+
+            join_nodes();
+
             Proposal prop_join_init(id, blk, nullptr, cluster_id, cluster_id, blk->height, 4);
             bool leader_check = check_leader();
 
@@ -233,6 +256,8 @@ void HotStuffCore::update(const block_t &nblk) {
             LOG_INFO("leader_check is %d", int(leader_check));
         if (leader_check )
             {
+                if (int(blk->height)==2500) LOG_INFO("LatencyPlot: before sending first mc message") ;
+
 //            if (!(cluster_id==0 && blk->height==7000))
                 {
                     LOG_INFO("Sending other cluster message with height %d", int(blk->height));
@@ -318,6 +343,9 @@ block_t HotStuffCore::on_propose(const std::vector<uint256_t> &cmds,
                       hqc.first,
                       nullptr
             ));
+
+    LOG_INFO("NewBlock: height: %d",int(parents[0]->height + 1) ) ;
+    if (int(parents[0]->height + 1)==2500) LOG_INFO("LatencyPlot: Processing message from client") ;
 
     const uint256_t bnew_hash = bnew->get_hash();
     bnew->self_qc = create_quorum_cert(bnew_hash);
@@ -605,60 +633,6 @@ void HotStuffCore::on_receive_other_cluster_(int cid) {
     LOG_INFO("function on_receive_other_cluster_:START");
 
     decide_after_mc(cid);
-
-//
-//    auto map_cont = iter_promise_map.find(cid);
-//
-//    if (map_cont==iter_promise_map.end())
-//    {
-//
-////    other_cluster_waiting = promise_t();
-//        LOG_INFO("Not in promise map, other_cluster_waiting: promise resolved, with  "
-//                 "iter_promise_map size = %d and cid = %d",
-//                 iter_promise_map.size(), cid);
-//
-//        for(auto kv : iter_promise_map) {
-//            LOG_INFO("iter_promise_map with size %d keys are %d", iter_promise_map.size(), kv.first);
-//        }
-//
-//        iter_promise_map[cid] = promise_t();
-////        cv.notify_one();
-////        cond.notify_all();
-//
-//        for(auto kv : iter_promise_map) {
-//            LOG_INFO("After premptively adding to iter_promise_map with size %d keys are %d", iter_promise_map.size(), kv.first);
-//        }
-//
-//    }
-//    else
-//    {
-//
-//
-//        auto t = std::move(iter_promise_map[cid]);
-////    other_cluster_waiting = promise_t();
-//        LOG_INFO("In promise map,other_cluster_waiting: promise resolved, with  "
-//                 "iter_promise_map size = %d and cid = %d",
-//                 iter_promise_map.size(), cid);
-//
-//        for(auto kv : iter_promise_map) {
-//            LOG_INFO("iter_promise_map with size %d keys are %d", iter_promise_map.size(), kv.first);
-//        }
-//
-//        t.resolve();
-//
-//
-//
-////        cv.notify_one();
-////        wait_sig_mc();
-//
-//        iter_promise_map.erase(cid);
-//
-//        for(auto kv : iter_promise_map) {
-//            LOG_INFO("After deletion iter_promise_map with size %d keys are %d", iter_promise_map.size(), kv.first);
-//        }
-//
-//    }
-
 
     LOG_INFO("function on_receive_other_cluster_:END");
 

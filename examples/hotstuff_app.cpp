@@ -248,10 +248,13 @@ int main(int argc, char **argv) {
     cluster_map[6] = 1;
     cluster_map[7] = 1;
 
-    cluster_map[8] = 2;
-    cluster_map[9] = 2;
-    cluster_map[10] = 2;
-    cluster_map[11] = 2;
+//    cluster_map[8] = 0;
+
+
+//    cluster_map[8] = 2;
+//    cluster_map[9] = 2;
+//    cluster_map[10] = 2;
+//    cluster_map[11] = 2;
 
 
 
@@ -548,7 +551,8 @@ void HotStuffApp::client_request_cmd_handler(MsgReqCmd &&msg, const conn_t &conn
     const NetAddr addr = conn->get_addr();
     auto cmd = parse_cmd(msg.serialized);
     const auto &cmd_hash = cmd->get_hash();
-    HOTSTUFF_LOG_INFO("processing %s, with cid: %d", std::string(*cmd).c_str(), int(cmd->get_cid()));
+    HOTSTUFF_LOG_INFO("cmd node info is %d, %d, %d, %d", cmd->get_ip1(),cmd->get_ip2(), cmd->get_ip3(), cmd->get_ip4() );
+    HOTSTUFF_LOG_INFO("processing cmd %s, with cid: %d", std::string(*cmd).c_str(), int(cmd->get_cid()));
     exec_command(cmd_hash, [this, addr](Finality fin) {
         resp_queue.enqueue(std::make_pair(fin, addr));
 

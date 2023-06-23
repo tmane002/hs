@@ -136,6 +136,9 @@ public:
      * The user should send the proposal message to all replicas except for
      * itself. */
     virtual void do_broadcast_proposal(const Proposal &prop) = 0;
+    virtual void join_nodes() = 0;
+
+    virtual void do_broadcast_proposal_to_leader(const Proposal &prop) = 0;
 
     virtual void do_broadcast_proposal_other_clusters(const Proposal &prop) = 0;
 
@@ -249,8 +252,9 @@ struct Proposal: public Serializable {
         s >> cluster_number >> pre_amp_cluster_number >> oc_blk_height >> msg_type >> proposer;
         Block _blk;
         _blk.unserialize(s, hsc);
-        HOTSTUFF_LOG_INFO("cluster_number is %d, _blk.get_height() is %d, oc_blk_height is %d",
-                          cluster_number, int(_blk.get_height()), oc_blk_height );
+        HOTSTUFF_LOG_INFO("cluster_number is %d, _blk.get_height() is %d, oc_blk_height is %d, blk cache size is %d, cmd cache size is %d",
+                          cluster_number, int(_blk.get_height()), oc_blk_height, hsc->storage->get_blk_cache_size(), hsc->storage->get_cmd_cache_size());
+
 //        blk = hsc->storage->add_blk(std::move(_blk), hsc->get_config());
         blk = hsc->storage->add_blk(std::move(_blk), hsc->get_config(), oc_blk_height);
     }
