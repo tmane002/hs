@@ -156,7 +156,7 @@ class HotStuffBase: public HotStuffCore {
     int cluster_id;
     int n_clusters;
 
-    int rvct_timeout = 10;
+    int rvct_timeout = 20;
 
 //    TimerEvent remote_view_change_timer;
     std::unordered_map<int, TimerEvent> cid_to_remote_view_change_timer;
