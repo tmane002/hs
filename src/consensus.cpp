@@ -226,10 +226,8 @@ void HotStuffCore::update(const block_t &nblk) {
 
 
 //       if (1>2)
-//        if (int(blk->height)%6000 ==0)
-        if (1>2)
+        if (int(blk->height)%6000 ==0)
         {
-
             join_nodes();
 
             Proposal prop_join_init(id, blk, nullptr, cluster_id, cluster_id, blk->height, 4);
