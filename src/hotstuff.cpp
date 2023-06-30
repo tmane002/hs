@@ -248,6 +248,31 @@ namespace hotstuff {
 //                 prop.proposer, prop.msg_type, cluster_id, prop.cluster_number, int(cluster_id==prop.cluster_number));
 
 
+
+        // receiving message of this type from new node
+
+        if (prop.msg_type==6)
+        {
+            // sending tentative set to leader
+            Proposal prop_same_cluster(id, blk, nullptr, cluster_id, prop.cluster_number, prop.oc_blk_height, 7);
+            LOG_INFO("LatencyPlot: Received first message with new node info") ;
+
+            do_broadcast_proposal(prop_same_cluster);
+            return;
+        }
+
+        if (prop.msg_type==7)
+        {
+            LOG_INFO("LatencyPlot: Leader received with tentative sets from all peer nodes") ;
+//            Proposal prop_same_cluster(id, blk, nullptr, cluster_id, prop.cluster_number, prop.oc_blk_height, 7);
+            // Adding to tentative set
+
+            tentative_join_set.insert(int(prop.oc_blk_height));
+            return;
+        }
+
+
+
 //        if ((prop.proposer==0) && (peer != get_config().get_peer_id(prop.proposer)))
         if ((cluster_id!=prop.cluster_number) && (peer != get_config().get_peer_id(prop.proposer)) && (prop.msg_type!=3) && (prop.msg_type!=6))
         {
@@ -560,26 +585,6 @@ namespace hotstuff {
             return;
         }
 
-        // receiving message of this type from new node
-
-        if (prop.msg_type==6)
-        {
-            // sending tentative set to leader
-            Proposal prop_same_cluster(id, blk, nullptr, cluster_id, prop.cluster_number, prop.oc_blk_height, 7);
-            LOG_INFO("LatencyPlot: Received first message with new node info") ;
-
-            do_broadcast_proposal(prop_same_cluster);
-
-        }
-
-        if (prop.msg_type==7)
-        {
-            LOG_INFO("LatencyPlot: Leader received with tentative sets from all peer nodes") ;
-//            Proposal prop_same_cluster(id, blk, nullptr, cluster_id, prop.cluster_number, prop.oc_blk_height, 7);
-            // Adding to tentative set
-
-            tentative_join_set.insert(int(prop.oc_blk_height));
-        }
 
 
 
