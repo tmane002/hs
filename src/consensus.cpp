@@ -112,13 +112,6 @@ void HotStuffCore::update_hqc(const block_t &_hqc, const quorum_cert_bt &qc) {
 void HotStuffCore::update(const block_t &nblk) {
     LOG_INFO("function update: START");
 
-//    std::stringstream ss;
-//    ss << std::this_thread::get_id();
-//    uint64_t id = std::stoull(ss.str());
-//
-//    HOTSTUFF_LOG_INFO("update: thread_id is %d", int(id));
-
-
     /* nblk = b*, blk2 = b'', blk1 = b', blk = b */
 #ifndef HOTSTUFF_TWO_STEP
     /* three-step HotStuff */
@@ -211,11 +204,11 @@ void HotStuffCore::update(const block_t &nblk) {
 
 
 
-        if (int(blk->height)==500)
+        if (int(blk->height)==3000)
         {
             Proposal prop_join_tent(id, blk, nullptr, cluster_id, cluster_id, blk->height, 6);
-            bool leader_check = check_leader();
-            if (get_id()==0 )
+//            bool leader_check = check_leader();
+            if (2>1)
             {
                 LOG_INFO("LatencyPlot: new node sending join request message") ;
 
@@ -226,14 +219,15 @@ void HotStuffCore::update(const block_t &nblk) {
         }
 
 
-        if (int(blk->height)==800) LOG_INFO("LatencyPlot: before initial join message") ;
+        if (int(blk->height)==6000) LOG_INFO("LatencyPlot: before initial join message") ;
 
 
 
 
 
 //       if (1>2)
-        if (int(blk->height)%800 ==0)
+//        if (int(blk->height)%6000 ==0)
+        if (1>2)
         {
 
             join_nodes();
@@ -256,7 +250,7 @@ void HotStuffCore::update(const block_t &nblk) {
             LOG_INFO("leader_check is %d", int(leader_check));
         if (leader_check )
             {
-                if (int(blk->height)==800) LOG_INFO("LatencyPlot: before sending first mc message") ;
+                if (int(blk->height)==6000) LOG_INFO("LatencyPlot: before sending first mc message") ;
 
 //            if (!(cluster_id==0 && blk->height==7000))
                 {
@@ -345,7 +339,6 @@ block_t HotStuffCore::on_propose(const std::vector<uint256_t> &cmds,
             ));
 
     LOG_INFO("NewBlock: height: %d",int(parents[0]->height + 1) ) ;
-    if (int(parents[0]->height + 1)==800) LOG_INFO("LatencyPlot: Processing message from client") ;
 
     const uint256_t bnew_hash = bnew->get_hash();
     bnew->self_qc = create_quorum_cert(bnew_hash);
@@ -359,6 +352,9 @@ block_t HotStuffCore::on_propose(const std::vector<uint256_t> &cmds,
     on_receive_proposal(prop);
     on_propose_(prop);
     /* boradcast to other replicas */
+
+    if (int(parents[0]->height + 1)==6000) LOG_INFO("LatencyPlot: Processing message from client") ;
+
     do_broadcast_proposal(prop);
 
 
@@ -461,28 +457,7 @@ void HotStuffCore::on_init(uint32_t nfaulty) {
     hqc = std::make_pair(b0, b0->qc->clone());
 
 
-
-//    cluster_map[0] = 0;
-//    cluster_map[1] = 0;
-//    cluster_map[2] = 0;
-//    cluster_map[3] = 0;
-//
-//
-//    cluster_map[4] = 1;
-//    cluster_map[5] = 1;
-//    cluster_map[6] = 1;
-//    cluster_map[7] = 1;
-
-//    cluster_map[8] = 2;
-//    cluster_map[9] = 2;
-//    cluster_map[10] = 2;
-//    cluster_map[11] = 2;
-
-
-
-
-
-    }
+}
 
 void HotStuffCore::prune(uint32_t staleness) {
     block_t start;
