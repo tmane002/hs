@@ -63,7 +63,7 @@ block_t HotStuffCore::get_delivered_blk(const uint256_t &blk_hash) {
 }
 
 bool HotStuffCore::on_deliver_blk(const block_t &blk) {
-    LOG_INFO("function on_deliver_blk: START");
+//    LOG_INFO("function on_deliver_blk: START");
 
     if (blk->delivered)
     {
@@ -92,25 +92,25 @@ bool HotStuffCore::on_deliver_blk(const block_t &blk) {
 
     store_in_map_for_mc(blk);
 
-    LOG_INFO("function on_deliver_blk: END");
+//    LOG_INFO("function on_deliver_blk: END");
 
     return true;
 }
 
 void HotStuffCore::update_hqc(const block_t &_hqc, const quorum_cert_bt &qc) {
-    LOG_INFO("function update_hqc: START");
+//    LOG_INFO("function update_hqc: START");
 
     if (_hqc->height > hqc.first->height)
     {
         hqc = std::make_pair(_hqc, qc->clone());
         on_hqc_update();
     }
-    LOG_INFO("function update_hqc: END");
+//    LOG_INFO("function update_hqc: END");
 
 }
 
 void HotStuffCore::update(const block_t &nblk) {
-    LOG_INFO("function update: START");
+//    LOG_INFO("function update: START");
 
     /* nblk = b*, blk2 = b'', blk1 = b', blk = b */
 #ifndef HOTSTUFF_TWO_STEP
@@ -308,7 +308,7 @@ void HotStuffCore::update(const block_t &nblk) {
 //    b_exec->cluster_number = 19;
 
 
-    LOG_INFO("function update: END \n\n\n\n\n\n\n\n");
+//    LOG_INFO("function update: END \n\n\n\n\n\n\n\n");
 
 
 }
@@ -316,7 +316,7 @@ void HotStuffCore::update(const block_t &nblk) {
 block_t HotStuffCore::on_propose(const std::vector<uint256_t> &cmds,
                             const std::vector<block_t> &parents,
                             bytearray_t &&extra) {
-    LOG_INFO("function on_propose: START");
+//    LOG_INFO("function on_propose: START");
 
     if (parents.empty())
         throw std::runtime_error("empty parents");
@@ -358,13 +358,13 @@ block_t HotStuffCore::on_propose(const std::vector<uint256_t> &cmds,
     do_broadcast_proposal(prop);
 
 
-    LOG_INFO("function on_propose: END");
+//    LOG_INFO("function on_propose: END");
 
     return bnew;
 }
 
 void HotStuffCore::on_receive_proposal(const Proposal &prop) {
-    LOG_INFO("function on_receive_proposal: START");
+//    LOG_INFO("function on_receive_proposal: START");
 
     LOG_PROTO("got %s", std::string(prop).c_str());
     bool self_prop = prop.proposer == get_id();
@@ -403,12 +403,12 @@ void HotStuffCore::on_receive_proposal(const Proposal &prop) {
         do_vote(prop.proposer,
             Vote(id, bnew->get_hash(),
                 create_part_cert(*priv_key, bnew->get_hash()), this));
-    LOG_INFO("function on_receive_proposal: END");
+//    LOG_INFO("function on_receive_proposal: END");
 
 }
 
 void HotStuffCore::on_receive_vote(const Vote &vote) {
-    LOG_INFO("function on_receive_vote: START");
+//    LOG_INFO("function on_receive_vote: START");
 
 
     LOG_PROTO("got %s", std::string(vote).c_str());
@@ -444,7 +444,7 @@ void HotStuffCore::on_receive_vote(const Vote &vote) {
         on_qc_finish(blk);
     }
 
-    LOG_INFO("function on_receive_vote: END");
+//    LOG_INFO("function on_receive_vote: END");do_broadcast_proposal(
 
 }
 /*** end HotStuff protocol logic ***/
@@ -595,32 +595,32 @@ void HotStuffCore::on_receive_proposal_(const Proposal &prop) {
 
 //
 void HotStuffCore::on_receive_other_cluster_() {
-    LOG_INFO("function on_receive_other_cluster_:START");
+//    LOG_INFO("function on_receive_other_cluster_:START");
     auto t = std::move(other_cluster_waiting);
     other_cluster_waiting = promise_t();
     LOG_INFO("other_cluster_waiting: promise resolved");
     t.resolve();
-    LOG_INFO("function on_receive_other_cluster_:END");
+//    LOG_INFO("function on_receive_other_cluster_:END");
 
     }
 
 void HotStuffCore::on_receive_other_cluster_(int cid) {
-    LOG_INFO("function on_receive_other_cluster_:START");
+//    LOG_INFO("function on_receive_other_cluster_:START");
 
     decide_after_mc(cid);
 
-    LOG_INFO("function on_receive_other_cluster_:END");
+//    LOG_INFO("function on_receive_other_cluster_:END");
 
 }
 
 
 void HotStuffCore::on_hqc_update() {
-    LOG_INFO("function on_hqc_update:START");
+//    LOG_INFO("function on_hqc_update:START");
     auto t = std::move(hqc_update_waiting);
     hqc_update_waiting = promise_t();
     LOG_INFO("hqc_update_waiting: promise resolved");
     t.resolve();
-    LOG_INFO("function on_hqc_update:END");
+//    LOG_INFO("function on_hqc_update:END");
 
 
 }
