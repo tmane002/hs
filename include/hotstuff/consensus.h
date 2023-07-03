@@ -222,41 +222,41 @@ struct Proposal: public Serializable {
     uint32_t cluster_number;
     uint32_t pre_amp_cluster_number;
 
-    uint32_t oc_blk_height;
+    uint32_t other_cluster_block_height;
     uint32_t msg_type;
 
     /** handle of the core object to allow polymorphism. The user should use
      * a pointer to the object of the class derived from HotStuffCore */
     HotStuffCore *hsc;
 
-    Proposal(): blk(nullptr), hsc(nullptr) {oc_blk_height = -1; }
+    Proposal(): blk(nullptr), hsc(nullptr) {other_cluster_block_height = -1; }
     Proposal(ReplicaID proposer,
             const block_t &blk,
             HotStuffCore *hsc):
         proposer(proposer),
-        blk(blk), hsc(hsc) {oc_blk_height = -1;}
+        blk(blk), hsc(hsc) {other_cluster_block_height = -1;}
 
     Proposal(ReplicaID proposer,
              const block_t &blk,
              HotStuffCore *hsc, uint32_t c, uint32_t pre_amp_cluster_number, uint32_t oc_h, uint32_t msg_type):
             proposer(proposer),
-            blk(blk), hsc(hsc), cluster_number(c), pre_amp_cluster_number(pre_amp_cluster_number),oc_blk_height(oc_h), msg_type(msg_type) {}
+            blk(blk), hsc(hsc), cluster_number(c), pre_amp_cluster_number(pre_amp_cluster_number),other_cluster_block_height(oc_h), msg_type(msg_type) {}
 
     void serialize(DataStream &s) const override {
-        s << cluster_number << pre_amp_cluster_number << oc_blk_height << msg_type<< proposer
+        s << cluster_number << pre_amp_cluster_number << other_cluster_block_height << msg_type<< proposer
           << *blk;
     }
 
     void unserialize(DataStream &s) override {
         assert(hsc != nullptr);
-        s >> cluster_number >> pre_amp_cluster_number >> oc_blk_height >> msg_type >> proposer;
+        s >> cluster_number >> pre_amp_cluster_number >> other_cluster_block_height >> msg_type >> proposer;
         Block _blk;
         _blk.unserialize(s, hsc);
-        HOTSTUFF_LOG_INFO("cluster_number is %d, _blk.get_height() is %d, oc_blk_height is %d, blk cache size is %d, cmd cache size is %d",
-                          cluster_number, int(_blk.get_height()), oc_blk_height, hsc->storage->get_blk_cache_size(), hsc->storage->get_cmd_cache_size());
+        HOTSTUFF_LOG_INFO("cluster_number is %d, _blk.get_height() is %d, other_cluster_block_height is %d, blk cache size is %d, cmd cache size is %d",
+                          cluster_number, int(_blk.get_height()), other_cluster_block_height, hsc->storage->get_blk_cache_size(), hsc->storage->get_cmd_cache_size());
 
 //        blk = hsc->storage->add_blk(std::move(_blk), hsc->get_config());
-        blk = hsc->storage->add_blk(std::move(_blk), hsc->get_config(), oc_blk_height);
+        blk = hsc->storage->add_blk(std::move(_blk), hsc->get_config(), other_cluster_block_height);
     }
 
     operator std::string () const {

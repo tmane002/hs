@@ -295,8 +295,8 @@ class HotStuffBase: public HotStuffCore {
     std::unordered_map<int, std::vector<int>> cid_to_cluster_tracker_array0;
 
     std::set<int> finished_mc_cids;
-    std::set<int> finished_j1_cids;
-    std::set<int> finished_j2_cids;
+    std::set<int> finished_echo_cids;
+    std::set<int> finished_ready_cids;
 
     std::set<int> tentative_join_set;
     std::set<int> tentative_leave_set;

@@ -166,6 +166,9 @@ bool try_send(bool check = true) {
 
         int count = 0;
 
+
+//        if (cid==0) sleep(.7);
+
         for (auto &p: conns)
         {
             mn->send_msg(msg, p.second);
