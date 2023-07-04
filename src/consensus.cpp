@@ -603,7 +603,7 @@ void HotStuffCore::on_receive_other_cluster_() {
     }
 
 void HotStuffCore::on_receive_other_cluster_(int cid) {
-//    LOG_INFO("function on_receive_other_cluster_:START");
+    LOG_INFO("on_receive_other_cluster_ for cid %d", cid);
 
     decide_after_mc(cid);
 
