@@ -937,36 +937,38 @@ namespace hotstuff {
         HOTSTUFF_LOG_INFO("decide after mc message START for blk height:%d", blk_height);
 
 
-        try{
             const uint256_t blk_hash = storage->find_blk_hash_for_cid(blk_height);
-            block_t btemp = storage->find_blk(blk_hash);
 
-
-
-
-
-            if (did_update(blk_height))
+            if (blk_hash!= (const uint8_t*) -1)
             {
-                for (size_t i = 0; i < (btemp->get_cmds()).size(); i++) {
-                    LOG_INFO("Since already updated, do_decide for height:%d, btemp = %s, blk_hash = %d",
-                             int(btemp->get_height()), std::string(*btemp).c_str(), blk_hash);
-                    do_decide(Finality(id, 1, i, btemp->get_height(),
-                                       (btemp->get_cmds())[i], btemp->get_hash()));
+
+                block_t btemp = storage->find_blk(blk_hash);
+
+
+
+
+
+                if (did_update(blk_height))
+                {
+                    for (size_t i = 0; i < (btemp->get_cmds()).size(); i++) {
+                        LOG_INFO("Since already updated, do_decide for height:%d, btemp = %s, blk_hash = %d",
+                                 int(btemp->get_height()), std::string(*btemp).c_str(), blk_hash);
+                        do_decide(Finality(id, 1, i, btemp->get_height(),
+                                           (btemp->get_cmds())[i], btemp->get_hash()));
+                    }
+
+                    reset_remote_view_change_timer(blk_height);
+
+
                 }
 
-                reset_remote_view_change_timer(blk_height);
+                if (int(blk_height)==6000) LOG_INFO("LatencyPlot: Finished execution") ;
+
 
 
             }
 
-            if (int(blk_height)==6000) LOG_INFO("LatencyPlot: Finished execution") ;
 
-
-        }
-        catch (const std::exception& e) {
-            LOG_INFO("Exception caught in function decide_after_mc(blk_height)");
-            return;
-        }
 
     }
 

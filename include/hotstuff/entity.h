@@ -395,7 +395,8 @@ namespace hotstuff {
             if (it==cid_blkhash.end())
             {
                 HOTSTUFF_LOG_INFO("returning nullptr for find_blk_hash_for_cid(cid)");
-                return nullptr;
+
+                return (const uint8_t*)-1;
             }
             else
             {
