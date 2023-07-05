@@ -319,13 +319,6 @@ block_t HotStuffCore::on_propose(const std::vector<uint256_t> &cmds,
         throw std::runtime_error("empty parents");
     for (const auto &_: parents) tails.erase(_);
     /* create the new block */
-//    block_t bnew = storage->add_blk(
-//        new Block(parents, cmds,
-//            hqc.second->clone(), std::move(extra),
-//            parents[0]->height + 1,19,
-//            hqc.first,
-//            nullptr
-//        ));
 
     block_t bnew = storage->add_blk(
             new Block(parents, cmds,

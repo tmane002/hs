@@ -54,7 +54,6 @@ namespace hotstuff {
             HOTSTUFF_LOG_INFO("MsgTest::postponed_parse: _blk.get_height() is %d",
                               int(_blk.get_height()) );
 
-//            blk = hsc->storage->add_blk(std::move(_blk), hsc->get_config());
         }
     }
 
@@ -945,8 +944,8 @@ namespace hotstuff {
         if (did_update(blk_height))
         {
             for (size_t i = 0; i < (btemp->get_cmds()).size(); i++) {
-                LOG_INFO("Since already updated, do_decide for height:%d, btemp = %s",
-                         int(btemp->get_height()), std::string(*btemp).c_str());
+                LOG_INFO("Since already updated, do_decide for height:%d, btemp = %s, blk_hash = %d",
+                         int(btemp->get_height()), std::string(*btemp).c_str(), blk_hash);
                 do_decide(Finality(id, 1, i, btemp->get_height(),
                                    (btemp->get_cmds())[i], btemp->get_hash()));
             }
