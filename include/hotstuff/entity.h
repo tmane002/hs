@@ -384,7 +384,7 @@ class EntityStorage {
 
     const block_t &add_blk(const block_t &blk) {
         HOTSTUFF_LOG_WARN("in &add_blk for blk_height:  %d, with blk_hash = %s",
-                          int(blk->get_height()), std::string(blk).c_str());
+                          int(blk->get_height()), std::string(*blk).c_str());
         cid_blkhash.insert(std::make_pair(int(blk->get_height()), blk->get_hash() )).first->second;
 
         return blk_cache.insert(std::make_pair(blk->get_hash(), blk)).first->second;
