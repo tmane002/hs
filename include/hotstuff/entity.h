@@ -299,7 +299,6 @@ namespace hotstuff {
 
             HOTSTUFF_LOG_WARN("in add_blk(2) for blk height:  %d, with blk = %s, blk_hash = %d",
                               int(blk->get_height()), std::string(*blk).c_str(), blk->get_hash());
-//            cid_blkhash.insert(std::make_pair(int(blk->get_height()), blk->get_hash() )).first->second;
             return blk_cache.insert(std::make_pair(blk->get_hash(), blk)).first->second;
         }
 
@@ -374,7 +373,6 @@ namespace hotstuff {
 
             HOTSTUFF_LOG_WARN("in add_blk(3) for blk height:  %d, with blk = %s, blk_hash = %d",
                               int(blk->get_height()), std::string(*blk).c_str(), blk->get_hash());
-//            cid_blkhash.insert(std::make_pair(block_height, blk->get_hash() )).first->second;
             return blk_cache.insert(std::make_pair(blk->get_hash(), blk)).first->second;
         }
 
@@ -382,7 +380,6 @@ namespace hotstuff {
 
             HOTSTUFF_LOG_WARN("in &add_blk for blk_height:  %d, with blk_hash = %d",
                               int(blk->get_height()), blk->get_hash());
-//            cid_blkhash.insert(std::make_pair(int(blk->get_height()), blk->get_hash() )).first->second;
 
             return blk_cache.insert(std::make_pair(blk->get_hash(), blk)).first->second;
         }
