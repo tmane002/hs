@@ -383,8 +383,8 @@ class EntityStorage {
     }
 
     const block_t &add_blk(const block_t &blk) {
-        HOTSTUFF_LOG_WARN("in &add_blk for blk_height:  %d",
-                          int(blk->get_height()));
+        HOTSTUFF_LOG_WARN("in &add_blk for blk_height:  %d, with blk_hash = %d",
+                          int(blk->get_height()), blk->get_hash());
         cid_blkhash.insert(std::make_pair(int(blk->get_height()), blk->get_hash() )).first->second;
 
         return blk_cache.insert(std::make_pair(blk->get_hash(), blk)).first->second;
@@ -397,6 +397,18 @@ class EntityStorage {
 
     const uint256_t find_blk_hash_for_cid(int cid) {
         auto it = cid_blkhash.find(cid);
+
+        if (it==cid_blkhash.end())
+        {
+            HOTSTUFF_LOG_INFO("returning nullptr for find_blk_hash_for_cid(cid)");
+            return nullptr;
+        }
+        else
+        {
+            HOTSTUFF_LOG_INFO("returning %d for  find_blk_hash_for_cid(cid)", it->second);
+
+            return it->second;
+        }
         return it == cid_blkhash.end() ? nullptr : it->second;
     }
 
