@@ -517,18 +517,9 @@ HotStuffApp::HotStuffApp(uint32_t blk_size,
         {
             try {
 
-//                std::unique_lock<std::mutex> lck(mtx);
-
-//                cond.wa;
-//
-
-//                HOTSTUFF_LOG_INFO("responding to cmd_height:%d, cmd_idx:%d",
-//                                  int(p.first.cmd_height), int(p.first.cmd_idx));
                 HOTSTUFF_LOG_INFO("responding to cmd_height:%d, cmd_idx:%d, with Netaddr = %s",
                                   int(p.first.cmd_height), int(p.first.cmd_idx), std::string(p.second).c_str());
                 cn.send_msg(MsgRespCmd(std::move(p.first)), p.second);
-
-
 
 
             } catch (std::exception &err) {
@@ -553,17 +544,6 @@ void HotStuffApp::client_request_cmd_handler(MsgReqCmd &&msg, const conn_t &conn
     exec_command(cmd_hash, [this, addr](Finality fin) {
         resp_queue.enqueue(std::make_pair(fin, addr));
 
-//        std::stringstream ss;
-//        ss << std::this_thread::get_id();
-//        uint64_t id = std::stoull(ss.str());
-//
-//        HOTSTUFF_LOG_INFO("client_request_cmd_handler: thread_id is %d", int(id));
-
-
-//        if (int(fin.cmd_height) > 10)
-//        {
-//            waiting_mc();
-//        }
 
     });
 }
