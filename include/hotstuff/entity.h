@@ -405,7 +405,8 @@ namespace hotstuff {
             }
             else
             {
-                HOTSTUFF_LOG_INFO("returning %d for  find_blk_hash_for_cid(cid)", it->second);
+                HOTSTUFF_LOG_INFO("returning %d for  find_blk_hash_for_cid(cid) with cid=%d",
+                                  it->second, cid);
 
                 return it->second;
             }
