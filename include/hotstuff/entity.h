@@ -396,7 +396,9 @@ namespace hotstuff {
             {
                 HOTSTUFF_LOG_INFO("returning nullptr for find_blk_hash_for_cid(cid)");
 
-                return (const uint8_t*)-1;
+                static const uint8_t negativeOne[] = { 0xFF };
+                return negativeOne;
+
             }
             else
             {

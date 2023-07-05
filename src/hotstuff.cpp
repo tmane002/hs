@@ -939,7 +939,9 @@ namespace hotstuff {
 
             const uint256_t blk_hash = storage->find_blk_hash_for_cid(blk_height);
 
-            if (blk_hash!= (const uint8_t*) -1)
+            static const uint8_t negativeOne[] = { 0xFF };
+
+            if (blk_hash!= negativeOne)
             {
 
                 block_t btemp = storage->find_blk(blk_hash);
