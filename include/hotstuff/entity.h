@@ -310,8 +310,8 @@ class EntityStorage {
 
     void add_cid_blkhash(const block_t &blk) {
 
-        HOTSTUFF_LOG_WARN("in add_cid_blkhash(2) for blk height:  %d, with blk hash = %d",
-                          int(blk->get_height()), get_hex10(blk->get_hash()).c_str());
+        HOTSTUFF_LOG_WARN("in add_cid_blkhash(2) for blk height:  %d, with blk = %s",
+                          int(blk->get_height()), std::string(*blk).c_str());
         cid_blkhash.insert(std::make_pair(int(blk->get_height()), blk->get_hash() )).first->second;
     }
 
