@@ -299,6 +299,8 @@ class HotStuffBase: public HotStuffCore {
     std::set<int> finished_ready_cids;
 
     std::unordered_map<int, int> tentative_join_set;
+    std::vector<std::tuple<NetAddr, pubkey_bt, uint256_t>> all_replicas_h;
+
     std::set<int> tentative_leave_set;
 
     std::set<int> finished_update_cids;

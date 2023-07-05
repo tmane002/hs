@@ -786,11 +786,11 @@ namespace hotstuff {
             int cls_no = element.first;
             if (cls_no==cluster_id)
             {
-                auto &addr = std::get<0>(all_replicas[i]);
-                auto cert_hash = std::move(std::get<2>(all_replicas[i]));
+                auto &addr = std::get<0>(all_replicas_h[i]);
+                auto cert_hash = std::move(std::get<2>(all_replicas_h[i]));
                 valid_tls_certs.insert(cert_hash);
                 auto peer = pn.enable_tls ? salticidae::PeerId(cert_hash) : salticidae::PeerId(addr);
-                HotStuffCore::add_replica(i, peer, std::move(std::get<1>(all_replicas[i])));
+                HotStuffCore::add_replica(i, peer, std::move(std::get<1>(all_replicas_h[i])));
                 if (addr != listen_addr)
                 {
                     peers.push_back(peer);
@@ -1141,6 +1141,8 @@ namespace hotstuff {
             std::vector<std::tuple<NetAddr, pubkey_bt, uint256_t>> &&all_replicas,
             std::vector<std::tuple<NetAddr, pubkey_bt, uint256_t>> &&other_replicas,
             bool ec_loop) {
+
+
 
         LOG_INFO("replicas sizes are %lu, %lu, %lu", replicas.size(), all_replicas.size(), other_replicas.size());
         for (size_t i = 0; i < replicas.size(); i++)
