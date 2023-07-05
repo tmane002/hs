@@ -301,8 +301,8 @@ namespace hotstuff {
             //}
             block_t blk = new Block(std::move(_blk));
 
-            HOTSTUFF_LOG_WARN("in add_blk(2) for blk height:  %d, with blk hash = %s",
-                              int(blk->get_height()), std::string(*blk).c_str());
+            HOTSTUFF_LOG_WARN("in add_blk(2) for blk height:  %d, with blk = %s, blk_hash = %d",
+                              int(blk->get_height()), std::string(*blk).c_str(), blk->get_hash());
             cid_blkhash.insert(std::make_pair(int(blk->get_height()), blk->get_hash() )).first->second;
             return blk_cache.insert(std::make_pair(blk->get_hash(), blk)).first->second;
         }
@@ -310,8 +310,8 @@ namespace hotstuff {
 
         void add_cid_blkhash(const block_t &blk) {
 
-            HOTSTUFF_LOG_WARN("in add_cid_blkhash(2) for blk height:  %d, with blk = %s",
-                              int(blk->get_height()), std::string(*blk).c_str());
+            HOTSTUFF_LOG_WARN("in add_cid_blkhash(2) for blk height:  %d, with blk = %s, blk_hash= %d",
+                              int(blk->get_height()), std::string(*blk).c_str(), blk->get_hash());
             cid_blkhash.insert(std::make_pair(int(blk->get_height()), blk->get_hash() )).first->second;
         }
 
@@ -376,8 +376,8 @@ namespace hotstuff {
             block_t blk = new Block(std::move(_blk));
 
 
-            HOTSTUFF_LOG_WARN("in add_blk(3) for blk height:  %d, with blk hash = %s",
-                              int(blk->get_height()), std::string(*blk).c_str());
+            HOTSTUFF_LOG_WARN("in add_blk(3) for blk height:  %d, with blk = %s, blk_hash = %d",
+                              int(blk->get_height()), std::string(*blk).c_str(), blk->get_hash());
             cid_blkhash.insert(std::make_pair(block_height, blk->get_hash() )).first->second;
             return blk_cache.insert(std::make_pair(blk->get_hash(), blk)).first->second;
         }

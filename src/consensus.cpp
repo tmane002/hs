@@ -328,8 +328,8 @@ block_t HotStuffCore::on_propose(const std::vector<uint256_t> &cmds,
                       nullptr
             ));
 
-    LOG_INFO("NewBlock: height: %d with hash = %s with height = %d",int(parents[0]->height + 1), std::string(*bnew).c_str(),
-             bnew->height ) ;
+    LOG_INFO("NewBlock: height: %d with blk = %s with height = %d, blk_hash=%d",int(parents[0]->height + 1), std::string(*bnew).c_str(),
+             bnew->height, bnew->get_hash() ) ;
 
     const uint256_t bnew_hash = bnew->get_hash();
     bnew->self_qc = create_quorum_cert(bnew_hash);
