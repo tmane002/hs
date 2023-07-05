@@ -301,8 +301,8 @@ class EntityStorage {
         //}
         block_t blk = new Block(std::move(_blk));
 
-        HOTSTUFF_LOG_WARN("in add_blk(2) for blk height:  %d, with blk hash = %d",
-                          int(blk->get_height()), get_hex10(blk->get_hash()).c_str());
+        HOTSTUFF_LOG_WARN("in add_blk(2) for blk height:  %d, with blk = %s",
+                          int(blk->get_height()), std::string(*blk).c_str());
         cid_blkhash.insert(std::make_pair(int(blk->get_height()), blk->get_hash() )).first->second;
         return blk_cache.insert(std::make_pair(blk->get_hash(), blk)).first->second;
     }
@@ -376,15 +376,15 @@ class EntityStorage {
         block_t blk = new Block(std::move(_blk));
 
 
-        HOTSTUFF_LOG_WARN("in add_blk(3) for blk height:  %d, with blk = %s",
+        HOTSTUFF_LOG_WARN("in add_blk(3) for blk height:  %d, with blk= %s",
                           int(blk->get_height()), std::string(*blk).c_str());
         cid_blkhash.insert(std::make_pair(block_height, blk->get_hash() )).first->second;
         return blk_cache.insert(std::make_pair(blk->get_hash(), blk)).first->second;
     }
 
     const block_t &add_blk(const block_t &blk) {
-        HOTSTUFF_LOG_WARN("in &add_blk for blk_height:  %d, with blk = %s",
-                          int(blk->get_height()), std::string(*blk).c_str());
+        HOTSTUFF_LOG_WARN("in &add_blk for blk_height:  %d, with blk_hash = %s",
+                          int(blk->get_height()), std::string(blk).c_str());
         cid_blkhash.insert(std::make_pair(int(blk->get_height()), blk->get_hash() )).first->second;
 
         return blk_cache.insert(std::make_pair(blk->get_hash(), blk)).first->second;
