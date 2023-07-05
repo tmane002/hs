@@ -198,15 +198,14 @@ void HotStuffCore::update(const block_t &nblk) {
     {
         const block_t &blk = *it;
         blk->decision = 1;
-//        blk->cluster_number = 19;
 
         do_consensus(blk);
 
-
-
         if (int(blk->height)==3000)
         {
-            Proposal prop_join_tent(id, blk, nullptr, cluster_id, cluster_id, blk->height, 6);
+            int joining_node = 8;
+            Proposal prop_join_tent(id, blk, nullptr, cluster_id, joining_node, blk->height, 6);
+
 //            bool leader_check = check_leader();
             if (2>1)
             {
@@ -229,16 +228,16 @@ void HotStuffCore::update(const block_t &nblk) {
         {
             join_nodes();
 
-            Proposal prop_join_init(id, blk, nullptr, cluster_id, cluster_id, blk->height, 4);
-            bool leader_check = check_leader();
-
-            LOG_INFO("Sending Join Init message with height %d", int(blk->height));
-//            if (leader_check )
-            {
-                {
-                    do_broadcast_proposal(prop_join_init);
-                }
-            }
+//            Proposal prop_join_init(id, blk, nullptr, cluster_id, cluster_id, blk->height, 4);
+//            bool leader_check = check_leader();
+//
+//            LOG_INFO("Sending Join Init message with height %d", int(blk->height));
+////            if (leader_check )
+//            {
+//                {
+//                    do_broadcast_proposal(prop_join_init);
+//                }
+//            }
         }
         else
         {

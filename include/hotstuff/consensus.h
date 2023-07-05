@@ -56,8 +56,6 @@ class HotStuffCore {
     promise_t hqc_update_waiting;
 
 
-//    TimerEvent other_cluster_timer;
-
     /* == feature switches == */
     /** always vote negatively, useful for some PaceMakers */
     bool vote_disabled;
@@ -222,6 +220,9 @@ struct Proposal: public Serializable {
     uint32_t cluster_number;
     uint32_t pre_amp_cluster_number;
 
+    uint32_t joining_node_number;
+
+
     uint32_t other_cluster_block_height;
     uint32_t msg_type;
 
@@ -230,6 +231,7 @@ struct Proposal: public Serializable {
     HotStuffCore *hsc;
 
     Proposal(): blk(nullptr), hsc(nullptr) {other_cluster_block_height = -1; }
+
     Proposal(ReplicaID proposer,
             const block_t &blk,
             HotStuffCore *hsc):

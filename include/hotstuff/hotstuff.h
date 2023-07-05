@@ -298,7 +298,7 @@ class HotStuffBase: public HotStuffCore {
     std::set<int> finished_echo_cids;
     std::set<int> finished_ready_cids;
 
-    std::set<int> tentative_join_set;
+    std::unordered_map<int, int> tentative_join_set;
     std::set<int> tentative_leave_set;
 
     std::set<int> finished_update_cids;

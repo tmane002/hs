@@ -263,10 +263,9 @@ namespace hotstuff {
         if (prop.msg_type==7)
         {
             LOG_INFO("LatencyPlot: Leader received with tentative sets from all peer nodes") ;
-//            Proposal prop_same_cluster(id, blk, nullptr, cluster_id, prop.cluster_number, prop.other_cluster_block_height, 7);
             // Adding to tentative set
 
-            tentative_join_set.insert(int(prop.other_cluster_block_height));
+            tentative_join_set[int(prop.cluster_number)] = prop.pre_amp_cluster_number;
             return;
         }
 
@@ -280,8 +279,6 @@ namespace hotstuff {
             {
 
                 if (int(prop.other_cluster_block_height)==600) LOG_INFO("LatencyPlot: Received 1st MC message") ;
-
-
 
                 LOG_INFO("1st MC message: Reached here proposer %d, cluster_id = %d, prop.cluster number  = %d, prop.other_cluster_block_height=%d, height = %d, storage->get_blk_cache_size is %d, cluster_msg_count is %d, prop.other_cluster_block_height > cluster_msg_count = %d ",
                          prop.proposer, cluster_id, prop.cluster_number, prop.other_cluster_block_height, blk->get_height(), int(storage->get_blk_cache_size()), cluster_msg_count, int(prop.other_cluster_block_height > cluster_msg_count) );
@@ -782,11 +779,34 @@ namespace hotstuff {
 
 
     void HotStuffBase::join_nodes() {
-        //MsgPropose prop_msg(prop);rao
         HOTSTUFF_LOG_INFO("Tentative set size %d\n", tentative_join_set.size());
-        tentative_join_set = std::set<int>();
-        //for (const auto &replica: peers)
-        //    pn.send_msg(prop_msg, replica);
+
+        for (auto& element : tentative_join_set) {
+            int i = element.second;
+            int cls_no = element.first;
+            if (cls_no==cluster_id)
+            {
+                auto &addr = std::get<0>(all_replicas[i]);
+                auto cert_hash = std::move(std::get<2>(all_replicas[i]));
+                valid_tls_certs.insert(cert_hash);
+                auto peer = pn.enable_tls ? salticidae::PeerId(cert_hash) : salticidae::PeerId(addr);
+                HotStuffCore::add_replica(i, peer, std::move(std::get<1>(all_replicas[i])));
+                if (addr != listen_addr)
+                {
+                    peers.push_back(peer);
+                    pn.add_peer(peer);
+                    pn.set_peer_addr(peer, addr);
+                    pn.conn_peer(peer);
+                }
+            }
+
+
+        }
+
+
+
+
+        tentative_join_set = std::unordered_map<int,int>();
     }
 
 
