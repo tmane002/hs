@@ -945,7 +945,7 @@ namespace hotstuff {
         if (did_update(blk_height))
         {
             for (size_t i = 0; i < (btemp->get_cmds()).size(); i++) {
-                LOG_INFO("do_decide for height:%d, btemp = %s",
+                LOG_INFO("Since already updated, do_decide for height:%d, btemp = %s",
                          int(btemp->get_height()), std::string(*btemp).c_str());
                 do_decide(Finality(id, 1, i, btemp->get_height(),
                                    (btemp->get_cmds())[i], btemp->get_hash()));
