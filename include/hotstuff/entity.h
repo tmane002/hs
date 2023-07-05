@@ -294,22 +294,18 @@ namespace hotstuff {
 
 
         block_t add_blk(Block &&_blk, const ReplicaConfig &/*config*/) {
-            //if (!_blk.verify(config))
-            //{
-            //    HOTSTUFF_LOG_WARN("invalid %s", std::string(_blk).c_str());
-            //    return nullptr;
-            //}
+            // seems fine
             block_t blk = new Block(std::move(_blk));
 
             HOTSTUFF_LOG_WARN("in add_blk(2) for blk height:  %d, with blk = %s, blk_hash = %d",
                               int(blk->get_height()), std::string(*blk).c_str(), blk->get_hash());
-            cid_blkhash.insert(std::make_pair(int(blk->get_height()), blk->get_hash() )).first->second;
+//            cid_blkhash.insert(std::make_pair(int(blk->get_height()), blk->get_hash() )).first->second;
             return blk_cache.insert(std::make_pair(blk->get_hash(), blk)).first->second;
         }
 
 
         void add_cid_blkhash(const block_t &blk) {
-
+            // seems fine
             HOTSTUFF_LOG_WARN("in add_cid_blkhash(2) for blk height:  %d, with blk = %s, blk_hash= %d",
                               int(blk->get_height()), std::string(*blk).c_str(), blk->get_hash());
             cid_blkhash.insert(std::make_pair(int(blk->get_height()), blk->get_hash() )).first->second;
@@ -378,14 +374,15 @@ namespace hotstuff {
 
             HOTSTUFF_LOG_WARN("in add_blk(3) for blk height:  %d, with blk = %s, blk_hash = %d",
                               int(blk->get_height()), std::string(*blk).c_str(), blk->get_hash());
-            cid_blkhash.insert(std::make_pair(block_height, blk->get_hash() )).first->second;
+//            cid_blkhash.insert(std::make_pair(block_height, blk->get_hash() )).first->second;
             return blk_cache.insert(std::make_pair(blk->get_hash(), blk)).first->second;
         }
 
         const block_t &add_blk(const block_t &blk) {
+
             HOTSTUFF_LOG_WARN("in &add_blk for blk_height:  %d, with blk_hash = %d",
                               int(blk->get_height()), blk->get_hash());
-            cid_blkhash.insert(std::make_pair(int(blk->get_height()), blk->get_hash() )).first->second;
+//            cid_blkhash.insert(std::make_pair(int(blk->get_height()), blk->get_hash() )).first->second;
 
             return blk_cache.insert(std::make_pair(blk->get_hash(), blk)).first->second;
         }
