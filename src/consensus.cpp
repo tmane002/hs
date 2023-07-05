@@ -224,9 +224,8 @@ void HotStuffCore::update(const block_t &nblk) {
 
 
 
-
-//       if (1>2)
-        if (int(blk->height)%6000 ==0)
+//        if (int(blk->height)%6000 ==0)
+       if (1>2)
         {
             join_nodes();
 
