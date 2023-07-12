@@ -93,12 +93,12 @@ void connect_all()
     cluster_map[11] = 2;
 
 
-//
-//
-//    cluster_map[12] = 2;
-//    cluster_map[13] = 2;
-//    cluster_map[14] = 2;
-//    cluster_map[15] = 2;
+    cluster_map[12] = 3;
+    cluster_map[13] = 3;
+    cluster_map[14] = 3;
+    cluster_map[15] = 3;
+
+
 //    cluster_map[16] = 2;
 //    cluster_map[17] = 2;
 
