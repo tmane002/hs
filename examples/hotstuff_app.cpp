@@ -251,12 +251,12 @@ int main(int argc, char **argv) {
 
 
 
-//    cluster_map[8] = 0;
-//    cluster_map[9] = 0;
+    cluster_map[8] = 2;
+    cluster_map[9] = 2;
+    cluster_map[10] = 2;
+    cluster_map[11] = 2;
 
 
-//    cluster_map[10] = 1;
-//    cluster_map[11] = 1;
 //    cluster_map[12] = 1;
 //    cluster_map[13] = 1;
 //    cluster_map[9] = 2;
