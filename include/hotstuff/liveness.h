@@ -94,15 +94,6 @@ class PMHighTail: public virtual PaceMaker {
             hqc_tail = prop.blk;
             HOTSTUFF_LOG_INFO("hqc_tail->get_height() is %d",int(hqc_tail->get_height()));
 
-            if (hqc_tail->get_height() > 1)
-            {
-
-//                hsc->async_wait_other_cluster().then([this](const Proposal &prop) {
-                    reg_proposal();
-//                });
-
-            }
-            else
             {
                 reg_proposal();
             }
@@ -248,6 +239,10 @@ struct PaceMakerDummy: public PMHighTail, public PMWaitQC {
         PMWaitQC::init();
     }
 };
+
+
+
+
 
 /** PaceMakerDummy with a fixed proposer. */
 class PaceMakerDummyFixed: public PaceMakerDummy {
