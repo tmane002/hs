@@ -77,75 +77,60 @@ void connect_all()
 {
 
 
-
     cluster_map[0] = 0;
     cluster_map[1] = 0;
     cluster_map[2] = 0;
     cluster_map[3] = 0;
-
-    cluster_map[4] = 1;
-    cluster_map[5] = 1;
-    cluster_map[6] = 1;
-    cluster_map[7] = 1;
-
-
-    cluster_map[8] = 2;
-    cluster_map[9] = 2;
-    cluster_map[10] = 2;
-    cluster_map[11] = 2;
-
-    cluster_map[12] = 3;
-    cluster_map[13] = 3;
-    cluster_map[14] = 3;
-    cluster_map[15] = 3;
+    cluster_map[4] = 0;
+    cluster_map[5] = 0;
+    cluster_map[6] = 0;
+    cluster_map[7] = 0;
+    cluster_map[8] = 0;
+    cluster_map[9] = 0;
+    cluster_map[10] = 0;
+    cluster_map[11] = 0;
+    cluster_map[12] = 0;
+    cluster_map[13] = 0;
+    cluster_map[14] = 0;
+    cluster_map[15] = 0;
 
 
 
-    cluster_map[16] = 4;
-    cluster_map[17] = 4;
-    cluster_map[18] = 4;
-    cluster_map[19] = 4;
-
-    cluster_map[20] = 5;
-    cluster_map[21] = 5;
-    cluster_map[22] = 5;
-    cluster_map[23] = 5;
-
-
-
-    cluster_map[24] = 6;
-    cluster_map[25] = 6;
-    cluster_map[26] = 6;
-    cluster_map[27] = 6;
-
-    cluster_map[28] = 7;
-    cluster_map[29] = 7;
-    cluster_map[30] = 7;
-    cluster_map[31] = 7;
+    cluster_map[16] = 1;
+    cluster_map[17] = 1;
+    cluster_map[18] = 1;
+    cluster_map[19] = 1;
+    cluster_map[20] = 1;
+    cluster_map[21] = 1;
+    cluster_map[22] = 1;
+    cluster_map[23] = 1;
+    cluster_map[24] = 1;
+    cluster_map[25] = 1;
+    cluster_map[26] = 1;
+    cluster_map[27] = 1;
+    cluster_map[28] = 1;
+    cluster_map[29] = 1;
+    cluster_map[30] = 1;
+    cluster_map[31] = 1;
 
 
 
-    cluster_map[32] = 8;
-    cluster_map[33] = 8;
-    cluster_map[34] = 8;
-    cluster_map[35] = 8;
-
-    cluster_map[36] = 9;
-    cluster_map[37] = 9;
-    cluster_map[38] = 9;
-    cluster_map[39] = 9;
-
-
-    cluster_map[40] = 10;
-    cluster_map[41] = 10;
-    cluster_map[42] = 10;
-    cluster_map[43] = 10;
-
-    cluster_map[44] = 11;
-    cluster_map[45] = 11;
-    cluster_map[46] = 11;
-    cluster_map[47] = 11;
-
+    cluster_map[32] = 2;
+    cluster_map[33] = 2;
+    cluster_map[34] = 2;
+    cluster_map[35] = 2;
+    cluster_map[36] = 2;
+    cluster_map[37] = 2;
+    cluster_map[38] = 2;
+    cluster_map[39] = 2;
+    cluster_map[40] = 2;
+    cluster_map[41] = 2;
+    cluster_map[42] = 2;
+    cluster_map[43] = 2;
+    cluster_map[44] = 2;
+    cluster_map[45] = 2;
+    cluster_map[46] = 2;
+    cluster_map[47] = 2;
 
 
 
