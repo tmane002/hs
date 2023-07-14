@@ -218,26 +218,27 @@ void HotStuffCore::update(const block_t &nblk) {
         }
 
 
-        if (int(blk->height)==600) LOG_INFO("LatencyPlot: before initial join message") ;
+        if (int(blk->height)==6000) LOG_INFO("LatencyPlot: before initial join message") ;
 
 
 
 
 //        if (int(blk->height)%6000 ==0)
-       if (1>2)
+//       if (1>2)
+        if (int(blk->height)%6000 ==0 && (int(blk->height) > 0))
         {
-            join_nodes();
+//            join_nodes();
 
-//            Proposal prop_join_init(id, blk, nullptr, cluster_id, cluster_id, blk->height, 4);
-//            bool leader_check = check_leader();
-//
-//            LOG_INFO("Sending Join Init message with height %d", int(blk->height));
-////            if (leader_check )
-//            {
-//                {
-//                    do_broadcast_proposal(prop_join_init);
-//                }
-//            }
+            Proposal prop_join_init(id, blk, nullptr, cluster_id, cluster_id, blk->height, 4);
+            bool leader_check = check_leader();
+
+            LOG_INFO("LatencyPlot: Sending Join Init message with height %d", int(blk->height));
+//            if (leader_check )
+            {
+                {
+                    do_broadcast_proposal(prop_join_init);
+                }
+            }
         }
         else
         {
@@ -246,7 +247,7 @@ void HotStuffCore::update(const block_t &nblk) {
             LOG_INFO("leader_check is %d", int(leader_check));
         if (leader_check )
             {
-                if (int(blk->height)==600) LOG_INFO("LatencyPlot: before sending first mc message") ;
+                if (int(blk->height)==6000) LOG_INFO("LatencyPlot: before sending first mc message") ;
 
 //            if (!(cluster_id==0 && blk->height==7000))
                 {
@@ -343,7 +344,7 @@ block_t HotStuffCore::on_propose(const std::vector<uint256_t> &cmds,
     on_propose_(prop);
     /* boradcast to other replicas */
 
-    if (int(parents[0]->height + 1)==600) LOG_INFO("LatencyPlot: Processing message from client") ;
+    if (int(parents[0]->height + 1)==6000) LOG_INFO("LatencyPlot: Processing message from client") ;
 
     do_broadcast_proposal(prop);
 
