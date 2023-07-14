@@ -237,6 +237,9 @@ int main(int argc, char **argv) {
 
     std::unordered_map<int, int> cluster_map;
 
+
+
+
     cluster_map[0] = 0;
     cluster_map[1] = 0;
     cluster_map[2] = 0;
@@ -249,13 +252,13 @@ int main(int argc, char **argv) {
     cluster_map[9] = 0;
     cluster_map[10] = 0;
     cluster_map[11] = 0;
-    cluster_map[12] = 0;
-    cluster_map[13] = 0;
-    cluster_map[14] = 0;
-    cluster_map[15] = 0;
 
 
 
+    cluster_map[12] = 1;
+    cluster_map[13] = 1;
+    cluster_map[14] = 1;
+    cluster_map[15] = 1;
     cluster_map[16] = 1;
     cluster_map[17] = 1;
     cluster_map[18] = 1;
@@ -264,34 +267,34 @@ int main(int argc, char **argv) {
     cluster_map[21] = 1;
     cluster_map[22] = 1;
     cluster_map[23] = 1;
-    cluster_map[24] = 1;
-    cluster_map[25] = 1;
-    cluster_map[26] = 1;
-    cluster_map[27] = 1;
-    cluster_map[28] = 1;
-    cluster_map[29] = 1;
-    cluster_map[30] = 1;
-    cluster_map[31] = 1;
 
 
-
+    cluster_map[24] = 2;
+    cluster_map[25] = 2;
+    cluster_map[26] = 2;
+    cluster_map[27] = 2;
+    cluster_map[28] = 2;
+    cluster_map[29] = 2;
+    cluster_map[30] = 2;
+    cluster_map[31] = 2;
     cluster_map[32] = 2;
     cluster_map[33] = 2;
     cluster_map[34] = 2;
     cluster_map[35] = 2;
-    cluster_map[36] = 2;
-    cluster_map[37] = 2;
-    cluster_map[38] = 2;
-    cluster_map[39] = 2;
-    cluster_map[40] = 2;
-    cluster_map[41] = 2;
-    cluster_map[42] = 2;
-    cluster_map[43] = 2;
-    cluster_map[44] = 2;
-    cluster_map[45] = 2;
-    cluster_map[46] = 2;
-    cluster_map[47] = 2;
 
+
+    cluster_map[36] = 3;
+    cluster_map[37] = 3;
+    cluster_map[38] = 3;
+    cluster_map[39] = 3;
+    cluster_map[40] = 3;
+    cluster_map[41] = 3;
+    cluster_map[42] = 3;
+    cluster_map[43] = 3;
+    cluster_map[44] = 3;
+    cluster_map[45] = 3;
+    cluster_map[46] = 3;
+    cluster_map[47] = 3;
 
 
 
