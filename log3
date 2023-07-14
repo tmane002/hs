@@ -1,772 +1,191 @@
-2023-01-12 15:06:25.390857 [net info] loaded configuration from hotstuff.conf
-2023-01-12 15:06:25.391084 [net info] loading extra configuration from ./hotstuff-sec3.conf
-2023-01-12 15:06:25.391111 [hotstuff info] replicas, all_replicas sizes are 4, 4
-
-2023-01-12 15:06:25.391125 [hotstuff info] idx, cluster_idx is 3, 3
-
-2023-01-12 15:06:25.391185 [hotstuff info] Round robin pacemaker
-2023-01-12 15:06:25.399771 [hotstuff info] --- rid: 3
-2023-01-12 15:06:25.399855 [net info] starting all threads...
-2023-01-12 15:06:25.400049 [net info] listening to 10003
-2023-01-12 15:06:25.401060 [net info] accepted <Conn fd=37 addr=<NetAddr 127.0.0.1:37712> mode=passive>
-2023-01-12 15:06:25.403672 [net info] starting all threads...
-2023-01-12 15:06:25.404965 [net info] listening to 20003
-2023-01-12 15:06:25.405129 [hotstuff info] ** starting the system with parameters **
-2023-01-12 15:06:25.405145 [hotstuff info] blk_size = 1
-2023-01-12 15:06:25.405154 [hotstuff info] conns = 0
-2023-01-12 15:06:25.405162 [hotstuff info] ** starting the event loop...
-2023-01-12 15:06:25.405241 [hotstuff info] replicas sizes are 4, 4, 0
-2023-01-12 15:06:25.405265 [hotstuff info] nfaulty, peers.size() are 1, 3 
-
-2023-01-12 15:06:25.405279 [hotstuff info] function async_hqc_update:START
-2023-01-12 15:06:25.405289 [hotstuff info] function async_wait_proposal:START
-2023-01-12 15:06:25.405298 [hotstuff info] function async_wait_receive_proposal:START
-2023-01-12 15:06:25.405310 [hotstuff info] Pacemaker: stop rotation at 0
-2023-01-12 15:06:25.405318 [hotstuff info] function async_wait_proposal:START
-2023-01-12 15:06:25.413988 [net info] accepted <Conn fd=87 addr=<NetAddr 127.0.0.1:37722> mode=passive>
-2023-01-12 15:06:25.414180 [net info] created <Conn fd=89 addr=<NetAddr 127.0.0.1:10000> mode=active>
-2023-01-12 15:06:25.414372 [net info] created <Conn fd=91 addr=<NetAddr 127.0.0.1:10001> mode=active>
-2023-01-12 15:06:25.414539 [net info] created <Conn fd=93 addr=<NetAddr 127.0.0.1:10002> mode=active>
-2023-01-12 15:06:25.414583 [net info] connected to remote <Conn fd=89 addr=<NetAddr 127.0.0.1:10000> mode=active>
-2023-01-12 15:06:25.414596 [net info] connected to remote <Conn fd=91 addr=<NetAddr 127.0.0.1:10001> mode=active>
-2023-01-12 15:06:25.414604 [net info] connected to remote <Conn fd=93 addr=<NetAddr 127.0.0.1:10002> mode=active>
-2023-01-12 15:06:25.421030 [net info] 6540a0fea6: setup connection <Conn fd=37 addr=<NetAddr 127.0.0.1:37712> mode=passive>
-2023-01-12 15:06:25.421089 [net info] 6540a0fea6: setup connection <Conn fd=87 addr=<NetAddr 127.0.0.1:37722> mode=passive>
-2023-01-12 15:06:25.426739 [net info] 6540a0fea6: setup connection <Conn fd=89 addr=<NetAddr 127.0.0.1:10000> mode=active>
-2023-01-12 15:06:25.426797 [net info] 6540a0fea6: setup connection <Conn fd=91 addr=<NetAddr 127.0.0.1:10001> mode=active>
-2023-01-12 15:06:25.426826 [net info] 6540a0fea6: setup connection <Conn fd=93 addr=<NetAddr 127.0.0.1:10002> mode=active>
-2023-01-12 15:06:25.426886 [net info] established 6540a0fea6 <---> 065b010aed (via <Conn fd=37 addr=<NetAddr 127.0.0.1:37712> mode=passive>)
-2023-01-12 15:06:25.426927 [net info] established 6540a0fea6 <---> c261250345 (via <Conn fd=87 addr=<NetAddr 127.0.0.1:37722> mode=passive>)
-2023-01-12 15:06:25.427163 [net info] 6540a0fea6: lost connection <Conn fd=89 addr=<NetAddr 127.0.0.1:10000> mode=active>
-2023-01-12 15:06:25.427530 [net info] 6540a0fea6: ping from <Conn fd=87 addr=<NetAddr 127.0.0.1:37722> mode=passive>
-2023-01-12 15:06:25.427598 [net info] 6540a0fea6: lost connection <Conn fd=87 addr=<NetAddr 127.0.0.1:37722> mode=passive>
-2023-01-12 15:06:25.427617 [net info] ended 6540a0fea6 <-/-> c261250345 (via <Conn fd=87 addr=<NetAddr 127.0.0.1:37722> mode=passive>)
-2023-01-12 15:06:25.427815 [net info] established 6540a0fea6 <---> c261250345 (via <Conn fd=91 addr=<NetAddr 127.0.0.1:10001> mode=active>)
-2023-01-12 15:06:25.427836 [net info] 6540a0fea6: ping from <Conn fd=91 addr=<NetAddr 127.0.0.1:10001> mode=active>
-2023-01-12 15:06:25.429045 [net info] 6540a0fea6: ping from <Conn fd=37 addr=<NetAddr 127.0.0.1:37712> mode=passive>
-2023-01-12 15:06:25.429134 [net info] 6540a0fea6: lost connection <Conn fd=37 addr=<NetAddr 127.0.0.1:37712> mode=passive>
-2023-01-12 15:06:25.429155 [net info] ended 6540a0fea6 <-/-> 065b010aed (via <Conn fd=37 addr=<NetAddr 127.0.0.1:37712> mode=passive>)
-2023-01-12 15:06:25.429303 [net info] established 6540a0fea6 <---> 065b010aed (via <Conn fd=93 addr=<NetAddr 127.0.0.1:10002> mode=active>)
-2023-01-12 15:06:25.429319 [net info] 6540a0fea6: ping from <Conn fd=93 addr=<NetAddr 127.0.0.1:10002> mode=active>
-2023-01-12 15:06:27.591252 [net info] accepted <Conn fd=37 addr=<NetAddr 127.0.0.1:43260> mode=passive>
-2023-01-12 15:06:27.602983 [net info] 6540a0fea6: setup connection <Conn fd=37 addr=<NetAddr 127.0.0.1:43260> mode=passive>
-2023-01-12 15:06:27.603231 [net info] 6540a0fea6: lost connection <Conn fd=37 addr=<NetAddr 127.0.0.1:43260> mode=passive>
-2023-01-12 15:06:27.623593 [net info] created <Conn fd=37 addr=<NetAddr 127.0.0.1:10000> mode=active>
-2023-01-12 15:06:27.623765 [net info] connected to remote <Conn fd=37 addr=<NetAddr 127.0.0.1:10000> mode=active>
-2023-01-12 15:06:27.631239 [net info] 6540a0fea6: setup connection <Conn fd=37 addr=<NetAddr 127.0.0.1:10000> mode=active>
-2023-01-12 15:06:27.635948 [net info] established 6540a0fea6 <---> 542865a568 (via <Conn fd=37 addr=<NetAddr 127.0.0.1:10000> mode=active>)
-2023-01-12 15:06:27.636001 [net info] 6540a0fea6: ping from <Conn fd=37 addr=<NetAddr 127.0.0.1:10000> mode=active>
-2023-01-12 15:06:30.371954 [net info] accepted <Conn fd=38 addr=<NetAddr 127.0.0.1:51538> mode=passive>
-2023-01-12 15:06:30.373041 [hotstuff info] Tejas: Reached here from proposer 0
-2023-01-12 15:06:30.373077 [hotstuff info] function on_deliver_blk: START
-2023-01-12 15:06:30.373114 [hotstuff info] deliver <block id=b81f3d2dc3 height=1 parent=6b7d92eaae qc_ref=6b7d92eaae>
-2023-01-12 15:06:30.373130 [hotstuff info] function on_deliver_blk: END
-2023-01-12 15:06:30.373149 [hotstuff info] block b81f3d2dc3 delivered
-2023-01-12 15:06:30.373166 [hotstuff info] function on_receive_proposal: START
-2023-01-12 15:06:30.373184 [hotstuff info] got <proposal rid=0 blk=b81f3d2dc3>
-2023-01-12 15:06:30.373194 [hotstuff info] function update: START
-2023-01-12 15:06:30.373220 [hotstuff info] now state: <hotstuff hqc=6b7d92eaae hqc.height=0 b_lock=6b7d92eaae b_exec=6b7d92eaae vheight=1 tails=1>
-2023-01-12 15:06:30.373229 [hotstuff info] function on_qc_finish:START
-2023-01-12 15:06:30.373237 [hotstuff info] function on_qc_finish:END
-2023-01-12 15:06:30.373246 [hotstuff info] function async_wait_receive_proposal:END
-2023-01-12 15:06:30.373254 [hotstuff info] reg_receive_proposal(): Parent selection implementation for PaceMaker
-2023-01-12 15:06:30.373262 [hotstuff info] function async_wait_receive_proposal:START
-2023-01-12 15:06:30.373353 [hotstuff info] Tejas: Going to vote with proposer: 0, id: 3
-2023-01-12 15:06:30.373363 [hotstuff info] Tejas: sending vote to other nodes of same cluster
-2023-01-12 15:06:30.373378 [hotstuff info] function on_receive_proposal: END
-2023-01-12 15:06:30.374909 [hotstuff info] Tejas: Reached here from proposer 0
-2023-01-12 15:06:30.375259 [hotstuff info] function on_deliver_blk: START
-2023-01-12 15:06:30.375286 [hotstuff info] deliver <block id=2d6d13eb81 height=2 parent=b81f3d2dc3 qc_ref=b81f3d2dc3>
-2023-01-12 15:06:30.375293 [hotstuff info] function on_deliver_blk: END
-2023-01-12 15:06:30.375302 [hotstuff info] block 2d6d13eb81 delivered
-2023-01-12 15:06:30.375310 [hotstuff info] function on_receive_proposal: START
-2023-01-12 15:06:30.375320 [hotstuff info] got <proposal rid=0 blk=2d6d13eb81>
-2023-01-12 15:06:30.375326 [hotstuff info] function update: START
-2023-01-12 15:06:30.375331 [hotstuff info] function update_hqc: START
-2023-01-12 15:06:30.375341 [hotstuff info] function on_hqc_update:START
-2023-01-12 15:06:30.375347 [hotstuff info] function async_hqc_update:END
-2023-01-12 15:06:30.375354 [hotstuff info] function async_hqc_update:START
-2023-01-12 15:06:30.375361 [hotstuff info] function on_hqc_update:END
-2023-01-12 15:06:30.375367 [hotstuff info] function update_hqc: END
-2023-01-12 15:06:30.375393 [hotstuff info] now state: <hotstuff hqc=b81f3d2dc3 hqc.height=1 b_lock=6b7d92eaae b_exec=6b7d92eaae vheight=2 tails=1>
-2023-01-12 15:06:30.375400 [hotstuff info] function on_qc_finish:START
-2023-01-12 15:06:30.375408 [hotstuff info] function on_qc_finish:END
-2023-01-12 15:06:30.375414 [hotstuff info] function async_wait_receive_proposal:END
-2023-01-12 15:06:30.375421 [hotstuff info] reg_receive_proposal(): Parent selection implementation for PaceMaker
-2023-01-12 15:06:30.375426 [hotstuff info] function async_wait_receive_proposal:START
-2023-01-12 15:06:30.375492 [hotstuff info] Tejas: Going to vote with proposer: 0, id: 3
-2023-01-12 15:06:30.375499 [hotstuff info] Tejas: sending vote to other nodes of same cluster
-2023-01-12 15:06:30.375510 [hotstuff info] function on_receive_proposal: END
-2023-01-12 15:06:30.377899 [hotstuff info] Tejas: Reached here from proposer 0
-2023-01-12 15:06:30.378828 [hotstuff info] function on_deliver_blk: START
-2023-01-12 15:06:30.378882 [hotstuff info] deliver <block id=bc6746eb6d height=3 parent=2d6d13eb81 qc_ref=2d6d13eb81>
-2023-01-12 15:06:30.378892 [hotstuff info] function on_deliver_blk: END
-2023-01-12 15:06:30.378905 [hotstuff info] block bc6746eb6d delivered
-2023-01-12 15:06:30.378919 [hotstuff info] function on_receive_proposal: START
-2023-01-12 15:06:30.378932 [hotstuff info] got <proposal rid=0 blk=bc6746eb6d>
-2023-01-12 15:06:30.378939 [hotstuff info] function update: START
-2023-01-12 15:06:30.378946 [hotstuff info] function update_hqc: START
-2023-01-12 15:06:30.378957 [hotstuff info] function on_hqc_update:START
-2023-01-12 15:06:30.378964 [hotstuff info] function async_hqc_update:END
-2023-01-12 15:06:30.378972 [hotstuff info] function async_hqc_update:START
-2023-01-12 15:06:30.378981 [hotstuff info] function on_hqc_update:END
-2023-01-12 15:06:30.378988 [hotstuff info] function update_hqc: END
-2023-01-12 15:06:30.379005 [hotstuff info] now state: <hotstuff hqc=2d6d13eb81 hqc.height=2 b_lock=b81f3d2dc3 b_exec=6b7d92eaae vheight=3 tails=1>
-2023-01-12 15:06:30.379012 [hotstuff info] function on_qc_finish:START
-2023-01-12 15:06:30.379018 [hotstuff info] function on_qc_finish:END
-2023-01-12 15:06:30.379024 [hotstuff info] function async_wait_receive_proposal:END
-2023-01-12 15:06:30.379030 [hotstuff info] reg_receive_proposal(): Parent selection implementation for PaceMaker
-2023-01-12 15:06:30.379036 [hotstuff info] function async_wait_receive_proposal:START
-2023-01-12 15:06:30.379100 [hotstuff info] Tejas: Going to vote with proposer: 0, id: 3
-2023-01-12 15:06:30.379108 [hotstuff info] Tejas: sending vote to other nodes of same cluster
-2023-01-12 15:06:30.379120 [hotstuff info] function on_receive_proposal: END
-2023-01-12 15:06:30.380648 [hotstuff info] Tejas: Reached here from proposer 0
-2023-01-12 15:06:30.381430 [hotstuff info] function on_deliver_blk: START
-2023-01-12 15:06:30.381486 [hotstuff info] deliver <block id=3089f4c842 height=4 parent=bc6746eb6d qc_ref=bc6746eb6d>
-2023-01-12 15:06:30.381503 [hotstuff info] function on_deliver_blk: END
-2023-01-12 15:06:30.381527 [hotstuff info] block 3089f4c842 delivered
-2023-01-12 15:06:30.381545 [hotstuff info] function on_receive_proposal: START
-2023-01-12 15:06:30.381570 [hotstuff info] got <proposal rid=0 blk=3089f4c842>
-2023-01-12 15:06:30.381584 [hotstuff info] function update: START
-2023-01-12 15:06:30.381597 [hotstuff info] function update_hqc: START
-2023-01-12 15:06:30.381612 [hotstuff info] function on_hqc_update:START
-2023-01-12 15:06:30.381626 [hotstuff info] function async_hqc_update:END
-2023-01-12 15:06:30.381641 [hotstuff info] function async_hqc_update:START
-2023-01-12 15:06:30.381657 [hotstuff info] function on_hqc_update:END
-2023-01-12 15:06:30.381672 [hotstuff info] function update_hqc: END
-2023-01-12 15:06:30.381686 [hotstuff info] commit_queue size is 1
-2023-01-12 15:06:30.381701 [hotstuff info] Timer before every consensus
-2023-01-12 15:06:30.381716 [hotstuff info] sending other clusters message with peers.size is 3
-
-2023-01-12 15:06:30.381773 [hotstuff info] ---->commit <block id=b81f3d2dc3 height=1 parent=6b7d92eaae qc_ref=6b7d92eaae>, blk->height is 1
-2023-01-12 15:06:30.381806 [hotstuff info] other_cluster_waiting sigal END 1
-2023-01-12 15:06:30.381821 [hotstuff info] other_cluster_waiting sigal END 2
-2023-01-12 15:06:30.381835 [hotstuff info] function update: END 
-
-
-
-
-
-
-
-
-2023-01-12 15:06:30.381877 [hotstuff info] now state: <hotstuff hqc=bc6746eb6d hqc.height=3 b_lock=2d6d13eb81 b_exec=b81f3d2dc3 vheight=4 tails=1>
-2023-01-12 15:06:30.381891 [hotstuff info] function on_qc_finish:START
-2023-01-12 15:06:30.381905 [hotstuff info] function on_qc_finish:END
-2023-01-12 15:06:30.381919 [hotstuff info] function async_wait_receive_proposal:END
-2023-01-12 15:06:30.381934 [hotstuff info] reg_receive_proposal(): Parent selection implementation for PaceMaker
-2023-01-12 15:06:30.381956 [hotstuff info] function async_wait_receive_proposal:START
-2023-01-12 15:06:30.382113 [hotstuff info] Tejas: Going to vote with proposer: 0, id: 3
-2023-01-12 15:06:30.382130 [hotstuff info] Tejas: sending vote to other nodes of same cluster
-2023-01-12 15:06:30.382153 [hotstuff info] function on_receive_proposal: END
-2023-01-12 15:06:31.382668 [hotstuff info] Timer after every consensus
-2023-01-12 15:06:35.368222 [net info] 6540a0fea6: lost connection <Conn fd=37 addr=<NetAddr 127.0.0.1:10000> mode=active>
-2023-01-12 15:06:35.368277 [net info] ended 6540a0fea6 <-/-> 542865a568 (via <Conn fd=37 addr=<NetAddr 127.0.0.1:10000> mode=active>)
-2023-01-12 15:06:35.371885 [net info] accepted <Conn fd=37 addr=<NetAddr 127.0.0.1:51540> mode=passive>
-2023-01-12 15:06:35.391000 [hotstuff info] ===== begin stats =====
-2023-01-12 15:06:35.391040 [hotstuff info] -------- queues -------
-2023-01-12 15:06:35.391049 [hotstuff info] blk_fetch_waiting: 0
-2023-01-12 15:06:35.391057 [hotstuff info] blk_delivery_waiting: 0
-2023-01-12 15:06:35.391065 [hotstuff info] decision_waiting: 8
-2023-01-12 15:06:35.391080 [hotstuff info] -------- misc ---------
-2023-01-12 15:06:35.391088 [hotstuff info] fetched: 0
-2023-01-12 15:06:35.391095 [hotstuff info] delivered: 4
-2023-01-12 15:06:35.391103 [hotstuff info] cmd_cache: 0
-2023-01-12 15:06:35.391110 [hotstuff info] blk_cache: 5
-2023-01-12 15:06:35.391118 [hotstuff info] ------ misc (10s) -----
-2023-01-12 15:06:35.391125 [hotstuff info] fetched: 0
-2023-01-12 15:06:35.391132 [hotstuff info] delivered: 4
-2023-01-12 15:06:35.391139 [hotstuff info] decided: 0
-2023-01-12 15:06:35.391148 [hotstuff info] nreplicas: 4
-2023-01-12 15:06:35.391157 [hotstuff info] gened: 0
-2023-01-12 15:06:35.391166 [hotstuff info] avg. parent_size: 1.000
-2023-01-12 15:06:35.391191 [hotstuff info] delivery time: 0.001 avg, 0.000 min, 0.001 max
-2023-01-12 15:06:35.391205 [hotstuff info] --- replica msg. (10s) ---
-2023-01-12 15:06:35.391266 [hotstuff info] 542865a568: 7(533), 7(1093), 0
-2023-01-12 15:06:35.391307 [hotstuff info] c261250345: 3(13), 4(14), 0
-2023-01-12 15:06:35.391372 [hotstuff info] 065b010aed: 3(13), 4(14), 0
-2023-01-12 15:06:35.391388 [hotstuff info] sent: 13
-2023-01-12 15:06:35.391397 [hotstuff info] recv: 15
-2023-01-12 15:06:35.391406 [hotstuff info] --- replica msg. total ---
-2023-01-12 15:06:35.391416 [hotstuff info] sent: 13
-2023-01-12 15:06:35.391426 [hotstuff info] recv: 15
-2023-01-12 15:06:35.391435 [hotstuff info] ====== end stats ======
-2023-01-12 15:06:35.391444 [hotstuff info] --- client msg. (10s) ---
-2023-01-12 15:06:35.391456 [hotstuff info] <NetAddr 127.0.0.1:51540>: 1(43), 5(7720)
-2023-01-12 15:06:35.391467 [hotstuff info] --- end client msg. ---
-2023-01-12 15:06:36.392507 [hotstuff info] function async_wait_proposal:START
-2023-01-12 15:06:36.392543 [hotstuff info] reg_receive_proposal(): round-robin style proposer
-2023-01-12 15:06:36.392554 [hotstuff info] function async_wait_receive_proposal:START
-2023-01-12 15:06:36.392564 [hotstuff info] Pacemaker: rotate to 1 with exp_timeout: 1
-2023-01-12 15:06:36.392575 [hotstuff info] Pacemaker: After doubling, exp_timeout: 1
-2023-01-12 15:06:36.392583 [hotstuff info] schedule to impeach the proposer
-2023-01-12 15:06:37.395482 [hotstuff info] Tejas: Reached here from proposer 1
-2023-01-12 15:06:37.396408 [hotstuff info] function on_deliver_blk: START
-2023-01-12 15:06:37.396484 [hotstuff info] deliver <block id=c6288b4d5a height=5 parent=3089f4c842 qc_ref=bc6746eb6d>
-2023-01-12 15:06:37.396508 [hotstuff info] function on_deliver_blk: END
-2023-01-12 15:06:37.396541 [hotstuff info] block c6288b4d5a delivered
-2023-01-12 15:06:37.396564 [hotstuff info] function on_receive_proposal: START
-2023-01-12 15:06:37.396595 [hotstuff info] got <proposal rid=1 blk=c6288b4d5a>
-2023-01-12 15:06:37.396611 [hotstuff info] function update: START
-2023-01-12 15:06:37.396627 [hotstuff info] function update_hqc: START
-2023-01-12 15:06:37.396643 [hotstuff info] function update_hqc: END
-2023-01-12 15:06:37.396692 [hotstuff info] now state: <hotstuff hqc=bc6746eb6d hqc.height=3 b_lock=2d6d13eb81 b_exec=b81f3d2dc3 vheight=5 tails=1>
-2023-01-12 15:06:37.396709 [hotstuff info] function on_qc_finish:START
-2023-01-12 15:06:37.396725 [hotstuff info] function on_qc_finish:END
-2023-01-12 15:06:37.396741 [hotstuff info] function async_wait_receive_proposal:END
-2023-01-12 15:06:37.396758 [hotstuff info] reg_receive_proposal(): Parent selection implementation for PaceMaker
-2023-01-12 15:06:37.396775 [hotstuff info] function async_wait_receive_proposal:START
-2023-01-12 15:06:37.396795 [hotstuff info] function async_wait_receive_proposal:END
-2023-01-12 15:06:37.396812 [hotstuff info] reg_receive_proposal(): round-robin style proposer
-2023-01-12 15:06:37.396829 [hotstuff info] function async_wait_receive_proposal:START
-2023-01-12 15:06:37.397011 [hotstuff info] Tejas: Going to vote with proposer: 1, id: 3
-2023-01-12 15:06:37.397031 [hotstuff info] Tejas: sending vote to other nodes of same cluster
-2023-01-12 15:06:37.397061 [hotstuff info] function on_receive_proposal: END
-2023-01-12 15:06:37.398189 [hotstuff info] Tejas: Reached here from proposer 1
-2023-01-12 15:06:37.399099 [hotstuff info] function on_deliver_blk: START
-2023-01-12 15:06:37.399143 [hotstuff info] deliver <block id=eb5119ccbe height=6 parent=c6288b4d5a qc_ref=c6288b4d5a>
-2023-01-12 15:06:37.399158 [hotstuff info] function on_deliver_blk: END
-2023-01-12 15:06:37.399178 [hotstuff info] block eb5119ccbe delivered
-2023-01-12 15:06:37.399192 [hotstuff info] function on_receive_proposal: START
-2023-01-12 15:06:37.399205 [hotstuff info] got <proposal rid=1 blk=eb5119ccbe>
-2023-01-12 15:06:37.399212 [hotstuff info] function update: START
-2023-01-12 15:06:37.399220 [hotstuff info] function update_hqc: START
-2023-01-12 15:06:37.399229 [hotstuff info] function on_hqc_update:START
-2023-01-12 15:06:37.399238 [hotstuff info] function async_hqc_update:END
-2023-01-12 15:06:37.399248 [hotstuff info] function async_hqc_update:START
-2023-01-12 15:06:37.399258 [hotstuff info] function on_hqc_update:END
-2023-01-12 15:06:37.399268 [hotstuff info] function update_hqc: END
-2023-01-12 15:06:37.399299 [hotstuff info] now state: <hotstuff hqc=c6288b4d5a hqc.height=5 b_lock=bc6746eb6d b_exec=b81f3d2dc3 vheight=6 tails=1>
-2023-01-12 15:06:37.399309 [hotstuff info] function on_qc_finish:START
-2023-01-12 15:06:37.399318 [hotstuff info] function on_qc_finish:END
-2023-01-12 15:06:37.399328 [hotstuff info] function async_wait_receive_proposal:END
-2023-01-12 15:06:37.399337 [hotstuff info] reg_receive_proposal(): Parent selection implementation for PaceMaker
-2023-01-12 15:06:37.399345 [hotstuff info] function async_wait_receive_proposal:START
-2023-01-12 15:06:37.399355 [hotstuff info] function async_wait_receive_proposal:END
-2023-01-12 15:06:37.399364 [hotstuff info] reg_receive_proposal(): round-robin style proposer
-2023-01-12 15:06:37.399373 [hotstuff info] function async_wait_receive_proposal:START
-2023-01-12 15:06:37.399468 [hotstuff info] Tejas: Going to vote with proposer: 1, id: 3
-2023-01-12 15:06:37.399479 [hotstuff info] Tejas: sending vote to other nodes of same cluster
-2023-01-12 15:06:37.399494 [hotstuff info] function on_receive_proposal: END
-2023-01-12 15:06:37.401150 [hotstuff info] Tejas: Reached here from proposer 1
-2023-01-12 15:06:37.402080 [hotstuff info] function on_deliver_blk: START
-2023-01-12 15:06:37.402131 [hotstuff info] deliver <block id=d7fa165d3b height=7 parent=eb5119ccbe qc_ref=eb5119ccbe>
-2023-01-12 15:06:37.402145 [hotstuff info] function on_deliver_blk: END
-2023-01-12 15:06:37.402162 [hotstuff info] block d7fa165d3b delivered
-2023-01-12 15:06:37.402175 [hotstuff info] function on_receive_proposal: START
-2023-01-12 15:06:37.402196 [hotstuff info] got <proposal rid=1 blk=d7fa165d3b>
-2023-01-12 15:06:37.402207 [hotstuff info] function update: START
-2023-01-12 15:06:37.402218 [hotstuff info] function update_hqc: START
-2023-01-12 15:06:37.402228 [hotstuff info] function on_hqc_update:START
-2023-01-12 15:06:37.402237 [hotstuff info] function async_hqc_update:END
-2023-01-12 15:06:37.402247 [hotstuff info] function async_hqc_update:START
-2023-01-12 15:06:37.402258 [hotstuff info] function on_hqc_update:END
-2023-01-12 15:06:37.402268 [hotstuff info] function update_hqc: END
-2023-01-12 15:06:37.402293 [hotstuff info] now state: <hotstuff hqc=eb5119ccbe hqc.height=6 b_lock=c6288b4d5a b_exec=b81f3d2dc3 vheight=7 tails=1>
-2023-01-12 15:06:37.402303 [hotstuff info] function on_qc_finish:START
-2023-01-12 15:06:37.402312 [hotstuff info] function on_qc_finish:END
-2023-01-12 15:06:37.402322 [hotstuff info] function async_wait_receive_proposal:END
-2023-01-12 15:06:37.402331 [hotstuff info] reg_receive_proposal(): Parent selection implementation for PaceMaker
-2023-01-12 15:06:37.402338 [hotstuff info] function async_wait_receive_proposal:START
-2023-01-12 15:06:37.402346 [hotstuff info] function async_wait_receive_proposal:END
-2023-01-12 15:06:37.402353 [hotstuff info] reg_receive_proposal(): round-robin style proposer
-2023-01-12 15:06:37.402360 [hotstuff info] function async_wait_receive_proposal:START
-2023-01-12 15:06:37.402440 [hotstuff info] Tejas: Going to vote with proposer: 1, id: 3
-2023-01-12 15:06:37.402449 [hotstuff info] Tejas: sending vote to other nodes of same cluster
-2023-01-12 15:06:37.402461 [hotstuff info] function on_receive_proposal: END
-2023-01-12 15:06:37.405384 [hotstuff info] Tejas: Reached here from proposer 1
-2023-01-12 15:06:37.406130 [hotstuff info] function on_deliver_blk: START
-2023-01-12 15:06:37.406208 [hotstuff info] deliver <block id=02fbc3b257 height=8 parent=d7fa165d3b qc_ref=d7fa165d3b>
-2023-01-12 15:06:37.406231 [hotstuff info] function on_deliver_blk: END
-2023-01-12 15:06:37.406266 [hotstuff info] block 02fbc3b257 delivered
-2023-01-12 15:06:37.406301 [hotstuff info] function on_receive_proposal: START
-2023-01-12 15:06:37.406343 [hotstuff info] got <proposal rid=1 blk=02fbc3b257>
-2023-01-12 15:06:37.406369 [hotstuff info] function update: START
-2023-01-12 15:06:37.406389 [hotstuff info] function update_hqc: START
-2023-01-12 15:06:37.406413 [hotstuff info] function on_hqc_update:START
-2023-01-12 15:06:37.406437 [hotstuff info] function async_hqc_update:END
-2023-01-12 15:06:37.406464 [hotstuff info] function async_hqc_update:START
-2023-01-12 15:06:37.406488 [hotstuff info] function on_hqc_update:END
-2023-01-12 15:06:37.406506 [hotstuff info] function update_hqc: END
-2023-01-12 15:06:37.406523 [hotstuff info] commit_queue size is 4
-2023-01-12 15:06:37.406540 [hotstuff info] Timer before every consensus
-2023-01-12 15:06:37.406558 [hotstuff info] sending other clusters message with peers.size is 3
-
-2023-01-12 15:06:37.406629 [hotstuff info] ---->commit <block id=2d6d13eb81 height=2 parent=b81f3d2dc3 qc_ref=b81f3d2dc3>, blk->height is 2
-2023-01-12 15:06:37.406695 [hotstuff info] other_cluster_waiting sigal END 1
-2023-01-12 15:06:37.406722 [hotstuff info] Timer before every consensus
-2023-01-12 15:06:37.406745 [hotstuff info] sending other clusters message with peers.size is 3
-
-2023-01-12 15:06:37.406828 [hotstuff info] ---->commit <block id=bc6746eb6d height=3 parent=2d6d13eb81 qc_ref=2d6d13eb81>, blk->height is 3
-2023-01-12 15:06:37.406853 [hotstuff info] other_cluster_waiting sigal END 1
-2023-01-12 15:06:37.406874 [hotstuff info] Timer before every consensus
-2023-01-12 15:06:37.406894 [hotstuff info] sending other clusters message with peers.size is 3
-
-2023-01-12 15:06:37.406970 [hotstuff info] ---->commit <block id=3089f4c842 height=4 parent=bc6746eb6d qc_ref=bc6746eb6d>, blk->height is 4
-2023-01-12 15:06:37.407010 [hotstuff info] other_cluster_waiting sigal END 1
-2023-01-12 15:06:37.407032 [hotstuff info] Pacemaker: stop rotation at 1
-2023-01-12 15:06:37.407051 [hotstuff info] function async_wait_proposal:START
-2023-01-12 15:06:37.407073 [hotstuff info] Timer before every consensus
-2023-01-12 15:06:37.407094 [hotstuff info] sending other clusters message with peers.size is 3
-
-2023-01-12 15:06:37.407181 [hotstuff info] ---->commit <block id=c6288b4d5a height=5 parent=3089f4c842 qc_ref=bc6746eb6d>, blk->height is 5
-2023-01-12 15:06:37.407206 [hotstuff info] other_cluster_waiting sigal END 1
-2023-01-12 15:06:37.407226 [hotstuff info] other_cluster_waiting sigal END 2
-2023-01-12 15:06:37.407245 [hotstuff info] function update: END 
-
-
-
-
-
-
-
-
-2023-01-12 15:06:37.407314 [hotstuff info] now state: <hotstuff hqc=d7fa165d3b hqc.height=7 b_lock=eb5119ccbe b_exec=c6288b4d5a vheight=8 tails=1>
-2023-01-12 15:06:37.407335 [hotstuff info] function on_qc_finish:START
-2023-01-12 15:06:37.407353 [hotstuff info] function on_qc_finish:END
-2023-01-12 15:06:37.407371 [hotstuff info] function async_wait_receive_proposal:END
-2023-01-12 15:06:37.407388 [hotstuff info] reg_receive_proposal(): Parent selection implementation for PaceMaker
-2023-01-12 15:06:37.407405 [hotstuff info] function async_wait_receive_proposal:START
-2023-01-12 15:06:37.407425 [hotstuff info] function async_wait_receive_proposal:END
-2023-01-12 15:06:37.407607 [hotstuff info] Tejas: Going to vote with proposer: 1, id: 3
-2023-01-12 15:06:37.407626 [hotstuff info] Tejas: sending vote to other nodes of same cluster
-2023-01-12 15:06:37.407653 [hotstuff info] function on_receive_proposal: END
-2023-01-12 15:06:37.407726 [hotstuff info] Tejas: Reached here from proposer 1
-2023-01-12 15:06:37.408221 [hotstuff info] function on_deliver_blk: START
-2023-01-12 15:06:37.408297 [hotstuff info] deliver <block id=0272979f92 height=9 parent=02fbc3b257 qc_ref=d7fa165d3b>
-2023-01-12 15:06:37.408325 [hotstuff info] function on_deliver_blk: END
-2023-01-12 15:06:37.408356 [hotstuff info] block 0272979f92 delivered
-2023-01-12 15:06:37.408381 [hotstuff info] function on_receive_proposal: START
-2023-01-12 15:06:37.408417 [hotstuff info] got <proposal rid=1 blk=0272979f92>
-2023-01-12 15:06:37.408437 [hotstuff info] function update: START
-2023-01-12 15:06:37.408459 [hotstuff info] function update_hqc: START
-2023-01-12 15:06:37.408480 [hotstuff info] function update_hqc: END
-2023-01-12 15:06:37.408540 [hotstuff info] now state: <hotstuff hqc=d7fa165d3b hqc.height=7 b_lock=eb5119ccbe b_exec=c6288b4d5a vheight=9 tails=1>
-2023-01-12 15:06:37.408561 [hotstuff info] function on_qc_finish:START
-2023-01-12 15:06:37.408582 [hotstuff info] function on_qc_finish:END
-2023-01-12 15:06:37.408604 [hotstuff info] function async_wait_receive_proposal:END
-2023-01-12 15:06:37.408625 [hotstuff info] reg_receive_proposal(): Parent selection implementation for PaceMaker
-2023-01-12 15:06:37.408646 [hotstuff info] function async_wait_receive_proposal:START
-2023-01-12 15:06:37.408830 [hotstuff info] Tejas: Going to vote with proposer: 1, id: 3
-2023-01-12 15:06:37.408850 [hotstuff info] Tejas: sending vote to other nodes of same cluster
-2023-01-12 15:06:37.408876 [hotstuff info] function on_receive_proposal: END
-2023-01-12 15:06:37.409832 [hotstuff info] Tejas: Reached here from proposer 1
-2023-01-12 15:06:37.410431 [hotstuff info] function on_deliver_blk: START
-2023-01-12 15:06:37.410512 [hotstuff info] deliver <block id=e833d5342a height=10 parent=0272979f92 qc_ref=0272979f92>
-2023-01-12 15:06:37.410535 [hotstuff info] function on_deliver_blk: END
-2023-01-12 15:06:37.410572 [hotstuff info] block e833d5342a delivered
-2023-01-12 15:06:37.410601 [hotstuff info] function on_receive_proposal: START
-2023-01-12 15:06:37.410681 [hotstuff info] got <proposal rid=1 blk=e833d5342a>
-2023-01-12 15:06:37.410706 [hotstuff info] function update: START
-2023-01-12 15:06:37.410729 [hotstuff info] function update_hqc: START
-2023-01-12 15:06:37.410775 [hotstuff info] function on_hqc_update:START
-2023-01-12 15:06:37.410800 [hotstuff info] function async_hqc_update:END
-2023-01-12 15:06:37.410824 [hotstuff info] function async_hqc_update:START
-2023-01-12 15:06:37.410850 [hotstuff info] function on_hqc_update:END
-2023-01-12 15:06:37.410871 [hotstuff info] function update_hqc: END
-2023-01-12 15:06:37.410939 [hotstuff info] now state: <hotstuff hqc=0272979f92 hqc.height=9 b_lock=d7fa165d3b b_exec=c6288b4d5a vheight=10 tails=1>
-2023-01-12 15:06:37.410961 [hotstuff info] function on_qc_finish:START
-2023-01-12 15:06:37.410982 [hotstuff info] function on_qc_finish:END
-2023-01-12 15:06:37.411003 [hotstuff info] function async_wait_receive_proposal:END
-2023-01-12 15:06:37.411023 [hotstuff info] reg_receive_proposal(): Parent selection implementation for PaceMaker
-2023-01-12 15:06:37.411043 [hotstuff info] function async_wait_receive_proposal:START
-2023-01-12 15:06:37.411299 [hotstuff info] Tejas: Going to vote with proposer: 1, id: 3
-2023-01-12 15:06:37.411327 [hotstuff info] Tejas: sending vote to other nodes of same cluster
-2023-01-12 15:06:37.411359 [hotstuff info] function on_receive_proposal: END
-2023-01-12 15:06:37.412641 [hotstuff info] Tejas: Reached here from proposer 1
-2023-01-12 15:06:37.413462 [hotstuff info] function on_deliver_blk: START
-2023-01-12 15:06:37.413558 [hotstuff info] deliver <block id=ec2ed33470 height=11 parent=e833d5342a qc_ref=e833d5342a>
-2023-01-12 15:06:37.413584 [hotstuff info] function on_deliver_blk: END
-2023-01-12 15:06:37.413620 [hotstuff info] block ec2ed33470 delivered
-2023-01-12 15:06:37.413649 [hotstuff info] function on_receive_proposal: START
-2023-01-12 15:06:37.413687 [hotstuff info] got <proposal rid=1 blk=ec2ed33470>
-2023-01-12 15:06:37.413710 [hotstuff info] function update: START
-2023-01-12 15:06:37.413731 [hotstuff info] function update_hqc: START
-2023-01-12 15:06:37.413756 [hotstuff info] function on_hqc_update:START
-2023-01-12 15:06:37.413778 [hotstuff info] function async_hqc_update:END
-2023-01-12 15:06:37.413801 [hotstuff info] function async_hqc_update:START
-2023-01-12 15:06:37.413827 [hotstuff info] function on_hqc_update:END
-2023-01-12 15:06:37.413851 [hotstuff info] function update_hqc: END
-2023-01-12 15:06:37.413918 [hotstuff info] now state: <hotstuff hqc=e833d5342a hqc.height=10 b_lock=0272979f92 b_exec=c6288b4d5a vheight=11 tails=1>
-2023-01-12 15:06:37.413942 [hotstuff info] function on_qc_finish:START
-2023-01-12 15:06:37.413964 [hotstuff info] function on_qc_finish:END
-2023-01-12 15:06:37.413986 [hotstuff info] function async_wait_receive_proposal:END
-2023-01-12 15:06:37.414008 [hotstuff info] reg_receive_proposal(): Parent selection implementation for PaceMaker
-2023-01-12 15:06:37.414031 [hotstuff info] function async_wait_receive_proposal:START
-2023-01-12 15:06:37.414304 [hotstuff info] Tejas: Going to vote with proposer: 1, id: 3
-2023-01-12 15:06:37.414330 [hotstuff info] Tejas: sending vote to other nodes of same cluster
-2023-01-12 15:06:37.414364 [hotstuff info] function on_receive_proposal: END
-2023-01-12 15:06:37.415669 [hotstuff info] Tejas: Reached here from proposer 1
-2023-01-12 15:06:37.416289 [hotstuff info] function on_deliver_blk: START
-2023-01-12 15:06:37.416375 [hotstuff info] deliver <block id=957fc554fa height=12 parent=ec2ed33470 qc_ref=ec2ed33470>
-2023-01-12 15:06:37.416401 [hotstuff info] function on_deliver_blk: END
-2023-01-12 15:06:37.416439 [hotstuff info] block 957fc554fa delivered
-2023-01-12 15:06:37.416468 [hotstuff info] function on_receive_proposal: START
-2023-01-12 15:06:37.416509 [hotstuff info] got <proposal rid=1 blk=957fc554fa>
-2023-01-12 15:06:37.416533 [hotstuff info] function update: START
-2023-01-12 15:06:37.416555 [hotstuff info] function update_hqc: START
-2023-01-12 15:06:37.416580 [hotstuff info] function on_hqc_update:START
-2023-01-12 15:06:37.416604 [hotstuff info] function async_hqc_update:END
-2023-01-12 15:06:37.416629 [hotstuff info] function async_hqc_update:START
-2023-01-12 15:06:37.416654 [hotstuff info] function on_hqc_update:END
-2023-01-12 15:06:37.416692 [hotstuff info] function update_hqc: END
-2023-01-12 15:06:37.416717 [hotstuff info] commit_queue size is 4
-2023-01-12 15:06:37.416740 [hotstuff info] Timer before every consensus
-2023-01-12 15:06:37.416766 [hotstuff info] sending other clusters message with peers.size is 3
-
-2023-01-12 15:06:37.416851 [hotstuff info] ---->commit <block id=eb5119ccbe height=6 parent=c6288b4d5a qc_ref=c6288b4d5a>, blk->height is 6
-2023-01-12 15:06:37.416878 [hotstuff info] other_cluster_waiting sigal END 1
-2023-01-12 15:06:37.416901 [hotstuff info] Timer before every consensus
-2023-01-12 15:06:37.416925 [hotstuff info] sending other clusters message with peers.size is 3
-
-2023-01-12 15:06:37.417006 [hotstuff info] ---->commit <block id=d7fa165d3b height=7 parent=eb5119ccbe qc_ref=eb5119ccbe>, blk->height is 7
-2023-01-12 15:06:37.417031 [hotstuff info] other_cluster_waiting sigal END 1
-2023-01-12 15:06:37.417052 [hotstuff info] Timer before every consensus
-2023-01-12 15:06:37.417073 [hotstuff info] sending other clusters message with peers.size is 3
-
-2023-01-12 15:06:37.417151 [hotstuff info] ---->commit <block id=02fbc3b257 height=8 parent=d7fa165d3b qc_ref=d7fa165d3b>, blk->height is 8
-2023-01-12 15:06:37.417176 [hotstuff info] other_cluster_waiting sigal END 1
-2023-01-12 15:06:37.417197 [hotstuff info] Timer before every consensus
-2023-01-12 15:06:37.417219 [hotstuff info] sending other clusters message with peers.size is 3
-
-2023-01-12 15:06:37.417298 [hotstuff info] ---->commit <block id=0272979f92 height=9 parent=02fbc3b257 qc_ref=d7fa165d3b>, blk->height is 9
-2023-01-12 15:06:37.417325 [hotstuff info] other_cluster_waiting sigal END 1
-2023-01-12 15:06:37.417345 [hotstuff info] other_cluster_waiting sigal END 2
-2023-01-12 15:06:37.417366 [hotstuff info] function update: END 
-
-
-
-
-
-
-
-
-2023-01-12 15:06:37.417434 [hotstuff info] now state: <hotstuff hqc=ec2ed33470 hqc.height=11 b_lock=e833d5342a b_exec=0272979f92 vheight=12 tails=1>
-2023-01-12 15:06:37.417458 [hotstuff info] function on_qc_finish:START
-2023-01-12 15:06:37.417478 [hotstuff info] function on_qc_finish:END
-2023-01-12 15:06:37.417500 [hotstuff info] function async_wait_receive_proposal:END
-2023-01-12 15:06:37.417521 [hotstuff info] reg_receive_proposal(): Parent selection implementation for PaceMaker
-2023-01-12 15:06:37.417551 [hotstuff info] function async_wait_receive_proposal:START
-2023-01-12 15:06:37.417830 [hotstuff info] Tejas: Going to vote with proposer: 1, id: 3
-2023-01-12 15:06:37.417857 [hotstuff info] Tejas: sending vote to other nodes of same cluster
-2023-01-12 15:06:37.417891 [hotstuff info] function on_receive_proposal: END
-2023-01-12 15:06:38.284981 [net info] created <Conn fd=84 addr=<NetAddr 127.0.0.1:10000> mode=active>
-2023-01-12 15:06:38.285184 [net info] 6540a0fea6: lost connection <Conn fd=84 addr=<NetAddr 127.0.0.1:10000> mode=active>
-2023-01-12 15:06:38.285195 [hotstuff warn] network async error: unable to connect: Connection refused
-
-2023-01-12 15:06:38.416388 [hotstuff info] Timer after every consensus
-2023-01-12 15:06:41.002796 [net info] created <Conn fd=84 addr=<NetAddr 127.0.0.1:10000> mode=active>
-2023-01-12 15:06:41.003016 [net info] 6540a0fea6: lost connection <Conn fd=84 addr=<NetAddr 127.0.0.1:10000> mode=active>
-2023-01-12 15:06:41.003026 [hotstuff warn] network async error: unable to connect: Connection refused
-
-2023-01-12 15:06:43.611431 [net info] created <Conn fd=84 addr=<NetAddr 127.0.0.1:10000> mode=active>
-2023-01-12 15:06:43.611673 [net info] 6540a0fea6: lost connection <Conn fd=84 addr=<NetAddr 127.0.0.1:10000> mode=active>
-2023-01-12 15:06:43.611707 [hotstuff warn] network async error: unable to connect: Connection refused
-
-2023-01-12 15:06:45.391095 [hotstuff info] ===== begin stats =====
-2023-01-12 15:06:45.391211 [hotstuff info] -------- queues -------
-2023-01-12 15:06:45.391237 [hotstuff info] blk_fetch_waiting: 0
-2023-01-12 15:06:45.391259 [hotstuff info] blk_delivery_waiting: 0
-2023-01-12 15:06:45.391274 [hotstuff info] decision_waiting: 8
-2023-01-12 15:06:45.391288 [hotstuff info] -------- misc ---------
-2023-01-12 15:06:45.391328 [hotstuff info] fetched: 0
-2023-01-12 15:06:45.391343 [hotstuff info] delivered: 12
-2023-01-12 15:06:45.391356 [hotstuff info] cmd_cache: 0
-2023-01-12 15:06:45.391370 [hotstuff info] blk_cache: 13
-2023-01-12 15:06:45.391382 [hotstuff info] ------ misc (10s) -----
-2023-01-12 15:06:45.391395 [hotstuff info] fetched: 0
-2023-01-12 15:06:45.391407 [hotstuff info] delivered: 8
-2023-01-12 15:06:45.391421 [hotstuff info] decided: 0
-2023-01-12 15:06:45.391433 [hotstuff info] nreplicas: 4
-2023-01-12 15:06:45.391446 [hotstuff info] gened: 0
-2023-01-12 15:06:45.391458 [hotstuff info] avg. parent_size: 1.000
-2023-01-12 15:06:45.391477 [hotstuff info] delivery time: 0.001 avg, 0.001 min, 0.001 max
-2023-01-12 15:06:45.391495 [hotstuff info] --- replica msg. (10s) ---
-2023-01-12 15:06:45.391609 [hotstuff info] 542865a568: 0(0), 0(0), 0
-2023-01-12 15:06:45.391665 [hotstuff info] c261250345: 8(1040), 8(2544), 0
-2023-01-12 15:06:45.391719 [hotstuff info] 065b010aed: 0(0), 0(0), 0
-2023-01-12 15:06:45.391738 [hotstuff info] sent: 8
-2023-01-12 15:06:45.391752 [hotstuff info] recv: 8
-2023-01-12 15:06:45.391765 [hotstuff info] --- replica msg. total ---
-2023-01-12 15:06:45.391777 [hotstuff info] sent: 21
-2023-01-12 15:06:45.391789 [hotstuff info] recv: 23
-2023-01-12 15:06:45.391801 [hotstuff info] ====== end stats ======
-2023-01-12 15:06:45.391814 [hotstuff info] --- client msg. (10s) ---
-2023-01-12 15:06:45.391831 [hotstuff info] <NetAddr 127.0.0.1:51540>: 0(0), 0(0)
-2023-01-12 15:06:45.391844 [hotstuff info] --- end client msg. ---
-2023-01-12 15:06:45.854413 [net info] created <Conn fd=84 addr=<NetAddr 127.0.0.1:10000> mode=active>
-2023-01-12 15:06:45.854619 [net info] 6540a0fea6: lost connection <Conn fd=84 addr=<NetAddr 127.0.0.1:10000> mode=active>
-2023-01-12 15:06:45.854656 [hotstuff warn] network async error: unable to connect: Connection refused
-
-2023-01-12 15:06:47.394302 [hotstuff info] function async_wait_proposal:START
-2023-01-12 15:06:47.394406 [hotstuff info] reg_receive_proposal(): round-robin style proposer
-2023-01-12 15:06:47.394433 [hotstuff info] function async_wait_receive_proposal:START
-2023-01-12 15:06:47.394457 [hotstuff info] Pacemaker: rotate to 2 with exp_timeout: 1
-2023-01-12 15:06:47.394476 [hotstuff info] Pacemaker: After doubling, exp_timeout: 2
-2023-01-12 15:06:47.394491 [hotstuff info] schedule to impeach the proposer
-2023-01-12 15:06:48.391078 [hotstuff info] Tejas: Reached here from proposer 2
-2023-01-12 15:06:48.392405 [hotstuff info] function on_deliver_blk: START
-2023-01-12 15:06:48.392486 [hotstuff info] deliver <block id=fcf71a9476 height=13 parent=957fc554fa qc_ref=ec2ed33470>
-2023-01-12 15:06:48.392511 [hotstuff info] function on_deliver_blk: END
-2023-01-12 15:06:48.392546 [hotstuff info] block fcf71a9476 delivered
-2023-01-12 15:06:48.392574 [hotstuff info] function on_receive_proposal: START
-2023-01-12 15:06:48.392611 [hotstuff info] got <proposal rid=2 blk=fcf71a9476>
-2023-01-12 15:06:48.392631 [hotstuff info] function update: START
-2023-01-12 15:06:48.392651 [hotstuff info] function update_hqc: START
-2023-01-12 15:06:48.392671 [hotstuff info] function update_hqc: END
-2023-01-12 15:06:48.392734 [hotstuff info] now state: <hotstuff hqc=ec2ed33470 hqc.height=11 b_lock=e833d5342a b_exec=0272979f92 vheight=13 tails=1>
-2023-01-12 15:06:48.392756 [hotstuff info] function on_qc_finish:START
-2023-01-12 15:06:48.392778 [hotstuff info] function on_qc_finish:END
-2023-01-12 15:06:48.392796 [hotstuff info] function async_wait_receive_proposal:END
-2023-01-12 15:06:48.392818 [hotstuff info] reg_receive_proposal(): Parent selection implementation for PaceMaker
-2023-01-12 15:06:48.392839 [hotstuff info] function async_wait_receive_proposal:START
-2023-01-12 15:06:48.392863 [hotstuff info] function async_wait_receive_proposal:END
-2023-01-12 15:06:48.392883 [hotstuff info] reg_receive_proposal(): round-robin style proposer
-2023-01-12 15:06:48.392904 [hotstuff info] function async_wait_receive_proposal:START
-2023-01-12 15:06:48.393172 [hotstuff info] Tejas: Going to vote with proposer: 2, id: 3
-2023-01-12 15:06:48.393213 [hotstuff info] Tejas: sending vote to other nodes of same cluster
-2023-01-12 15:06:48.393247 [hotstuff info] function on_receive_proposal: END
-2023-01-12 15:06:48.395315 [hotstuff info] Tejas: Reached here from proposer 2
-2023-01-12 15:06:48.396587 [hotstuff info] function on_deliver_blk: START
-2023-01-12 15:06:48.396662 [hotstuff info] deliver <block id=c34dd5daa8 height=14 parent=fcf71a9476 qc_ref=fcf71a9476>
-2023-01-12 15:06:48.396685 [hotstuff info] function on_deliver_blk: END
-2023-01-12 15:06:48.396720 [hotstuff info] block c34dd5daa8 delivered
-2023-01-12 15:06:48.396746 [hotstuff info] function on_receive_proposal: START
-2023-01-12 15:06:48.396781 [hotstuff info] got <proposal rid=2 blk=c34dd5daa8>
-2023-01-12 15:06:48.396801 [hotstuff info] function update: START
-2023-01-12 15:06:48.396820 [hotstuff info] function update_hqc: START
-2023-01-12 15:06:48.396842 [hotstuff info] function on_hqc_update:START
-2023-01-12 15:06:48.396863 [hotstuff info] function async_hqc_update:END
-2023-01-12 15:06:48.396884 [hotstuff info] function async_hqc_update:START
-2023-01-12 15:06:48.396905 [hotstuff info] function on_hqc_update:END
-2023-01-12 15:06:48.396924 [hotstuff info] function update_hqc: END
-2023-01-12 15:06:48.396986 [hotstuff info] now state: <hotstuff hqc=fcf71a9476 hqc.height=13 b_lock=ec2ed33470 b_exec=0272979f92 vheight=14 tails=1>
-2023-01-12 15:06:48.397008 [hotstuff info] function on_qc_finish:START
-2023-01-12 15:06:48.397028 [hotstuff info] function on_qc_finish:END
-2023-01-12 15:06:48.397050 [hotstuff info] function async_wait_receive_proposal:END
-2023-01-12 15:06:48.397069 [hotstuff info] reg_receive_proposal(): Parent selection implementation for PaceMaker
-2023-01-12 15:06:48.397088 [hotstuff info] function async_wait_receive_proposal:START
-2023-01-12 15:06:48.397110 [hotstuff info] function async_wait_receive_proposal:END
-2023-01-12 15:06:48.397128 [hotstuff info] reg_receive_proposal(): round-robin style proposer
-2023-01-12 15:06:48.397148 [hotstuff info] function async_wait_receive_proposal:START
-2023-01-12 15:06:48.397408 [hotstuff info] Tejas: Going to vote with proposer: 2, id: 3
-2023-01-12 15:06:48.397432 [hotstuff info] Tejas: sending vote to other nodes of same cluster
-2023-01-12 15:06:48.397472 [hotstuff info] function on_receive_proposal: END
-2023-01-12 15:06:48.399491 [hotstuff info] Tejas: Reached here from proposer 2
-2023-01-12 15:06:48.400302 [hotstuff info] function on_deliver_blk: START
-2023-01-12 15:06:48.400369 [hotstuff info] deliver <block id=b4e111e6e3 height=15 parent=c34dd5daa8 qc_ref=c34dd5daa8>
-2023-01-12 15:06:48.400390 [hotstuff info] function on_deliver_blk: END
-2023-01-12 15:06:48.400416 [hotstuff info] block b4e111e6e3 delivered
-2023-01-12 15:06:48.400437 [hotstuff info] function on_receive_proposal: START
-2023-01-12 15:06:48.400466 [hotstuff info] got <proposal rid=2 blk=b4e111e6e3>
-2023-01-12 15:06:48.400484 [hotstuff info] function update: START
-2023-01-12 15:06:48.400499 [hotstuff info] function update_hqc: START
-2023-01-12 15:06:48.400516 [hotstuff info] function on_hqc_update:START
-2023-01-12 15:06:48.400532 [hotstuff info] function async_hqc_update:END
-2023-01-12 15:06:48.400548 [hotstuff info] function async_hqc_update:START
-2023-01-12 15:06:48.400567 [hotstuff info] function on_hqc_update:END
-2023-01-12 15:06:48.400585 [hotstuff info] function update_hqc: END
-2023-01-12 15:06:48.400630 [hotstuff info] now state: <hotstuff hqc=c34dd5daa8 hqc.height=14 b_lock=fcf71a9476 b_exec=0272979f92 vheight=15 tails=1>
-2023-01-12 15:06:48.400647 [hotstuff info] function on_qc_finish:START
-2023-01-12 15:06:48.400663 [hotstuff info] function on_qc_finish:END
-2023-01-12 15:06:48.400679 [hotstuff info] function async_wait_receive_proposal:END
-2023-01-12 15:06:48.400694 [hotstuff info] reg_receive_proposal(): Parent selection implementation for PaceMaker
-2023-01-12 15:06:48.400709 [hotstuff info] function async_wait_receive_proposal:START
-2023-01-12 15:06:48.400727 [hotstuff info] function async_wait_receive_proposal:END
-2023-01-12 15:06:48.400744 [hotstuff info] reg_receive_proposal(): round-robin style proposer
-2023-01-12 15:06:48.400776 [hotstuff info] function async_wait_receive_proposal:START
-2023-01-12 15:06:48.400945 [hotstuff info] Tejas: Going to vote with proposer: 2, id: 3
-2023-01-12 15:06:48.400965 [hotstuff info] Tejas: sending vote to other nodes of same cluster
-2023-01-12 15:06:48.400989 [hotstuff info] function on_receive_proposal: END
-2023-01-12 15:06:48.403577 [hotstuff info] Tejas: Reached here from proposer 2
-2023-01-12 15:06:48.404568 [hotstuff info] Tejas: Reached here from proposer 2
-2023-01-12 15:06:48.404888 [hotstuff info] function on_deliver_blk: START
-2023-01-12 15:06:48.404980 [hotstuff info] deliver <block id=6ec731bf4f height=16 parent=b4e111e6e3 qc_ref=b4e111e6e3>
-2023-01-12 15:06:48.405022 [hotstuff info] function on_deliver_blk: END
-2023-01-12 15:06:48.405057 [hotstuff info] block 6ec731bf4f delivered
-2023-01-12 15:06:48.405087 [hotstuff info] function on_receive_proposal: START
-2023-01-12 15:06:48.405124 [hotstuff info] got <proposal rid=2 blk=6ec731bf4f>
-2023-01-12 15:06:48.405151 [hotstuff info] function update: START
-2023-01-12 15:06:48.405171 [hotstuff info] function update_hqc: START
-2023-01-12 15:06:48.405194 [hotstuff info] function on_hqc_update:START
-2023-01-12 15:06:48.405217 [hotstuff info] function async_hqc_update:END
-2023-01-12 15:06:48.405241 [hotstuff info] function async_hqc_update:START
-2023-01-12 15:06:48.405269 [hotstuff info] function on_hqc_update:END
-2023-01-12 15:06:48.405292 [hotstuff info] function update_hqc: END
-2023-01-12 15:06:48.405316 [hotstuff info] commit_queue size is 4
-2023-01-12 15:06:48.405338 [hotstuff info] Timer before every consensus
-2023-01-12 15:06:48.405364 [hotstuff info] sending other clusters message with peers.size is 3
-
-2023-01-12 15:06:48.405462 [hotstuff info] ---->commit <block id=e833d5342a height=10 parent=0272979f92 qc_ref=0272979f92>, blk->height is 10
-2023-01-12 15:06:48.405494 [hotstuff info] other_cluster_waiting sigal END 1
-2023-01-12 15:06:48.405518 [hotstuff info] Timer before every consensus
-2023-01-12 15:06:48.405539 [hotstuff info] sending other clusters message with peers.size is 3
-
-2023-01-12 15:06:48.405628 [hotstuff info] ---->commit <block id=ec2ed33470 height=11 parent=e833d5342a qc_ref=e833d5342a>, blk->height is 11
-2023-01-12 15:06:48.405654 [hotstuff info] other_cluster_waiting sigal END 1
-2023-01-12 15:06:48.405676 [hotstuff info] Timer before every consensus
-2023-01-12 15:06:48.405699 [hotstuff info] sending other clusters message with peers.size is 3
-
-2023-01-12 15:06:48.405789 [hotstuff info] ---->commit <block id=957fc554fa height=12 parent=ec2ed33470 qc_ref=ec2ed33470>, blk->height is 12
-2023-01-12 15:06:48.405816 [hotstuff info] other_cluster_waiting sigal END 1
-2023-01-12 15:06:48.405836 [hotstuff info] Pacemaker: stop rotation at 2
-2023-01-12 15:06:48.405857 [hotstuff info] function async_wait_proposal:START
-2023-01-12 15:06:48.405883 [hotstuff info] Timer before every consensus
-2023-01-12 15:06:48.405906 [hotstuff info] sending other clusters message with peers.size is 3
-
-2023-01-12 15:06:48.405998 [hotstuff info] ---->commit <block id=fcf71a9476 height=13 parent=957fc554fa qc_ref=ec2ed33470>, blk->height is 13
-2023-01-12 15:06:48.406026 [hotstuff info] other_cluster_waiting sigal END 1
-2023-01-12 15:06:48.406047 [hotstuff info] other_cluster_waiting sigal END 2
-2023-01-12 15:06:48.406068 [hotstuff info] function update: END 
-
-
-
-
-
-
-
-
-2023-01-12 15:06:48.406140 [hotstuff info] now state: <hotstuff hqc=b4e111e6e3 hqc.height=15 b_lock=c34dd5daa8 b_exec=fcf71a9476 vheight=16 tails=1>
-2023-01-12 15:06:48.406164 [hotstuff info] function on_qc_finish:START
-2023-01-12 15:06:48.406185 [hotstuff info] function on_qc_finish:END
-2023-01-12 15:06:48.406205 [hotstuff info] function async_wait_receive_proposal:END
-2023-01-12 15:06:48.406235 [hotstuff info] reg_receive_proposal(): Parent selection implementation for PaceMaker
-2023-01-12 15:06:48.406256 [hotstuff info] function async_wait_receive_proposal:START
-2023-01-12 15:06:48.406278 [hotstuff info] function async_wait_receive_proposal:END
-2023-01-12 15:06:48.406518 [hotstuff info] Tejas: Going to vote with proposer: 2, id: 3
-2023-01-12 15:06:48.406544 [hotstuff info] Tejas: sending vote to other nodes of same cluster
-2023-01-12 15:06:48.406577 [hotstuff info] function on_receive_proposal: END
-2023-01-12 15:06:48.406617 [hotstuff info] function on_deliver_blk: START
-2023-01-12 15:06:48.406696 [hotstuff info] deliver <block id=2fc03ef832 height=17 parent=6ec731bf4f qc_ref=b4e111e6e3>
-2023-01-12 15:06:48.406744 [hotstuff info] function on_deliver_blk: END
-2023-01-12 15:06:48.406785 [hotstuff info] block 2fc03ef832 delivered
-2023-01-12 15:06:48.406817 [hotstuff info] function on_receive_proposal: START
-2023-01-12 15:06:48.406856 [hotstuff info] got <proposal rid=2 blk=2fc03ef832>
-2023-01-12 15:06:48.406877 [hotstuff info] function update: START
-2023-01-12 15:06:48.406895 [hotstuff info] function update_hqc: START
-2023-01-12 15:06:48.406917 [hotstuff info] function update_hqc: END
-2023-01-12 15:06:48.406979 [hotstuff info] now state: <hotstuff hqc=b4e111e6e3 hqc.height=15 b_lock=c34dd5daa8 b_exec=fcf71a9476 vheight=17 tails=1>
-2023-01-12 15:06:48.407001 [hotstuff info] function on_qc_finish:START
-2023-01-12 15:06:48.407020 [hotstuff info] function on_qc_finish:END
-2023-01-12 15:06:48.407040 [hotstuff info] function async_wait_receive_proposal:END
-2023-01-12 15:06:48.407061 [hotstuff info] reg_receive_proposal(): Parent selection implementation for PaceMaker
-2023-01-12 15:06:48.407081 [hotstuff info] function async_wait_receive_proposal:START
-2023-01-12 15:06:48.407300 [hotstuff info] Tejas: Going to vote with proposer: 2, id: 3
-2023-01-12 15:06:48.407347 [hotstuff info] Tejas: sending vote to other nodes of same cluster
-2023-01-12 15:06:48.407402 [hotstuff info] function on_receive_proposal: END
-2023-01-12 15:06:48.409748 [hotstuff info] Tejas: Reached here from proposer 2
-2023-01-12 15:06:48.410553 [hotstuff info] function on_deliver_blk: START
-2023-01-12 15:06:48.410615 [hotstuff info] deliver <block id=ed6e4cdfd2 height=18 parent=2fc03ef832 qc_ref=2fc03ef832>
-2023-01-12 15:06:48.410649 [hotstuff info] function on_deliver_blk: END
-2023-01-12 15:06:48.410684 [hotstuff info] block ed6e4cdfd2 delivered
-2023-01-12 15:06:48.410707 [hotstuff info] function on_receive_proposal: START
-2023-01-12 15:06:48.410734 [hotstuff info] got <proposal rid=2 blk=ed6e4cdfd2>
-2023-01-12 15:06:48.410751 [hotstuff info] function update: START
-2023-01-12 15:06:48.410767 [hotstuff info] function update_hqc: START
-2023-01-12 15:06:48.410785 [hotstuff info] function on_hqc_update:START
-2023-01-12 15:06:48.410801 [hotstuff info] function async_hqc_update:END
-2023-01-12 15:06:48.410818 [hotstuff info] function async_hqc_update:START
-2023-01-12 15:06:48.410837 [hotstuff info] function on_hqc_update:END
-2023-01-12 15:06:48.410853 [hotstuff info] function update_hqc: END
-2023-01-12 15:06:48.410900 [hotstuff info] now state: <hotstuff hqc=2fc03ef832 hqc.height=17 b_lock=b4e111e6e3 b_exec=fcf71a9476 vheight=18 tails=1>
-2023-01-12 15:06:48.410916 [hotstuff info] function on_qc_finish:START
-2023-01-12 15:06:48.410931 [hotstuff info] function on_qc_finish:END
-2023-01-12 15:06:48.410946 [hotstuff info] function async_wait_receive_proposal:END
-2023-01-12 15:06:48.410963 [hotstuff info] reg_receive_proposal(): Parent selection implementation for PaceMaker
-2023-01-12 15:06:48.410979 [hotstuff info] function async_wait_receive_proposal:START
-2023-01-12 15:06:48.411145 [hotstuff info] Tejas: Going to vote with proposer: 2, id: 3
-2023-01-12 15:06:48.411163 [hotstuff info] Tejas: sending vote to other nodes of same cluster
-2023-01-12 15:06:48.411188 [hotstuff info] function on_receive_proposal: END
-2023-01-12 15:06:48.413133 [hotstuff info] Tejas: Reached here from proposer 2
-2023-01-12 15:06:48.413946 [hotstuff info] function on_deliver_blk: START
-2023-01-12 15:06:48.414006 [hotstuff info] deliver <block id=32c7339e8f height=19 parent=ed6e4cdfd2 qc_ref=ed6e4cdfd2>
-2023-01-12 15:06:48.414025 [hotstuff info] function on_deliver_blk: END
-2023-01-12 15:06:48.414050 [hotstuff info] block 32c7339e8f delivered
-2023-01-12 15:06:48.414087 [hotstuff info] function on_receive_proposal: START
-2023-01-12 15:06:48.414115 [hotstuff info] got <proposal rid=2 blk=32c7339e8f>
-2023-01-12 15:06:48.414131 [hotstuff info] function update: START
-2023-01-12 15:06:48.414148 [hotstuff info] function update_hqc: START
-2023-01-12 15:06:48.414165 [hotstuff info] function on_hqc_update:START
-2023-01-12 15:06:48.414181 [hotstuff info] function async_hqc_update:END
-2023-01-12 15:06:48.414199 [hotstuff info] function async_hqc_update:START
-2023-01-12 15:06:48.414218 [hotstuff info] function on_hqc_update:END
-2023-01-12 15:06:48.414235 [hotstuff info] function update_hqc: END
-2023-01-12 15:06:48.414281 [hotstuff info] now state: <hotstuff hqc=ed6e4cdfd2 hqc.height=18 b_lock=2fc03ef832 b_exec=fcf71a9476 vheight=19 tails=1>
-2023-01-12 15:06:48.414297 [hotstuff info] function on_qc_finish:START
-2023-01-12 15:06:48.414313 [hotstuff info] function on_qc_finish:END
-2023-01-12 15:06:48.414332 [hotstuff info] function async_wait_receive_proposal:END
-2023-01-12 15:06:48.414349 [hotstuff info] reg_receive_proposal(): Parent selection implementation for PaceMaker
-2023-01-12 15:06:48.414364 [hotstuff info] function async_wait_receive_proposal:START
-2023-01-12 15:06:48.414531 [hotstuff info] Tejas: Going to vote with proposer: 2, id: 3
-2023-01-12 15:06:48.414549 [hotstuff info] Tejas: sending vote to other nodes of same cluster
-2023-01-12 15:06:48.414575 [hotstuff info] function on_receive_proposal: END
-2023-01-12 15:06:48.417030 [hotstuff info] Tejas: Reached here from proposer 2
-2023-01-12 15:06:48.418316 [hotstuff info] function on_deliver_blk: START
-2023-01-12 15:06:48.418393 [hotstuff info] deliver <block id=d15d4598e9 height=20 parent=32c7339e8f qc_ref=32c7339e8f>
-2023-01-12 15:06:48.418416 [hotstuff info] function on_deliver_blk: END
-2023-01-12 15:06:48.418449 [hotstuff info] block d15d4598e9 delivered
-2023-01-12 15:06:48.418476 [hotstuff info] function on_receive_proposal: START
-2023-01-12 15:06:48.418512 [hotstuff info] got <proposal rid=2 blk=d15d4598e9>
-2023-01-12 15:06:48.418533 [hotstuff info] function update: START
-2023-01-12 15:06:48.418552 [hotstuff info] function update_hqc: START
-2023-01-12 15:06:48.418574 [hotstuff info] function on_hqc_update:START
-2023-01-12 15:06:48.418594 [hotstuff info] function async_hqc_update:END
-2023-01-12 15:06:48.418615 [hotstuff info] function async_hqc_update:START
-2023-01-12 15:06:48.418655 [hotstuff info] function on_hqc_update:END
-2023-01-12 15:06:48.418684 [hotstuff info] function update_hqc: END
-2023-01-12 15:06:48.418705 [hotstuff info] commit_queue size is 4
-2023-01-12 15:06:48.418724 [hotstuff info] Timer before every consensus
-2023-01-12 15:06:48.418744 [hotstuff info] sending other clusters message with peers.size is 3
-
-2023-01-12 15:06:48.418816 [hotstuff info] ---->commit <block id=c34dd5daa8 height=14 parent=fcf71a9476 qc_ref=fcf71a9476>, blk->height is 14
-2023-01-12 15:06:48.418840 [hotstuff info] other_cluster_waiting sigal END 1
-2023-01-12 15:06:48.418860 [hotstuff info] Timer before every consensus
-2023-01-12 15:06:48.418880 [hotstuff info] sending other clusters message with peers.size is 3
-
-2023-01-12 15:06:48.418951 [hotstuff info] ---->commit <block id=b4e111e6e3 height=15 parent=c34dd5daa8 qc_ref=c34dd5daa8>, blk->height is 15
-2023-01-12 15:06:48.418973 [hotstuff info] other_cluster_waiting sigal END 1
-2023-01-12 15:06:48.418991 [hotstuff info] Timer before every consensus
-2023-01-12 15:06:48.419012 [hotstuff info] sending other clusters message with peers.size is 3
-
-2023-01-12 15:06:48.419083 [hotstuff info] ---->commit <block id=6ec731bf4f height=16 parent=b4e111e6e3 qc_ref=b4e111e6e3>, blk->height is 16
-2023-01-12 15:06:48.419106 [hotstuff info] other_cluster_waiting sigal END 1
-2023-01-12 15:06:48.419125 [hotstuff info] Timer before every consensus
-2023-01-12 15:06:48.419146 [hotstuff info] sending other clusters message with peers.size is 3
-
-2023-01-12 15:06:48.419218 [hotstuff info] ---->commit <block id=2fc03ef832 height=17 parent=6ec731bf4f qc_ref=b4e111e6e3>, blk->height is 17
-2023-01-12 15:06:48.419260 [hotstuff info] other_cluster_waiting sigal END 1
-2023-01-12 15:06:48.419282 [hotstuff info] other_cluster_waiting sigal END 2
-2023-01-12 15:06:48.419301 [hotstuff info] function update: END 
-
-
-
-
-
-
-
-
-2023-01-12 15:06:48.419364 [hotstuff info] now state: <hotstuff hqc=32c7339e8f hqc.height=19 b_lock=ed6e4cdfd2 b_exec=2fc03ef832 vheight=20 tails=1>
-2023-01-12 15:06:48.419385 [hotstuff info] function on_qc_finish:START
-2023-01-12 15:06:48.419405 [hotstuff info] function on_qc_finish:END
-2023-01-12 15:06:48.419427 [hotstuff info] function async_wait_receive_proposal:END
-2023-01-12 15:06:48.419447 [hotstuff info] reg_receive_proposal(): Parent selection implementation for PaceMaker
-2023-01-12 15:06:48.419466 [hotstuff info] function async_wait_receive_proposal:START
-2023-01-12 15:06:48.419734 [hotstuff info] Tejas: Going to vote with proposer: 2, id: 3
-2023-01-12 15:06:48.419760 [hotstuff info] Tejas: sending vote to other nodes of same cluster
-2023-01-12 15:06:48.419800 [hotstuff info] function on_receive_proposal: END
-2023-01-12 15:06:48.659384 [net info] created <Conn fd=84 addr=<NetAddr 127.0.0.1:10000> mode=active>
-2023-01-12 15:06:48.659609 [net info] 6540a0fea6: lost connection <Conn fd=84 addr=<NetAddr 127.0.0.1:10000> mode=active>
-2023-01-12 15:06:48.659642 [hotstuff warn] network async error: unable to connect: Connection refused
-
-2023-01-12 15:06:49.419482 [hotstuff info] Timer after every consensus
-2023-01-12 15:06:51.062341 [net info] created <Conn fd=84 addr=<NetAddr 127.0.0.1:10000> mode=active>
-2023-01-12 15:06:51.062587 [net info] 6540a0fea6: lost connection <Conn fd=84 addr=<NetAddr 127.0.0.1:10000> mode=active>
-2023-01-12 15:06:51.062673 [hotstuff warn] network async error: unable to connect: Connection refused
-
-2023-01-12 15:06:52.026264 [net info] elapsed: 26.636 (wall) 0.089 (cpu)
-2023-01-12 15:06:52.027839 [net info] stopping all threads...
-2023-01-12 15:06:52.029346 [net info] stopping all threads...
-2023-01-12 15:06:52.029569 [net info] 6540a0fea6: lost connection <Conn fd=93 addr=<NetAddr 127.0.0.1:10002> mode=active>
-2023-01-12 15:06:52.029598 [net info] ended 6540a0fea6 <-/-> 065b010aed (via <Conn fd=93 addr=<NetAddr 127.0.0.1:10002> mode=active>)
-2023-01-12 15:06:52.029677 [net info] 6540a0fea6: lost connection <Conn fd=91 addr=<NetAddr 127.0.0.1:10001> mode=active>
-2023-01-12 15:06:52.029700 [net info] ended 6540a0fea6 <-/-> c261250345 (via <Conn fd=91 addr=<NetAddr 127.0.0.1:10001> mode=active>)
+2023-07-12 15:26:21.441862 [net info] loaded configuration from hotstuff.gen.conf
+2023-07-12 15:26:21.441955 [net info] configuration file ./hotstuff-sec3.conf not found
+ 47:7
+ 46:7
+ 45:7
+ 44:7
+ 43:7
+ 42:7
+ 41:6
+ 40:6
+ 39:6
+ 38:6
+ 37:6
+ 36:6
+ 35:5
+ 34:5
+ 33:5
+ 32:5
+ 31:5
+ 30:5
+ 29:4
+ 12:2
+ 11:1
+ 10:1
+ 9:1
+ 8:1
+ 7:1
+ 6:1
+ 5:0
+ 4:0
+ 3:0
+ 2:0
+ 1:0
+ 0:0
+ 13:2
+ 14:2
+ 15:2
+ 16:2
+ 17:2
+ 18:3
+ 19:3
+ 20:3
+ 21:3
+ 22:3
+ 23:3
+ 24:4
+ 25:4
+ 26:4
+ 27:4
+ 28:4
+2023-07-12 15:26:21.442398 [hotstuff info] opt_replicas in loop
+
+2023-07-12 15:26:21.442422 [hotstuff info] res[0], res[1], res[2] are: 
+ 43.204.148.4:10000;20000, 
+ 03e14cc0a432d657c0273678708935c831c4fd2c7044842abdddcf25d7490b24bb, 
+ 5d0fb380c454eb50d7d5bec0ddb17cbc66eff936acd72b40273de7cb9cd3d63e
+
+2023-07-12 15:26:21.442446 [hotstuff info] opt_replicas in loop
+
+2023-07-12 15:26:21.442466 [hotstuff info] res[0], res[1], res[2] are: 
+ 13.234.21.77:10000;20000, 
+ 02c7a5da1c6646cf83afdf229f3d50bd2cc57c1144ba79f6dd5ec7415e116f63a9, 
+ e6afb0bd88f85513ab6aeca91941551a0b7e1a4ab968e2aef1af10f8f16c31ed
+
+2023-07-12 15:26:21.442485 [hotstuff info] opt_replicas in loop
+
+2023-07-12 15:26:21.442504 [hotstuff info] res[0], res[1], res[2] are: 
+ 3.108.63.64:10000;20000, 
+ 02d0980badbeaae6d0d71b2a5aa49911493b30ff868f2dd080a929011f7f580c48, 
+ 33ac87cfe25cd4e39f1c028d44ad3bc0014c5dea43d05d1a7f5205f41aa1fa6e
+
+2023-07-12 15:26:21.442528 [hotstuff info] opt_replicas in loop
+
+2023-07-12 15:26:21.442549 [hotstuff info] res[0], res[1], res[2] are: 
+ 65.0.124.43:10000;20000, 
+ 035820bdf608260725e9457d5e5c02b6f961161246bb172ca11595a21a203ada93, 
+ e4e934b75dc33ac79d05377b2713df249505a8a43bea02f403836112c7f4a3df
+
+2023-07-12 15:26:21.442566 [hotstuff info] opt_replicas in loop
+
+2023-07-12 15:26:21.442582 [hotstuff info] res[0], res[1], res[2] are: 
+ 13.127.212.222:10000;20000, 
+ 037838e1832385ad74f3e8f1354ac5f820479e09e6d9094d8ee3737f5bf2977b40, 
+ 1ecc8cda5137562878d1858913a6814a4f9a92dcc4ce6b1e4366ca14c6af81da
+
+2023-07-12 15:26:21.442598 [hotstuff info] opt_replicas in loop
+
+2023-07-12 15:26:21.442613 [hotstuff info] res[0], res[1], res[2] are: 
+ 3.110.46.239:10000;20000, 
+ 03fd9e5ca52f3e21ff5c456f0fd977a347d47648cf7203640993c56c36a6cb7d1e, 
+ a90ec82afd976d7b5d6e91770d77c5dade6f1fe306e95da168539cf551f3ac58
+
+2023-07-12 15:26:21.442631 [hotstuff info] opt_replicas in loop
+
+2023-07-12 15:26:21.442649 [hotstuff info] opt_replicas in loop
+
+2023-07-12 15:26:21.442666 [hotstuff info] opt_replicas in loop
+
+2023-07-12 15:26:21.442692 [hotstuff info] opt_replicas in loop
+
+2023-07-12 15:26:21.442712 [hotstuff info] opt_replicas in loop
+
+2023-07-12 15:26:21.442731 [hotstuff info] opt_replicas in loop
+
+2023-07-12 15:26:21.442750 [hotstuff info] opt_replicas in loop
+
+2023-07-12 15:26:21.442769 [hotstuff info] opt_replicas in loop
+
+2023-07-12 15:26:21.442790 [hotstuff info] opt_replicas in loop
+
+2023-07-12 15:26:21.442815 [hotstuff info] opt_replicas in loop
+
+2023-07-12 15:26:21.442837 [hotstuff info] opt_replicas in loop
+
+2023-07-12 15:26:21.442860 [hotstuff info] opt_replicas in loop
+
+2023-07-12 15:26:21.442880 [hotstuff info] opt_replicas in loop
+
+2023-07-12 15:26:21.442899 [hotstuff info] opt_replicas in loop
+
+2023-07-12 15:26:21.442918 [hotstuff info] opt_replicas in loop
+
+2023-07-12 15:26:21.442937 [hotstuff info] opt_replicas in loop
+
+2023-07-12 15:26:21.442954 [hotstuff info] opt_replicas in loop
+
+2023-07-12 15:26:21.442979 [hotstuff info] opt_replicas in loop
+
+2023-07-12 15:26:21.443000 [hotstuff info] opt_replicas in loop
+
+2023-07-12 15:26:21.443020 [hotstuff info] opt_replicas in loop
+
+2023-07-12 15:26:21.443039 [hotstuff info] opt_replicas in loop
+
+2023-07-12 15:26:21.443055 [hotstuff info] opt_replicas in loop
+
+2023-07-12 15:26:21.443109 [hotstuff info] opt_replicas in loop
+
+2023-07-12 15:26:21.443133 [hotstuff info] opt_replicas in loop
+
+2023-07-12 15:26:21.443150 [hotstuff info] opt_replicas in loop
+
+2023-07-12 15:26:21.443166 [hotstuff info] opt_replicas in loop
+
+2023-07-12 15:26:21.443185 [hotstuff info] opt_replicas in loop
+
+2023-07-12 15:26:21.443211 [hotstuff info] opt_replicas in loop
+
+2023-07-12 15:26:21.443231 [hotstuff info] opt_replicas in loop
+
+2023-07-12 15:26:21.443258 [hotstuff info] opt_replicas in loop
+
+2023-07-12 15:26:21.443276 [hotstuff info] opt_replicas in loop
+
+2023-07-12 15:26:21.443290 [hotstuff info] opt_replicas in loop
+
+2023-07-12 15:26:21.443306 [hotstuff info] opt_replicas in loop
+
+2023-07-12 15:26:21.443329 [hotstuff info] opt_replicas in loop
+
+2023-07-12 15:26:21.443347 [hotstuff info] opt_replicas in loop
+
+2023-07-12 15:26:21.443373 [hotstuff info] opt_replicas in loop
+
+2023-07-12 15:26:21.443390 [hotstuff info] opt_replicas in loop
+
+2023-07-12 15:26:21.443411 [hotstuff info] opt_replicas in loop
+
+2023-07-12 15:26:21.443430 [hotstuff info] opt_replicas in loop
+
+2023-07-12 15:26:21.443449 [hotstuff info] opt_replicas in loop
+
+2023-07-12 15:26:21.443466 [hotstuff info] opt_replicas in loop
+
+2023-07-12 15:26:21.443493 [hotstuff info] opt_replicas in loop
+
+2023-07-12 15:26:21.443573 [hotstuff info] replicas, all_replicas sizes are 6, 48
+
+2023-07-12 15:26:21.443589 [hotstuff info] idx, cluster_idx is 0, 0
+
+2023-07-12 15:26:21.443605 [hotstuff info] dsadasd 1
+
+2023-07-12 15:26:21.443687 [hotstuff info] dsadasd 2
+
+2023-07-12 15:26:21.443703 [hotstuff info] Default dummy pacemaker with clinworker= 1
+2023-07-12 15:26:21.443718 [hotstuff info] dsadasd 3
+
+2023-07-12 15:26:21.443733 [hotstuff info] dsadasd 3.5
+
+terminate called after throwing an instance of 'std::invalid_argument'
+  what():  ill-formed private key
