@@ -156,6 +156,11 @@ class HotStuffBase: public HotStuffCore {
     int cluster_id;
     int n_clusters;
 
+
+    int other_peers_f_plus_one_init = 0;
+    std::vector<PeerId> other_peers_f_plus_one;
+
+
     int rvct_timeout = 20;
 
 //    TimerEvent remote_view_change_timer;

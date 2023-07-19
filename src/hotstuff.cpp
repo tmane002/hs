@@ -270,91 +270,32 @@ namespace hotstuff {
         }
 
 
-
-//        if ((prop.proposer==0) && (peer != get_config().get_peer_id(prop.proposer)))
-        if ((cluster_id!=prop.cluster_number) && (peer != get_config().get_peer_id(prop.proposer)) && (prop.msg_type!=3) && (prop.msg_type!=6))
+        if (prop.msg_type==1)
         {
 
-            if (prop.msg_type==1)
+            if (int(prop.other_cluster_block_height)==6000) LOG_INFO("LatencyPlot: Received 1st MC message") ;
+
+//            LOG_INFO("1st MC message: Reached here proposer %d, cluster_id = %d, prop.cluster number  = %d, prop.other_cluster_block_height=%d, height = %d, storage->get_blk_cache_size is %d, cluster_msg_count is %d, prop.other_cluster_block_height > cluster_msg_count = %d ",
+//                     prop.proposer, cluster_id, prop.cluster_number, prop.other_cluster_block_height, blk->get_height(), int(storage->get_blk_cache_size()), cluster_msg_count, int(prop.other_cluster_block_height > cluster_msg_count) );
+
+            Proposal prop_same_cluster(id, blk, nullptr, cluster_id, prop.cluster_number, prop.other_cluster_block_height, 2);
+
+            auto finished_mc_cids_it = finished_mc_cids.find(int(prop.other_cluster_block_height));
+
+
+            if (finished_mc_cids_it!=finished_mc_cids.end())
             {
-
-                if (int(prop.other_cluster_block_height)==6000) LOG_INFO("LatencyPlot: Received 1st MC message") ;
-
-                LOG_INFO("1st MC message: Reached here proposer %d, cluster_id = %d, prop.cluster number  = %d, prop.other_cluster_block_height=%d, height = %d, storage->get_blk_cache_size is %d, cluster_msg_count is %d, prop.other_cluster_block_height > cluster_msg_count = %d ",
-                         prop.proposer, cluster_id, prop.cluster_number, prop.other_cluster_block_height, blk->get_height(), int(storage->get_blk_cache_size()), cluster_msg_count, int(prop.other_cluster_block_height > cluster_msg_count) );
-
-                Proposal prop_same_cluster(id, blk, nullptr, cluster_id, prop.cluster_number, prop.other_cluster_block_height, 2);
-
-//                if (prop.other_cluster_block_height > cluster_msg_count)
-                auto finished_mc_cids_it = finished_mc_cids.find(int(prop.other_cluster_block_height));
-                if (finished_mc_cids_it==finished_mc_cids.end())
-                {
-                    auto it = cid_to_cluster_tracker_array0.find(prop.other_cluster_block_height);
-                    if (it == cid_to_cluster_tracker_array0.end())
-                    {
-                        cluster_tracker_array = std::vector<int>();
-                        for(int x;x < n_clusters; x++ ) cluster_tracker_array.push_back(0);
-                        cluster_tracker_array[cluster_id] = 1;
-                    }
-                    else
-                    {
-                        cluster_tracker_array = cid_to_cluster_tracker_array0[prop.other_cluster_block_height];
-                    }
-
-
-                    cluster_tracker_array[prop.cluster_number] = cluster_tracker_array[prop.cluster_number] + 1;
-                    bool test_flag = true;
-
-                    LOG_INFO("YOLO with test_flag = %d", int(test_flag));
-
-                    for (int biter = 0; biter < n_clusters; biter++)
-                    {
-                        if (cluster_tracker_array[biter] == 0)
-                        {
-                            test_flag = false;
-                        }
-                    }
-                    LOG_INFO("test_flag = %d,  cluster_tracker_array[0], cluster_tracker_array[1] = %d, %d",
-                             test_flag, cluster_tracker_array[0], cluster_tracker_array[1] );
-                    if (test_flag)
-                    {
-                        cluster_msg_count = cluster_msg_count + 1;
-
-
-                        for (int biter = 0; biter < n_clusters; biter++)
-                        {
-                            cluster_tracker_array[biter] = 0;
-                        }
-                        cluster_tracker_array[cluster_id] = 1;
-
-                    }
-
-
-
-                    cid_to_cluster_tracker_array0[prop.other_cluster_block_height] = cluster_tracker_array;
-                }
-                else
-                {
-                    return;
-                }
-
-                do_broadcast_proposal(prop_same_cluster);
-                if (int(prop.other_cluster_block_height)==6000) LOG_INFO("LatencyPlot: Sent 2nd MC message") ;
-
-
+                return;
             }
 
+            do_broadcast_proposal(prop_same_cluster);
 
-
+            if (int(prop.other_cluster_block_height)==6000) LOG_INFO("LatencyPlot: Sent 2nd MC message") ;
 
             return;
         }
 
-//        LOG_WARN("3: proposal from %d, prop.msg_type: %d, cluster_id = %d, prop.cluster_number = %d, int(cluster_id==prop.cluster_number) = %d",
-//                 prop.proposer, prop.msg_type, cluster_id, prop.cluster_number, int(cluster_id==prop.cluster_number));
 
-
-//        if ((cluster_id==prop.cluster_number) && (prop.msg_type==2))
         if ((prop.msg_type==2))
         {
 
@@ -364,11 +305,7 @@ namespace hotstuff {
             LOG_INFO("2nd MC message: Reached here proposer %d, cluster number,  = %d, prop.pre_amp_cluster_number = %d, prop.other_cluster_block_height = %d, height = %d",
                      prop.proposer, prop.cluster_number, prop.pre_amp_cluster_number,prop.other_cluster_block_height, blk->get_height());
 
-//                if (prop.other_cluster_block_height > cluster_msg_count)
             auto finished_mc_cids_it = finished_mc_cids.find(int(prop.other_cluster_block_height));
-
-            LOG_INFO("finished_mc_cids_it==finished_mc_cids.end() is %d",
-                     int(finished_mc_cids_it==finished_mc_cids.end()));
 
             if (finished_mc_cids_it==finished_mc_cids.end())
             {
@@ -403,7 +340,6 @@ namespace hotstuff {
                 if (test_flag)
                 {
                     cluster_msg_count = cluster_msg_count + 1;
-//                    on_receive_other_cluster_();
 
                     LOG_INFO("Adding to finished_mc_cids for height: %d", int(prop.other_cluster_block_height));
                     finished_mc_cids.insert(int(prop.other_cluster_block_height));
@@ -420,9 +356,6 @@ namespace hotstuff {
                 }
 
                 cid_to_cluster_tracker_array[prop.other_cluster_block_height] = cluster_tracker_array;
-
-
-
 
 
             }
@@ -818,27 +751,51 @@ namespace hotstuff {
 
 
     void HotStuffBase::do_broadcast_proposal_other_clusters(const Proposal &prop) {
-        //MsgPropose prop_msg(prop);
 
-//        if (cluster_id==0)
-//        {
-//            sleep(.3);
-//        }
 
-        std::vector<PeerId> other_peers_f_plus_one;
-
-//        if (cluster_id!=0)
+        if (other_peers_f_plus_one_init == 0)
         {
-            for (int xter = 0; xter < n_clusters; xter++)
-            {
-                for (int xter2 = 0; xter2 < get_config().nreplicas
-                                            - get_config().nmajority + 1; xter2++)
+
+
+            std::unordered_map<int, int> myMap;
+
+            for (const auto& pair : cluster_map) {
+                int node_id = pair.first;
+                int other_cluster_id = pair.second;
+
+                if(cluster_id!=other_cluster_id)
                 {
-                    HOTSTUFF_LOG_INFO("added node id (to f+1 peers) : %d", xter * 4 + xter2);
-                    other_peers_f_plus_one.push_back(other_peers[ xter * 4 + xter2 ]);
+                    myMap[other_cluster_id]++;
                 }
+
             }
 
+
+
+            int nodes_in_curr_cluster;
+            int f_curr;
+            int curr_iter_node_sum = 0;
+
+            for (int xter = 0; xter < n_clusters; xter++)
+            {
+                if(cluster_id!=xter)
+                {
+                    nodes_in_curr_cluster = myMap[xter];
+                    f_curr = (nodes_in_curr_cluster-1)/3;
+
+                    for(int temp_iter = 0; temp_iter < f_curr +1; temp_iter++)
+                    {
+                        HOTSTUFF_LOG_INFO("added node id (to f+1 peers) : %d", curr_iter_node_sum + temp_iter);
+
+                        other_peers_f_plus_one.push_back(other_peers[ curr_iter_node_sum + temp_iter]);
+                    }
+
+                    curr_iter_node_sum = curr_iter_node_sum + nodes_in_curr_cluster;
+
+                }
+
+            }
+            other_peers_f_plus_one_init = 1;
         }
 
 
@@ -854,11 +811,9 @@ namespace hotstuff {
 //        HOTSTUFF_LOG_INFO("sending other clusters message with peers.size is %d, nreplicas, nmajority, other_peers_f_plus_one.size() is %d, %d, %d\n"
 //                          , peers.size(), get_config().nreplicas, get_config().nmajority, other_peers_f_plus_one.size());
 
-//        pn.multicast_msg(MsgPropose(prop), other_peers_f_plus_one);
-        pn.multicast_msg(MsgPropose(prop), other_peers);
+        pn.multicast_msg(MsgPropose(prop), other_peers_f_plus_one);
+//        pn.multicast_msg(MsgPropose(prop), other_peers);
 
-        //for (const auto &replica: peers)
-        //    pn.send_msg(prop_msg, replica);
     }
 
 
