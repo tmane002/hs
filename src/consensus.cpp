@@ -249,7 +249,7 @@ void HotStuffCore::update(const block_t &nblk) {
             {
                 if (int(blk->height)==6000) LOG_INFO("LatencyPlot: before sending first mc message") ;
 
-//            if (!(cluster_id==0 && blk->height==7000))
+            if (!(cluster_id==0 && blk->height==190000))
                 {
                     LOG_INFO("Sending other cluster message with height %d", int(blk->height));
                     do_broadcast_proposal_other_clusters(prop_other_clusters);
