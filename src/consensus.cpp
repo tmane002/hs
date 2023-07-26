@@ -447,23 +447,24 @@ void HotStuffCore::on_init(uint32_t nfaulty) {
     b0->qc_ref = b0;
     hqc = std::make_pair(b0, b0->qc->clone());
 
-
         cluster_map[0] = 0;
         cluster_map[1] = 0;
         cluster_map[2] = 0;
         cluster_map[3] = 0;
+        cluster_map[4] = 0;
+        cluster_map[5] = 0;
+        cluster_map[6] = 0;
 
-        cluster_map[4] = 1;
-        cluster_map[5] = 1;
-        cluster_map[6] = 1;
-        cluster_map[7] = 1;
-        cluster_map[8] = 1;
 
-        cluster_map[9] = 2;
-        cluster_map[10] = 2;
-        cluster_map[11] = 2;
-        cluster_map[12] = 2;
-        cluster_map[13] = 2;
+        cluster_map[7] = 1
+        cluster_map[8] = 1
+        cluster_map[9] = 1
+        cluster_map[10] = 1
+        cluster_map[11] = 1
+        cluster_map[12] = 1
+        cluster_map[13] = 1
+
+
 
 
 
