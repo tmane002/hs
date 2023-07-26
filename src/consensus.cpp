@@ -448,7 +448,6 @@ void HotStuffCore::on_init(uint32_t nfaulty) {
     hqc = std::make_pair(b0, b0->qc->clone());
 
 
-
         cluster_map[0] = 0;
         cluster_map[1] = 0;
         cluster_map[2] = 0;
@@ -469,22 +468,24 @@ void HotStuffCore::on_init(uint32_t nfaulty) {
         cluster_map[17] = 0;
         cluster_map[18] = 0;
         cluster_map[19] = 0;
+        cluster_map[20] = 0;
+        cluster_map[21] = 0;
+        cluster_map[22] = 0;
+        cluster_map[23] = 0;
+        cluster_map[24] = 0;
+        cluster_map[25] = 0;
+        cluster_map[26] = 0;
+        cluster_map[27] = 0;
+        cluster_map[28] = 0;
+        cluster_map[29] = 0;
+        cluster_map[30] = 0;
+        cluster_map[31] = 0;
+        cluster_map[32] = 0;
+        cluster_map[33] = 0;
+        cluster_map[34] = 0;
 
-        cluster_map[20] = 1;
-        cluster_map[21] = 1;
-        cluster_map[22] = 1;
-        cluster_map[23] = 1;
-        cluster_map[24] = 1;
-        cluster_map[25] = 1;
-        cluster_map[26] = 1;
-        cluster_map[27] = 1;
-        cluster_map[28] = 1;
-        cluster_map[29] = 1;
-        cluster_map[30] = 1;
-        cluster_map[31] = 1;
-        cluster_map[32] = 1;
-        cluster_map[33] = 1;
-        cluster_map[34] = 1;
+
+
         cluster_map[35] = 1;
         cluster_map[36] = 1;
         cluster_map[37] = 1;
@@ -495,33 +496,32 @@ void HotStuffCore::on_init(uint32_t nfaulty) {
         cluster_map[42] = 1;
         cluster_map[43] = 1;
         cluster_map[44] = 1;
+        cluster_map[45] = 1;
+        cluster_map[46] = 1;
+        cluster_map[47] = 1;
+        cluster_map[48] = 1;
+        cluster_map[49] = 1;
+        cluster_map[50] = 1;
+        cluster_map[51] = 1;
+        cluster_map[52] = 1;
+        cluster_map[53] = 1;
+        cluster_map[54] = 1;
+        cluster_map[55] = 1;
+        cluster_map[56] = 1;
+        cluster_map[57] = 1;
+        cluster_map[58] = 1;
+        cluster_map[59] = 1;
+        cluster_map[60] = 1;
+        cluster_map[61] = 1;
+        cluster_map[62] = 1;
+        cluster_map[63] = 1;
+        cluster_map[64] = 1;
+        cluster_map[65] = 1;
+        cluster_map[66] = 1;
+        cluster_map[67] = 1;
+        cluster_map[68] = 1;
+        cluster_map[69] = 1;
 
-
-        cluster_map[45] = 2;
-        cluster_map[46] = 2;
-        cluster_map[47] = 2;
-        cluster_map[48] = 2;
-        cluster_map[49] = 2;
-        cluster_map[50] = 2;
-        cluster_map[51] = 2;
-        cluster_map[52] = 2;
-        cluster_map[53] = 2;
-        cluster_map[54] = 2;
-        cluster_map[55] = 2;
-        cluster_map[56] = 2;
-        cluster_map[57] = 2;
-        cluster_map[58] = 2;
-        cluster_map[59] = 2;
-        cluster_map[60] = 2;
-        cluster_map[61] = 2;
-        cluster_map[62] = 2;
-        cluster_map[63] = 2;
-        cluster_map[64] = 2;
-        cluster_map[65] = 2;
-        cluster_map[66] = 2;
-        cluster_map[67] = 2;
-        cluster_map[68] = 2;
-        cluster_map[69] = 2;
 
 
 
