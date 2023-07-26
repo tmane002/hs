@@ -153,11 +153,12 @@ void connect_all()
     }
     n_clusters++;
 
-
+    nfaulty = 0;
     for (size_t i = 0; i < replicas.size(); i++)
     {
         if (cluster_map[int(i)]==int(cid % n_clusters))
         {
+            nfaulty++;
             conns.insert(std::make_pair(i, mn->connect_sync(replicas[i])));
         }
     }
