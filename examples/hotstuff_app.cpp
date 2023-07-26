@@ -237,71 +237,66 @@ int main(int argc, char **argv) {
 
     std::unordered_map<int, int> cluster_map;
 
-
     cluster_map[0] = 0;
     cluster_map[1] = 0;
     cluster_map[2] = 0;
     cluster_map[3] = 0;
     cluster_map[4] = 0;
     cluster_map[5] = 0;
+    cluster_map[6] = 0;
+    cluster_map[7] = 0;
 
 
-    cluster_map[6] = 1;
-    cluster_map[7] = 1;
+
     cluster_map[8] = 1;
     cluster_map[9] = 1;
     cluster_map[10] = 1;
     cluster_map[11] = 1;
+    cluster_map[12] = 1;
+    cluster_map[13] = 1;
+    cluster_map[14] = 1;
+    cluster_map[15] = 1;
 
 
-    cluster_map[12] = 2;
-    cluster_map[13] = 2;
-    cluster_map[14] = 2;
-    cluster_map[15] = 2;
     cluster_map[16] = 2;
     cluster_map[17] = 2;
+    cluster_map[18] = 2;
+    cluster_map[19] = 2;
+    cluster_map[20] = 2;
+    cluster_map[21] = 2;
+    cluster_map[22] = 2;
+    cluster_map[23] = 2;
 
 
-    cluster_map[18] = 3;
-    cluster_map[19] = 3;
-    cluster_map[20] = 3;
-    cluster_map[21] = 3;
-    cluster_map[22] = 3;
-    cluster_map[23] = 3;
+    cluster_map[24] = 3;
+    cluster_map[25] = 3;
+    cluster_map[26] = 3;
+    cluster_map[27] = 3;
+    cluster_map[28] = 3;
+    cluster_map[29] = 3;
+    cluster_map[30] = 3;
+    cluster_map[31] = 3;
 
 
-
-    cluster_map[24] = 4;
-    cluster_map[25] = 4;
-    cluster_map[26] = 4;
-    cluster_map[27] = 4;
-    cluster_map[28] = 4;
-    cluster_map[29] = 4;
-
-
-    cluster_map[30] = 5;
-    cluster_map[31] = 5;
-    cluster_map[32] = 5;
-    cluster_map[33] = 5;
-    cluster_map[34] = 5;
-    cluster_map[35] = 5;
+    cluster_map[32] = 4;
+    cluster_map[33] = 4;
+    cluster_map[34] = 4;
+    cluster_map[35] = 4;
+    cluster_map[36] = 4;
+    cluster_map[37] = 4;
+    cluster_map[38] = 4;
+    cluster_map[39] = 4;
 
 
-    cluster_map[36] = 6;
-    cluster_map[37] = 6;
-    cluster_map[38] = 6;
-    cluster_map[39] = 6;
-    cluster_map[40] = 6;
-    cluster_map[41] = 6;
+    cluster_map[40] = 5;
+    cluster_map[41] = 5;
+    cluster_map[42] = 5;
+    cluster_map[43] = 5;
+    cluster_map[44] = 5;
+    cluster_map[45] = 5;
+    cluster_map[46] = 5;
+    cluster_map[47] = 5;
 
-
-
-    cluster_map[42] = 7;
-    cluster_map[43] = 7;
-    cluster_map[44] = 7;
-    cluster_map[45] = 7;
-    cluster_map[46] = 7;
-    cluster_map[47] = 7;
 
 
 

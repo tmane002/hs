@@ -75,71 +75,68 @@ std::unique_ptr<Net> mn;
 
 void connect_all()
 {
-
     cluster_map[0] = 0;
     cluster_map[1] = 0;
     cluster_map[2] = 0;
     cluster_map[3] = 0;
     cluster_map[4] = 0;
     cluster_map[5] = 0;
+    cluster_map[6] = 0;
+    cluster_map[7] = 0;
 
 
-    cluster_map[6] = 1;
-    cluster_map[7] = 1;
+
     cluster_map[8] = 1;
     cluster_map[9] = 1;
     cluster_map[10] = 1;
     cluster_map[11] = 1;
+    cluster_map[12] = 1;
+    cluster_map[13] = 1;
+    cluster_map[14] = 1;
+    cluster_map[15] = 1;
 
 
-    cluster_map[12] = 2;
-    cluster_map[13] = 2;
-    cluster_map[14] = 2;
-    cluster_map[15] = 2;
     cluster_map[16] = 2;
     cluster_map[17] = 2;
+    cluster_map[18] = 2;
+    cluster_map[19] = 2;
+    cluster_map[20] = 2;
+    cluster_map[21] = 2;
+    cluster_map[22] = 2;
+    cluster_map[23] = 2;
 
 
-    cluster_map[18] = 3;
-    cluster_map[19] = 3;
-    cluster_map[20] = 3;
-    cluster_map[21] = 3;
-    cluster_map[22] = 3;
-    cluster_map[23] = 3;
+    cluster_map[24] = 3;
+    cluster_map[25] = 3;
+    cluster_map[26] = 3;
+    cluster_map[27] = 3;
+    cluster_map[28] = 3;
+    cluster_map[29] = 3;
+    cluster_map[30] = 3;
+    cluster_map[31] = 3;
+
+
+    cluster_map[32] = 4;
+    cluster_map[33] = 4;
+    cluster_map[34] = 4;
+    cluster_map[35] = 4;
+    cluster_map[36] = 4;
+    cluster_map[37] = 4;
+    cluster_map[38] = 4;
+    cluster_map[39] = 4;
+
+
+    cluster_map[40] = 5;
+    cluster_map[41] = 5;
+    cluster_map[42] = 5;
+    cluster_map[43] = 5;
+    cluster_map[44] = 5;
+    cluster_map[45] = 5;
+    cluster_map[46] = 5;
+    cluster_map[47] = 5;
 
 
 
-    cluster_map[24] = 4;
-    cluster_map[25] = 4;
-    cluster_map[26] = 4;
-    cluster_map[27] = 4;
-    cluster_map[28] = 4;
-    cluster_map[29] = 4;
-
-
-    cluster_map[30] = 5;
-    cluster_map[31] = 5;
-    cluster_map[32] = 5;
-    cluster_map[33] = 5;
-    cluster_map[34] = 5;
-    cluster_map[35] = 5;
-
-
-    cluster_map[36] = 6;
-    cluster_map[37] = 6;
-    cluster_map[38] = 6;
-    cluster_map[39] = 6;
-    cluster_map[40] = 6;
-    cluster_map[41] = 6;
-
-
-
-    cluster_map[42] = 7;
-    cluster_map[43] = 7;
-    cluster_map[44] = 7;
-    cluster_map[45] = 7;
-    cluster_map[46] = 7;
-    cluster_map[47] = 7;
 
 
 
@@ -174,6 +171,7 @@ void connect_all()
         }
     }
     nfaulty = (nfaulty -1)/3;
+    HOTSTUFF_LOG_INFO("CHECK Set nfaulty = %zu, replicas.size() = %d", nfaulty, replicas.size());
 
 }
 
@@ -308,8 +306,10 @@ int main(int argc, char **argv) {
         if (res.size() < 1)
             throw HotStuffError("format error");
 
-        if (cluster_map[countt]==int(cid%2))
+//        if (cluster_map[countt]==int(cid%2))
         {
+            HOTSTUFF_LOG_INFO("pushed countt %d to raw with cluster_map[countt] = %d and int(cid percent 2) = %d",
+                              countt,cluster_map[countt], int(cid%2));
             raw.push_back(res[0]);
         }
 
@@ -327,6 +327,7 @@ int main(int argc, char **argv) {
         size_t _;
         replicas.push_back(NetAddr(NetAddr(_p.first).ip, htons(stoi(_p.second, &_))));
     }
+    HOTSTUFF_LOG_INFO("CHECK replicas size = %d, raw size = %d", replicas.size(), raw.size());
 
     nfaulty = 1;//(replicas.size() - 1) / 3;
     HOTSTUFF_LOG_INFO("nfaulty = %zu", nfaulty);
