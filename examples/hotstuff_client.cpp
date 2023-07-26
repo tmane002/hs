@@ -162,6 +162,8 @@ void connect_all()
             conns.insert(std::make_pair(i, mn->connect_sync(replicas[i])));
         }
     }
+    nfaulty = (nfaulty -1)/3;
+
 }
 
 bool try_send(bool check = true) {
