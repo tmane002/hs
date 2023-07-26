@@ -448,7 +448,6 @@ void HotStuffCore::on_init(uint32_t nfaulty) {
     hqc = std::make_pair(b0, b0->qc->clone());
 
 
-
         cluster_map[0] = 0;
         cluster_map[1] = 0;
         cluster_map[2] = 0;
@@ -461,41 +460,37 @@ void HotStuffCore::on_init(uint32_t nfaulty) {
         cluster_map[9] = 0;
         cluster_map[10] = 0;
         cluster_map[11] = 0;
-        cluster_map[12] = 0;
-        cluster_map[13] = 0;
-        cluster_map[14] = 0;
-        cluster_map[15] = 0;
-        cluster_map[16] = 0;
-        cluster_map[17] = 0;
-        cluster_map[18] = 0;
-        cluster_map[19] = 0;
-        cluster_map[20] = 0;
-
-
-
-
+        cluster_map[12] = 1;
+        cluster_map[13] = 1;
+        cluster_map[14] = 1;
+        cluster_map[15] = 1;
+        cluster_map[16] = 1;
+        cluster_map[17] = 1;
+        cluster_map[18] = 1;
+        cluster_map[19] = 1;
+        cluster_map[20] = 1;
         cluster_map[21] = 1;
         cluster_map[22] = 1;
         cluster_map[23] = 1;
         cluster_map[24] = 1;
         cluster_map[25] = 1;
         cluster_map[26] = 1;
-        cluster_map[27] = 1;
-        cluster_map[28] = 1;
-        cluster_map[29] = 1;
-        cluster_map[30] = 1;
-        cluster_map[31] = 1;
-        cluster_map[32] = 1;
-        cluster_map[33] = 1;
-        cluster_map[34] = 1;
-        cluster_map[35] = 1;
-        cluster_map[36] = 1;
-        cluster_map[37] = 1;
-        cluster_map[38] = 1;
-        cluster_map[39] = 1;
-        cluster_map[40] = 1;
-        cluster_map[41] = 1;
 
+        cluster_map[27] = 2;
+        cluster_map[28] = 2;
+        cluster_map[29] = 2;
+        cluster_map[30] = 2;
+        cluster_map[31] = 2;
+        cluster_map[32] = 2;
+        cluster_map[33] = 2;
+        cluster_map[34] = 2;
+        cluster_map[35] = 2;
+        cluster_map[36] = 2;
+        cluster_map[37] = 2;
+        cluster_map[38] = 2;
+        cluster_map[39] = 2;
+        cluster_map[40] = 2;
+        cluster_map[41] = 2;
 
 
 
