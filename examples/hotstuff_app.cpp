@@ -237,7 +237,6 @@ int main(int argc, char **argv) {
 
     std::unordered_map<int, int> cluster_map;
 
-
     cluster_map[0] = 0;
     cluster_map[1] = 0;
     cluster_map[2] = 0;
@@ -254,7 +253,6 @@ int main(int argc, char **argv) {
     cluster_map[13] = 0;
     cluster_map[14] = 0;
     cluster_map[15] = 0;
-
     cluster_map[16] = 0;
     cluster_map[17] = 0;
     cluster_map[18] = 0;
@@ -267,16 +265,18 @@ int main(int argc, char **argv) {
     cluster_map[25] = 0;
     cluster_map[26] = 0;
     cluster_map[27] = 0;
-    cluster_map[28] = 0;
-    cluster_map[29] = 0;
-    cluster_map[30] = 0;
-    cluster_map[31] = 0;
-    cluster_map[32] = 0;
-    cluster_map[33] = 0;
-    cluster_map[34] = 0;
-    cluster_map[35] = 0;
 
 
+
+
+    cluster_map[28] = 1;
+    cluster_map[29] = 1;
+    cluster_map[30] = 1;
+    cluster_map[31] = 1;
+    cluster_map[32] = 1;
+    cluster_map[33] = 1;
+    cluster_map[34] = 1;
+    cluster_map[35] = 1;
     cluster_map[36] = 1;
     cluster_map[37] = 1;
     cluster_map[38] = 1;
@@ -297,6 +297,7 @@ int main(int argc, char **argv) {
     cluster_map[53] = 1;
     cluster_map[54] = 1;
     cluster_map[55] = 1;
+
 
 
 
