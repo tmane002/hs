@@ -260,14 +260,16 @@ int main(int argc, char **argv) {
     cluster_map[18] = 0;
     cluster_map[19] = 0;
     cluster_map[20] = 0;
-    cluster_map[21] = 0;
-    cluster_map[22] = 0;
-    cluster_map[23] = 0;
-    cluster_map[24] = 0;
-    cluster_map[25] = 0;
-    cluster_map[26] = 0;
 
 
+
+
+    cluster_map[21] = 1;
+    cluster_map[22] = 1;
+    cluster_map[23] = 1;
+    cluster_map[24] = 1;
+    cluster_map[25] = 1;
+    cluster_map[26] = 1;
     cluster_map[27] = 1;
     cluster_map[28] = 1;
     cluster_map[29] = 1;
