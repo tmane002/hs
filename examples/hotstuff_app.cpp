@@ -250,10 +250,11 @@ int main(int argc, char **argv) {
     cluster_map[9] = 0;
     cluster_map[10] = 0;
     cluster_map[11] = 0;
-    cluster_map[12] = 1;
-    cluster_map[13] = 1;
-    cluster_map[14] = 1;
-    cluster_map[15] = 1;
+    cluster_map[12] = 0;
+    cluster_map[13] = 0;
+    cluster_map[14] = 0;
+    cluster_map[15] = 0;
+
     cluster_map[16] = 1;
     cluster_map[17] = 1;
     cluster_map[18] = 1;
@@ -265,22 +266,39 @@ int main(int argc, char **argv) {
     cluster_map[24] = 1;
     cluster_map[25] = 1;
     cluster_map[26] = 1;
+    cluster_map[27] = 1;
+    cluster_map[28] = 1;
+    cluster_map[29] = 1;
+    cluster_map[30] = 1;
+    cluster_map[31] = 1;
+    cluster_map[32] = 1;
+    cluster_map[33] = 1;
+    cluster_map[34] = 1;
+    cluster_map[35] = 1;
 
-    cluster_map[27] = 2;
-    cluster_map[28] = 2;
-    cluster_map[29] = 2;
-    cluster_map[30] = 2;
-    cluster_map[31] = 2;
-    cluster_map[32] = 2;
-    cluster_map[33] = 2;
-    cluster_map[34] = 2;
-    cluster_map[35] = 2;
+
     cluster_map[36] = 2;
     cluster_map[37] = 2;
     cluster_map[38] = 2;
     cluster_map[39] = 2;
     cluster_map[40] = 2;
     cluster_map[41] = 2;
+    cluster_map[42] = 2;
+    cluster_map[43] = 2;
+    cluster_map[44] = 2;
+    cluster_map[45] = 2;
+    cluster_map[46] = 2;
+    cluster_map[47] = 2;
+    cluster_map[48] = 2;
+    cluster_map[49] = 2;
+    cluster_map[50] = 2;
+    cluster_map[51] = 2;
+    cluster_map[52] = 2;
+    cluster_map[53] = 2;
+    cluster_map[54] = 2;
+    cluster_map[55] = 2;
+
+
 
 
 
