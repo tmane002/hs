@@ -227,15 +227,32 @@ namespace hotstuff {
 
     void HotStuffBase::propose_handler(MsgPropose &&msg, const Net::conn_t &conn) {
         const PeerId &peer = conn->get_peer_id();
+
+
+
+
         if (peer.is_null()) return;
+
+
         msg.postponed_parse(this);
         auto &prop = msg.proposal;
         block_t blk = prop.blk;
 
-        if (!blk) return;
 
-        LOG_WARN("1: proposal from %d, prop.msg_type: %d, cluster_id = %d, prop.cluster_number = %d, int(cluster_id==prop.cluster_number) = %d",
-                 prop.proposer, prop.msg_type, cluster_id, prop.cluster_number, int(cluster_id==prop.cluster_number));
+        if (prop.msg_type==9)
+        {
+
+            HOTSTUFF_LOG_INFO("informed join msg details are: prop.cluster_number, prop.pre_amp_cluster_number,prop.other_cluster_block_height are %d, %d, %d",
+                              prop.cluster_number, prop.pre_amp_cluster_number,prop.other_cluster_block_height);
+
+        }
+
+
+
+        if (!blk) {
+            LOG_WARN("Returning due to null block with msg type: %d", prop.msg_type);
+            return;
+        }
 
         if ((cluster_id==prop.cluster_number) && (peer != get_config().get_peer_id(prop.proposer)) && (prop.msg_type<3))
         {
@@ -513,7 +530,6 @@ namespace hotstuff {
 
 
 
-
         promise::all(std::vector<promise_t>{
                 async_deliver_blk(blk->get_hash(), peer)
         }).then([this, prop = std::move(prop)]() {
@@ -747,6 +763,19 @@ namespace hotstuff {
         pn.send_msg(MsgPropose(prop), peers[pmaker->get_proposer()]);
     }
 
+
+    void HotStuffBase::do_inform_reconfig(int cluster_no, int node_id, int orig_node_id)
+    {
+        HOTSTUFF_LOG_INFO("do_inform_reconfig with cluster_no : %d, node_id: %d", cluster_no, node_id);
+
+
+        block_t blk = new Block(true, 1);
+        Proposal prop_same_cluster(id, blk, nullptr, cluster_no, node_id, orig_node_id, 9);
+
+        do_broadcast_proposal(prop_same_cluster);
+        do_broadcast_proposal_other_clusters(prop_same_cluster);
+
+    }
 
 
 
@@ -1096,7 +1125,7 @@ namespace hotstuff {
             std::vector<std::tuple<NetAddr, pubkey_bt, uint256_t>> &&all_replicas,
             std::vector<std::tuple<NetAddr, pubkey_bt, uint256_t>> &&other_replicas,
             std::unordered_map<int, int> cluster_map_input, int join_node_cluster,
-            bool ec_loop) {
+            int orig_idx, bool ec_loop) {
 
 
 
@@ -1105,8 +1134,11 @@ namespace hotstuff {
 
         cluster_map = cluster_map_input;
 
-        LOG_INFO(" saved cluster_map[8] and join_node_cluster are  %d and %d",
-                 cluster_map[8], join_node_cluster);
+        LOG_INFO(" saved cluster_map[8] and join_node_cluster are  %d and %d and orig_idx is %d",
+                 cluster_map[8], join_node_cluster, orig_idx);
+
+
+
 
         for (size_t i = 0; i < replicas.size(); i++)
         {
@@ -1139,6 +1171,13 @@ namespace hotstuff {
                 pn.set_peer_addr(peer, addr);
                 pn.conn_peer(peer);
             }
+        }
+
+
+
+        if (join_node_cluster > 0)
+        {
+            do_inform_reconfig(join_node_cluster,get_id(), orig_idx);
         }
 
 

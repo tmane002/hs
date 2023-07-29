@@ -237,6 +237,8 @@ class HotStuffBase: public HotStuffCore {
     void join_nodes() override;
     void do_broadcast_proposal_to_leader(const Proposal &) override;
     void do_broadcast_proposal_other_clusters(const Proposal &) override;
+    void do_inform_reconfig(int cluster_no, int node_id, int orig_node_id) override;
+
     void do_vote(ReplicaID, const Vote &) override;
     void do_decide(Finality &&) override;
     void do_consensus(const block_t &blk) override;
@@ -272,7 +274,7 @@ class HotStuffBase: public HotStuffCore {
     void start_mc(std::vector<std::tuple<NetAddr, pubkey_bt, uint256_t>> &&replicas,
                std::vector<std::tuple<NetAddr, pubkey_bt, uint256_t>> &&all_replicas,
                std::vector<std::tuple<NetAddr, pubkey_bt, uint256_t>> &&other_replicas,
-                   std::unordered_map<int, int> cluster_map_input, int join_node_cluster,
+                   std::unordered_map<int, int> cluster_map_input, int join_node_cluster, int orig_idx,
                   bool ec_loop = false);
 
 
@@ -415,7 +417,7 @@ class HotStuff: public HotStuffBase {
     void start_mc(const std::vector<std::tuple<NetAddr, bytearray_t, bytearray_t>> &replicas,
                const std::vector<std::tuple<NetAddr, bytearray_t, bytearray_t>> &all_replicas,
                const std::vector<std::tuple<NetAddr, bytearray_t, bytearray_t>> &other_replicas,
-    std::unordered_map<int, int> cluster_map_input, int join_node_cluster, bool ec_loop = false) {
+    std::unordered_map<int, int> cluster_map_input, int join_node_cluster, int orig_idx,bool ec_loop = false) {
         std::vector<std::tuple<NetAddr, pubkey_bt, uint256_t>> reps;
         std::vector<std::tuple<NetAddr, pubkey_bt, uint256_t>> all_reps;
         std::vector<std::tuple<NetAddr, pubkey_bt, uint256_t>> other_reps;
@@ -462,7 +464,7 @@ class HotStuff: public HotStuffBase {
 
 
         HotStuffBase::start_mc(std::move(reps),std::move(all_reps),std::move(other_reps),
-                               cluster_map_input, join_node_cluster, ec_loop);
+                               cluster_map_input, join_node_cluster, orig_idx,ec_loop);
     }
 
 

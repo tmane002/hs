@@ -147,7 +147,7 @@ class HotStuffApp: public HotStuff {
     void start_mc(const std::vector<std::tuple<NetAddr, bytearray_t, bytearray_t>> &reps,
                const std::vector<std::tuple<NetAddr, bytearray_t, bytearray_t>> &all_reps,
                const std::vector<std::tuple<NetAddr, bytearray_t, bytearray_t>> &other_reps,
-                  std::unordered_map<int, int> cluster_map_input, int join_node_cluster);
+                  std::unordered_map<int, int> cluster_map_input, int join_node_cluster, int orig_idx);
 
 
     void stop();
@@ -534,7 +534,7 @@ int main(int argc, char **argv) {
     ev_sigterm.add(SIGTERM);
 
 //    papp->start(reps);
-    papp->start_mc(reps, all_reps, other_reps, cluster_map, join_node_cluster);
+    papp->start_mc(reps, all_reps, other_reps, cluster_map, join_node_cluster, idx);
 
     elapsed.stop(true);
     return 0;
@@ -641,7 +641,7 @@ void HotStuffApp::start(const std::vector<std::tuple<NetAddr, bytearray_t, bytea
 void HotStuffApp::start_mc(const std::vector<std::tuple<NetAddr, bytearray_t, bytearray_t>> &reps,
                         const std::vector<std::tuple<NetAddr, bytearray_t, bytearray_t>> &all_reps,
                         const std::vector<std::tuple<NetAddr, bytearray_t, bytearray_t>> &other_reps,
-                           std::unordered_map<int, int> cluster_map_input, int join_node_cluster) {
+                           std::unordered_map<int, int> cluster_map_input, int join_node_cluster, int orig_idx) {
     ev_stat_timer = TimerEvent(ec, [this](TimerEvent &) {
         HotStuff::print_stat();
         HotStuffApp::print_stat();
@@ -661,7 +661,7 @@ void HotStuffApp::start_mc(const std::vector<std::tuple<NetAddr, bytearray_t, by
     HOTSTUFF_LOG_INFO("** starting the event loop...");
 
 
-    HotStuff::start_mc(reps, all_reps, other_reps, cluster_map_input,join_node_cluster);
+    HotStuff::start_mc(reps, all_reps, other_reps, cluster_map_input,join_node_cluster, orig_idx);
 
 
     cn.reg_conn_handler([this](const salticidae::ConnPool::conn_t &_conn, bool connected) {

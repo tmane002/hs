@@ -143,6 +143,8 @@ public:
 
     virtual void do_broadcast_proposal_other_clusters(const Proposal &prop) = 0;
 
+    virtual void do_inform_reconfig( int cluster_no, int node_id, int orig_node_id) = 0;
+
 
     virtual void start_remote_view_change_timer(int timer_cid, const block_t base) = 0;
     virtual void reset_remote_view_change_timer(int timer_blk_height) = 0;
@@ -261,7 +263,8 @@ struct Proposal: public Serializable {
                           msg_type, cluster_number, int(_blk.get_height()), other_cluster_block_height, hsc->storage->get_blk_cache_size(), hsc->storage->get_cmd_cache_size());
 
 //        blk = hsc->storage->add_blk(std::move(_blk), hsc->get_config());
-        blk = hsc->storage->add_blk(std::move(_blk), hsc->get_config(), other_cluster_block_height);
+        if (msg_type!=9)
+            blk = hsc->storage->add_blk(std::move(_blk), hsc->get_config(), other_cluster_block_height);
     }
 
     operator std::string () const {
