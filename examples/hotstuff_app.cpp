@@ -14,7 +14,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 #include <iostream>
 #include <cstring>
 #include <cassert>
@@ -147,7 +146,8 @@ class HotStuffApp: public HotStuff {
     void start(const std::vector<std::tuple<NetAddr, bytearray_t, bytearray_t>> &reps);
     void start_mc(const std::vector<std::tuple<NetAddr, bytearray_t, bytearray_t>> &reps,
                const std::vector<std::tuple<NetAddr, bytearray_t, bytearray_t>> &all_reps,
-               const std::vector<std::tuple<NetAddr, bytearray_t, bytearray_t>> &other_reps);
+               const std::vector<std::tuple<NetAddr, bytearray_t, bytearray_t>> &other_reps,
+                  std::unordered_map<int, int> cluster_map_input, int join_node_cluster);
 
 
     void stop();
@@ -196,6 +196,12 @@ int main(int argc, char **argv) {
     auto opt_max_rep_msg = Config::OptValInt::create(4 << 20); // 4M by default
     auto opt_max_cli_msg = Config::OptValInt::create(65536); // 64K by default
 
+
+    auto opt_join_node = Config::OptValInt::create(-1);
+
+
+    HOTSTUFF_LOG_INFO("opt_join_node is %d\n", opt_join_node);
+
     config.add_opt("block-size", opt_blk_size, Config::SET_VAL);
     config.add_opt("parent-limit", opt_parent_limit, Config::SET_VAL);
     config.add_opt("stat-period", opt_stat_period, Config::SET_VAL);
@@ -219,6 +225,10 @@ int main(int argc, char **argv) {
     config.add_opt("max-rep-msg", opt_max_rep_msg, Config::SET_VAL, 'S', "the maximum replica message size");
     config.add_opt("max-cli-msg", opt_max_cli_msg, Config::SET_VAL, 'S', "the maximum client message size");
     config.add_opt("help", opt_help, Config::SWITCH_ON, 'h', "show this help info");
+    config.add_opt("join_node", opt_join_node, Config::SET_VAL);
+
+
+    HOTSTUFF_LOG_INFO("opt_join_node from input is %d and argc is %d\n", opt_join_node, argc);
 
     EventContext ec;
 
@@ -228,6 +238,13 @@ int main(int argc, char **argv) {
         config.print_help();
         exit(0);
     }
+
+
+    auto join_node_cluster = opt_join_node->get();
+
+    HOTSTUFF_LOG_INFO("join_node_cluster from input is %d\n", join_node_cluster);
+
+
     auto idx = opt_idx->get();
     auto client_port = opt_client_port->get();
     std::vector<std::tuple<std::string, std::string, std::string>> replicas;
@@ -237,69 +254,67 @@ int main(int argc, char **argv) {
 
     std::unordered_map<int, int> cluster_map;
 
+
+
     cluster_map[0] = 0;
     cluster_map[1] = 0;
     cluster_map[2] = 0;
     cluster_map[3] = 0;
-    cluster_map[4] = 0;
-    cluster_map[5] = 0;
-    cluster_map[6] = 0;
-    cluster_map[7] = 0;
+    cluster_map[4] = 1;
+    cluster_map[5] = 1;
+    cluster_map[6] = 1;
+    cluster_map[7] = 1;
 
 
 
-    cluster_map[8] = 1;
-    cluster_map[9] = 1;
-    cluster_map[10] = 1;
-    cluster_map[11] = 1;
-    cluster_map[12] = 1;
-    cluster_map[13] = 1;
-    cluster_map[14] = 1;
-    cluster_map[15] = 1;
-
-
-    cluster_map[16] = 2;
-    cluster_map[17] = 2;
-    cluster_map[18] = 2;
-    cluster_map[19] = 2;
-    cluster_map[20] = 2;
-    cluster_map[21] = 2;
-    cluster_map[22] = 2;
-    cluster_map[23] = 2;
-
-
-    cluster_map[24] = 3;
-    cluster_map[25] = 3;
-    cluster_map[26] = 3;
-    cluster_map[27] = 3;
-    cluster_map[28] = 3;
-    cluster_map[29] = 3;
-    cluster_map[30] = 3;
-    cluster_map[31] = 3;
-
-
-    cluster_map[32] = 4;
-    cluster_map[33] = 4;
-    cluster_map[34] = 4;
-    cluster_map[35] = 4;
-    cluster_map[36] = 4;
-    cluster_map[37] = 4;
-    cluster_map[38] = 4;
-    cluster_map[39] = 4;
-
-
-    cluster_map[40] = 5;
-    cluster_map[41] = 5;
-    cluster_map[42] = 5;
-    cluster_map[43] = 5;
-    cluster_map[44] = 5;
-    cluster_map[45] = 5;
-    cluster_map[46] = 5;
-    cluster_map[47] = 5;
-
-
-
-
+    cluster_map[8] = -1;
+//        cluster_map[9] = 1;
+//        cluster_map[10] = 1;
+//        cluster_map[11] = 1;
+//        cluster_map[12] = 1;
+//        cluster_map[13] = 1;
+//        cluster_map[14] = 1;
+//        cluster_map[15] = 1;
+//
+//
+//        cluster_map[16] = 2;
+//        cluster_map[17] = 2;
+//        cluster_map[18] = 2;
+//        cluster_map[19] = 2;
+//        cluster_map[20] = 2;
+//        cluster_map[21] = 2;
+//        cluster_map[22] = 2;
+//        cluster_map[23] = 2;
+//
+//
+//        cluster_map[24] = 3;
+//        cluster_map[25] = 3;
+//        cluster_map[26] = 3;
+//        cluster_map[27] = 3;
+//        cluster_map[28] = 3;
+//        cluster_map[29] = 3;
+//        cluster_map[30] = 3;
+//        cluster_map[31] = 3;
+//
+//
+//        cluster_map[32] = 4;
+//        cluster_map[33] = 4;
+//        cluster_map[34] = 4;
+//        cluster_map[35] = 4;
+//        cluster_map[36] = 4;
+//        cluster_map[37] = 4;
+//        cluster_map[38] = 4;
+//        cluster_map[39] = 4;
+//
+//
+//        cluster_map[40] = 5;
+//        cluster_map[41] = 5;
+//        cluster_map[42] = 5;
+//        cluster_map[43] = 5;
+//        cluster_map[44] = 5;
+//        cluster_map[45] = 5;
+//        cluster_map[46] = 5;
+//        cluster_map[47] = 5;
 
 
 
@@ -314,6 +329,19 @@ int main(int argc, char **argv) {
 
 
 
+
+
+
+
+    HOTSTUFF_LOG_INFO("cluster_map[idx] pre mod is %d\n", cluster_map[idx]);
+
+
+
+
+    if (join_node_cluster>=0)
+        cluster_map[idx] = join_node_cluster;
+
+    HOTSTUFF_LOG_INFO("cluster_map[idx] post mod is %d\n", cluster_map[idx]);
 
 
 
@@ -506,7 +534,7 @@ int main(int argc, char **argv) {
     ev_sigterm.add(SIGTERM);
 
 //    papp->start(reps);
-    papp->start_mc(reps, all_reps, other_reps);
+    papp->start_mc(reps, all_reps, other_reps, cluster_map, join_node_cluster);
 
     elapsed.stop(true);
     return 0;
@@ -612,7 +640,8 @@ void HotStuffApp::start(const std::vector<std::tuple<NetAddr, bytearray_t, bytea
 
 void HotStuffApp::start_mc(const std::vector<std::tuple<NetAddr, bytearray_t, bytearray_t>> &reps,
                         const std::vector<std::tuple<NetAddr, bytearray_t, bytearray_t>> &all_reps,
-                        const std::vector<std::tuple<NetAddr, bytearray_t, bytearray_t>> &other_reps) {
+                        const std::vector<std::tuple<NetAddr, bytearray_t, bytearray_t>> &other_reps,
+                           std::unordered_map<int, int> cluster_map_input, int join_node_cluster) {
     ev_stat_timer = TimerEvent(ec, [this](TimerEvent &) {
         HotStuff::print_stat();
         HotStuffApp::print_stat();
@@ -630,7 +659,11 @@ void HotStuffApp::start_mc(const std::vector<std::tuple<NetAddr, bytearray_t, by
     HOTSTUFF_LOG_INFO("blk_size = %lu", blk_size);
     HOTSTUFF_LOG_INFO("conns = %lu", HotStuff::size());
     HOTSTUFF_LOG_INFO("** starting the event loop...");
-    HotStuff::start_mc(reps, all_reps, other_reps);
+
+
+    HotStuff::start_mc(reps, all_reps, other_reps, cluster_map_input,join_node_cluster);
+
+
     cn.reg_conn_handler([this](const salticidae::ConnPool::conn_t &_conn, bool connected) {
         auto conn = salticidae::static_pointer_cast<conn_t::type>(_conn);
         if (connected)

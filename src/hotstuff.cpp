@@ -1095,11 +1095,19 @@ namespace hotstuff {
             std::vector<std::tuple<NetAddr, pubkey_bt, uint256_t>> &&replicas,
             std::vector<std::tuple<NetAddr, pubkey_bt, uint256_t>> &&all_replicas,
             std::vector<std::tuple<NetAddr, pubkey_bt, uint256_t>> &&other_replicas,
+            std::unordered_map<int, int> cluster_map_input, int join_node_cluster,
             bool ec_loop) {
 
 
 
         LOG_INFO("replicas sizes are %lu, %lu, %lu", replicas.size(), all_replicas.size(), other_replicas.size());
+        LOG_INFO(" saved replicas sizes are %lu, cluster_map_input[8] is %d", all_replicas_h.size(), cluster_map_input[8]);
+
+        cluster_map = cluster_map_input;
+
+        LOG_INFO(" saved cluster_map[8] and join_node_cluster are  %d and %d",
+                 cluster_map[8], join_node_cluster);
+
         for (size_t i = 0; i < replicas.size(); i++)
         {
             auto &addr = std::get<0>(replicas[i]);
@@ -1140,7 +1148,12 @@ namespace hotstuff {
         LOG_INFO("nfaulty, peers.size() are %d, %d \n", int(nfaulty), peers.size());
         if (nfaulty == 0)
             LOG_WARN("too few replicas in the system to tolerate any failure");
+
+
+
         on_init(nfaulty);
+
+
         pmaker->init(this);
         if (ec_loop)
             ec.dispatch();

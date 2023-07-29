@@ -437,6 +437,8 @@ void HotStuffCore::on_receive_vote(const Vote &vote) {
 //    LOG_INFO("function on_receive_vote: END");do_broadcast_proposal(
 
 }
+
+
 /*** end HotStuff protocol logic ***/
 void HotStuffCore::on_init(uint32_t nfaulty) {
     config.nmajority = config.nreplicas - nfaulty;
@@ -446,94 +448,93 @@ void HotStuffCore::on_init(uint32_t nfaulty) {
     b0->qc_ref = b0;
     hqc = std::make_pair(b0, b0->qc->clone());
 
+//
+//        cluster_map[0] = 0;
+//        cluster_map[1] = 0;
+//        cluster_map[2] = 0;
+//        cluster_map[3] = 0;
+//        cluster_map[4] = 1;
+//        cluster_map[5] = 1;
+//        cluster_map[6] = 1;
+//        cluster_map[7] = 1;
+//
+//
+//
+//        cluster_map[8] = -1;
+////        cluster_map[9] = 1;
+////        cluster_map[10] = 1;
+////        cluster_map[11] = 1;
+//        cluster_map[12] = 1;
+//        cluster_map[13] = 1;
+//        cluster_map[14] = 1;
+//        cluster_map[15] = 1;
+//
+//
+//        cluster_map[16] = 2;
+//        cluster_map[17] = 2;
+//        cluster_map[18] = 2;
+//        cluster_map[19] = 2;
+//        cluster_map[20] = 2;
+//        cluster_map[21] = 2;
+//        cluster_map[22] = 2;
+//        cluster_map[23] = 2;
+//
+//
+//        cluster_map[24] = 3;
+//        cluster_map[25] = 3;
+//        cluster_map[26] = 3;
+//        cluster_map[27] = 3;
+//        cluster_map[28] = 3;
+//        cluster_map[29] = 3;
+//        cluster_map[30] = 3;
+//        cluster_map[31] = 3;
+//
+//
+//        cluster_map[32] = 4;
+//        cluster_map[33] = 4;
+//        cluster_map[34] = 4;
+//        cluster_map[35] = 4;
+//        cluster_map[36] = 4;
+//        cluster_map[37] = 4;
+//        cluster_map[38] = 4;
+//        cluster_map[39] = 4;
+//
+//
+//        cluster_map[40] = 5;
+//        cluster_map[41] = 5;
+//        cluster_map[42] = 5;
+//        cluster_map[43] = 5;
+//        cluster_map[44] = 5;
+//        cluster_map[45] = 5;
+//        cluster_map[46] = 5;
+//        cluster_map[47] = 5;
 
-        cluster_map[0] = 0;
-        cluster_map[1] = 0;
-        cluster_map[2] = 0;
-        cluster_map[3] = 0;
-        cluster_map[4] = 0;
-        cluster_map[5] = 0;
-        cluster_map[6] = 0;
-        cluster_map[7] = 0;
-
-
-
-        cluster_map[8] = 1;
-        cluster_map[9] = 1;
-        cluster_map[10] = 1;
-        cluster_map[11] = 1;
-        cluster_map[12] = 1;
-        cluster_map[13] = 1;
-        cluster_map[14] = 1;
-        cluster_map[15] = 1;
-
-
-        cluster_map[16] = 2;
-        cluster_map[17] = 2;
-        cluster_map[18] = 2;
-        cluster_map[19] = 2;
-        cluster_map[20] = 2;
-        cluster_map[21] = 2;
-        cluster_map[22] = 2;
-        cluster_map[23] = 2;
-
-
-        cluster_map[24] = 3;
-        cluster_map[25] = 3;
-        cluster_map[26] = 3;
-        cluster_map[27] = 3;
-        cluster_map[28] = 3;
-        cluster_map[29] = 3;
-        cluster_map[30] = 3;
-        cluster_map[31] = 3;
-
-
-        cluster_map[32] = 4;
-        cluster_map[33] = 4;
-        cluster_map[34] = 4;
-        cluster_map[35] = 4;
-        cluster_map[36] = 4;
-        cluster_map[37] = 4;
-        cluster_map[38] = 4;
-        cluster_map[39] = 4;
-
-
-        cluster_map[40] = 5;
-        cluster_map[41] = 5;
-        cluster_map[42] = 5;
-        cluster_map[43] = 5;
-        cluster_map[44] = 5;
-        cluster_map[45] = 5;
-        cluster_map[46] = 5;
-        cluster_map[47] = 5;
-
-
-
-
+    }
 
 
 
+/*** end HotStuff protocol logic ***/
+    void HotStuffCore::on_reconfig(uint32_t nfaulty, uint32_t node_id, uint32_t cluster_number, uint32_t mode ) {
+        config.nmajority = config.nreplicas - nfaulty;
 
+//        b0->qc = create_quorum_cert(b0->get_hash());
+//        b0->qc->compute();
+//        b0->self_qc = b0->qc->clone();
+//        b0->qc_ref = b0;
+//        hqc = std::make_pair(b0, b0->qc->clone());
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+        if (mode = 1)
+            cluster_map[node_id] = cluster_number;
 
 
     }
 
-void HotStuffCore::prune(uint32_t staleness) {
+
+
+
+
+
+    void HotStuffCore::prune(uint32_t staleness) {
     block_t start;
     /* skip the blocks */
     for (start = b_exec; staleness; staleness--, start = start->parents[0])

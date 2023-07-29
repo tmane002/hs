@@ -96,6 +96,9 @@ public:
      * functions. */
     void on_init(uint32_t nfaulty);
 
+    void on_reconfig(uint32_t nfaulty, uint32_t node_id, uint32_t cluster_number, uint32_t mode);
+
+
     /* TODO: better name for "delivery" ? */
     /** Call to inform the state machine that a block is ready to be handled.
      * A block is only delivered if itself is fetched, the block for the

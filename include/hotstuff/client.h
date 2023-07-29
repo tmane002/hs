@@ -22,7 +22,7 @@
 #include "hotstuff/entity.h"
 #include "hotstuff/consensus.h"
 
-#define HOTSTUFF_CMD_REQSIZE 1536
+#define HOTSTUFF_CMD_REQSIZE 1024
 
 namespace hotstuff {
 

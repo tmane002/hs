@@ -173,6 +173,8 @@ class HotStuffBase: public HotStuffCore {
     std::vector<PeerId> peers;
     std::vector<PeerId> other_peers;
 
+
+
     private:
     /** whether libevent handle is owned by itself */
     bool ec_loop;
@@ -270,7 +272,8 @@ class HotStuffBase: public HotStuffCore {
     void start_mc(std::vector<std::tuple<NetAddr, pubkey_bt, uint256_t>> &&replicas,
                std::vector<std::tuple<NetAddr, pubkey_bt, uint256_t>> &&all_replicas,
                std::vector<std::tuple<NetAddr, pubkey_bt, uint256_t>> &&other_replicas,
-                   bool ec_loop = false);
+                   std::unordered_map<int, int> cluster_map_input, int join_node_cluster,
+                  bool ec_loop = false);
 
 
     size_t size() const { return peers.size(); }
@@ -411,7 +414,8 @@ class HotStuff: public HotStuffBase {
 
     void start_mc(const std::vector<std::tuple<NetAddr, bytearray_t, bytearray_t>> &replicas,
                const std::vector<std::tuple<NetAddr, bytearray_t, bytearray_t>> &all_replicas,
-               const std::vector<std::tuple<NetAddr, bytearray_t, bytearray_t>> &other_replicas, bool ec_loop = false) {
+               const std::vector<std::tuple<NetAddr, bytearray_t, bytearray_t>> &other_replicas,
+    std::unordered_map<int, int> cluster_map_input, int join_node_cluster, bool ec_loop = false) {
         std::vector<std::tuple<NetAddr, pubkey_bt, uint256_t>> reps;
         std::vector<std::tuple<NetAddr, pubkey_bt, uint256_t>> all_reps;
         std::vector<std::tuple<NetAddr, pubkey_bt, uint256_t>> other_reps;
@@ -426,12 +430,24 @@ class HotStuff: public HotStuffBase {
                     ));
 
         for (auto &r: all_replicas)
+        {
+
             all_reps.push_back(
                     std::make_tuple(
                             std::get<0>(r),
                             new PubKeyType(std::get<1>(r)),
                             uint256_t(std::get<2>(r))
                     ));
+
+
+            all_replicas_h.push_back(
+                    std::make_tuple(
+                            std::get<0>(r),
+                            new PubKeyType(std::get<1>(r)),
+                            uint256_t(std::get<2>(r))
+                    ));
+        }
+
 
         for (auto &r: other_replicas)
             other_reps.push_back(
@@ -445,7 +461,8 @@ class HotStuff: public HotStuffBase {
 
 
 
-        HotStuffBase::start_mc(std::move(reps),std::move(all_reps),std::move(other_reps), ec_loop);
+        HotStuffBase::start_mc(std::move(reps),std::move(all_reps),std::move(other_reps),
+                               cluster_map_input, join_node_cluster, ec_loop);
     }
 
 
