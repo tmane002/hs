@@ -217,6 +217,9 @@ namespace hotstuff {
             for (const auto &phash: blk->get_parent_hashes())
                 pms.push_back(async_deliver_blk(phash, replica));
             promise::all(pms).then([this, blk](const promise::values_t values) {
+
+                HOTSTUFF_LOG_INFO("promise::any_cast<bool>(values[0]) is %d and this->on_deliver_blk(blk) is %d",
+                                  promise::any_cast<bool>(values[0]), this->on_deliver_blk(blk));
                 auto ret = promise::any_cast<bool>(values[0]) && this->on_deliver_blk(blk);
                 if (!ret)
                     HOTSTUFF_LOG_WARN("verification failed during async delivery");
@@ -241,10 +244,53 @@ namespace hotstuff {
 
         if (prop.msg_type==9)
         {
-
-            HOTSTUFF_LOG_INFO("informed join msg details are: prop.cluster_number, prop.pre_amp_cluster_number,prop.other_cluster_block_height are %d, %d, %d",
+            LOG_WARN("will return due to null block with msg type: %d", prop.msg_type);
+            HOTSTUFF_LOG_INFO("informed join msg details are: cluster_number, node_id_in_cluster, original_idx are %d, %d, %d",
                               prop.cluster_number, prop.pre_amp_cluster_number,prop.other_cluster_block_height);
 
+
+            cluster_map[prop.other_cluster_block_height] = prop.cluster_number;
+
+            if (cluster_id == prop.cluster_number)
+            {
+
+                int i = prop.other_cluster_block_height;
+
+                auto &addr = std::get<0>(all_replicas_h[i]);
+                auto cert_hash = std::move(std::get<2>(all_replicas_h[i]));
+                valid_tls_certs.insert(cert_hash);
+                auto peer = pn.enable_tls ? salticidae::PeerId(cert_hash) : salticidae::PeerId(addr);
+                HotStuffCore::add_replica(i, peer, std::move(std::get<1>(all_replicas_h[i])));
+                if (addr != listen_addr)
+                {
+                    peers.push_back(peer);
+                    pn.add_peer(peer);
+                    pn.set_peer_addr(peer, addr);
+                    pn.conn_peer(peer);
+                }
+            }
+            else{
+
+
+                int i = prop.other_cluster_block_height;
+
+                auto &addr = std::get<0>(all_replicas_h[i]);
+                auto cert_hash = std::move(std::get<2>(all_replicas_h[i]));
+                valid_tls_certs.insert(cert_hash);
+                auto peer = pn.enable_tls ? salticidae::PeerId(cert_hash) : salticidae::PeerId(addr);
+                HotStuffCore::add_replica(i, peer, std::move(std::get<1>(all_replicas_h[i])));
+                if (addr != listen_addr)
+                {
+                    other_peers.push_back(peer);
+                    pn.add_peer(peer);
+                    pn.set_peer_addr(peer, addr);
+                    pn.conn_peer(peer);
+                }
+
+            }
+
+
+            return;
         }
 
 
@@ -1142,6 +1188,7 @@ namespace hotstuff {
 
         for (size_t i = 0; i < replicas.size(); i++)
         {
+
             auto &addr = std::get<0>(replicas[i]);
             auto cert_hash = std::move(std::get<2>(replicas[i]));
             valid_tls_certs.insert(cert_hash);
@@ -1154,6 +1201,8 @@ namespace hotstuff {
                 pn.set_peer_addr(peer, addr);
                 pn.conn_peer(peer);
             }
+
+
         }
 
 

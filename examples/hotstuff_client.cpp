@@ -78,32 +78,30 @@ void connect_all()
 
 
 
-
     cluster_map[0] = 0;
     cluster_map[1] = 0;
     cluster_map[2] = 0;
     cluster_map[3] = 0;
-    cluster_map[4] = 1;
-    cluster_map[5] = 1;
-    cluster_map[6] = 1;
-    cluster_map[7] = 1;
+    cluster_map[4] = 0;
+    cluster_map[5] = 0;
+    cluster_map[6] = 0;
+    cluster_map[7] = 0;
+    cluster_map[8] = 0;
+    cluster_map[9] =0;
+
+    cluster_map[10] = 1;
+    cluster_map[11] = 1;
+    cluster_map[12] = 1;
+    cluster_map[13] = 1;
+    cluster_map[14] = 1;
+
+    cluster_map[15] = 1;
+    cluster_map[16] = 1;
+    cluster_map[17] = 1;
+    cluster_map[18] = 1;
+    cluster_map[19] = 1;
 
 
-
-    cluster_map[8] = 1;
-//        cluster_map[9] = 1;
-//        cluster_map[10] = 1;
-//        cluster_map[11] = 1;
-//        cluster_map[12] = 1;
-//        cluster_map[13] = 1;
-//        cluster_map[14] = 1;
-//        cluster_map[15] = 1;
-//
-//
-//        cluster_map[16] = 2;
-//        cluster_map[17] = 2;
-//        cluster_map[18] = 2;
-//        cluster_map[19] = 2;
 //        cluster_map[20] = 2;
 //        cluster_map[21] = 2;
 //        cluster_map[22] = 2;
@@ -138,7 +136,6 @@ void connect_all()
 //        cluster_map[45] = 5;
 //        cluster_map[46] = 5;
 //        cluster_map[47] = 5;
-
 
 
 
