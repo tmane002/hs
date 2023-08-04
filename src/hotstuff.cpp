@@ -436,6 +436,8 @@ namespace hotstuff {
             LOG_WARN("rvc msg cmd_height = %d", int(prop.other_cluster_block_height));
 
 
+
+
             const uint256_t blk_hash = storage->find_blk_hash_for_cid(int(prop.other_cluster_block_height));
 
             LOG_WARN("blk_hash found %.10s", get_hex(blk_hash).c_str());
