@@ -28,3 +28,4 @@ scripts/*
 build/*
 .ipynb_checkpoints/*
 .cmake/*
+temp/*
