@@ -13,7 +13,7 @@
 #include <stdint.h>
 
 #include "hotstuff/util.h"
-#include "/usr/include/jemalloc/jemalloc.h"
+//#include "/usr/include/jemalloc/jemalloc.h"
 
 class myrand
 {
