@@ -22,6 +22,8 @@ set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${CMAKE_SOURCE_DIR}/salticidae/cmake
 add_subdirectory(salticidae)
 include_directories(salticidae/include)
 
+
+
 find_package(OpenSSL REQUIRED)
 find_package(Threads REQUIRED)
 
@@ -45,6 +47,8 @@ add_dependencies(secp256k1 libsecp256k1)
 # add libraries
 
 include_directories(./)
+
+
 include_directories(include)
 add_library(hotstuff
     OBJECT

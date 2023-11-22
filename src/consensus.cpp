@@ -280,12 +280,14 @@ void HotStuffCore::update(const block_t &nblk) {
             for (size_t i = 0; i < (blk->get_cmds()).size(); i++) {
                 LOG_INFO("Since MC Received already, do_decide for height:%d, btemp = %s",
                          int(blk->get_height()), std::string(*blk).c_str());
+
+
+
                     do_decide(Finality(id, 1, i, blk->height,
                                        blk->cmds[i], blk->get_hash()));
             }
 
             reset_remote_view_change_timer(int(blk->height));
-
 
 
         }

@@ -343,7 +343,7 @@ struct Finality: public Serializable {
     uint32_t cmd_height;
     uint256_t cmd_hash;
     uint256_t blk_hash;
-    
+
     public:
     Finality() = default;
     Finality(ReplicaID rid,

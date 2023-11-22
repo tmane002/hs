@@ -102,8 +102,12 @@ namespace hotstuff {
     }
 
 // TODO: improve this function
-    void HotStuffBase::exec_command(uint256_t cmd_hash, commit_cb_t callback) {
+    void HotStuffBase::exec_command(uint256_t cmd_hash, int key, int val, commit_cb_t callback) {
+
+
         cmd_pending.enqueue(std::make_pair(cmd_hash, callback));
+
+
     }
 
     void HotStuffBase::on_fetch_blk(const block_t &blk) {
@@ -1007,6 +1011,9 @@ namespace hotstuff {
                     for (size_t i = 0; i < (btemp->get_cmds()).size(); i++) {
                         LOG_INFO("Since already updated, do_decide for height:%d, btemp = %s, blk_hash = %d",
                                  int(btemp->get_height()), std::string(*btemp).c_str(), blk_hash);
+
+
+
                         do_decide(Finality(id, 1, i, btemp->get_height(),
                                            (btemp->get_cmds())[i], btemp->get_hash()));
                     }
@@ -1141,6 +1148,8 @@ namespace hotstuff {
                     it = decision_waiting.insert(std::make_pair(cmd_hash, e.second)).first;
                 else
                     e.second(Finality(id, 0, 0, 0, cmd_hash, uint256_t()));
+
+
                 if (proposer != get_id()) continue;
                 cmd_pending_buffer.push(cmd_hash);
                 if (cmd_pending_buffer.size() >= blk_size)
@@ -1258,12 +1267,49 @@ namespace hotstuff {
 
                 const auto &cmd_hash = e.first;
                 auto it = decision_waiting.find(cmd_hash);
+
+
+
+//
+//                if (it == decision_waiting.end())
+//                    it = decision_waiting.insert(std::make_pair(cmd_hash, e.second)).first;
+//                else
+//                    e.second(Finality(id, 0, 0, 0, cmd_hash, uint256_t()));
+
+
+
                 if (it == decision_waiting.end())
+                {
+                    HOTSTUFF_LOG_INFO("decision_waiting, cmd_hash absent (this mostly happens)");
+
                     it = decision_waiting.insert(std::make_pair(cmd_hash, e.second)).first;
+
+                }
                 else
-                    e.second(Finality(id, 0, 0, 0, cmd_hash, uint256_t()));
+                {
+                    HOTSTUFF_LOG_INFO("decision_waiting, cmd_hash present");
+
+
+                    e.second(Finality(id, 0, 0, 0, cmd_hash, uint256_t()) );
+
+                }
+
+                int key = GetKey(cmd_hash);
+
+                if (key%2==1)
+                {
+                    do_decide(Finality(id, 1, 0, 0, cmd_hash, uint256_t()) );
+                }
+
                 if (proposer != get_id()) continue;
-                cmd_pending_buffer.push(cmd_hash);
+
+                if (key%2==0)
+                {
+                    cmd_pending_buffer.push(cmd_hash);
+
+                }
+
+
                 if (cmd_pending_buffer.size() >= blk_size)
                 {
                     std::vector<uint256_t> cmds;
@@ -1274,10 +1320,19 @@ namespace hotstuff {
                     }
                     pmaker->beat().then([this, cmds = std::move(cmds)](ReplicaID proposer) {
                         if (proposer == get_id())
+                        {
+
                             on_propose(cmds, pmaker->get_parents());
+
+                        }
                     });
                     return true;
                 }
+
+
+
+
+
             }
             return false;
         });

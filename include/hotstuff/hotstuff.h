@@ -190,6 +190,10 @@ class HotStuffBase: public HotStuffCore {
     std::unordered_map<const uint256_t, BlockFetchContext> blk_fetch_waiting;
     std::unordered_map<const uint256_t, BlockDeliveryContext> blk_delivery_waiting;
     std::unordered_map<const uint256_t, commit_cb_t> decision_waiting;
+
+//    std::unordered_map<const uint256_t, std::pair<int, int>> key_val_store;
+
+
     using cmd_queue_t = salticidae::MPSCQueueEventDriven<std::pair<uint256_t, commit_cb_t>>;
     cmd_queue_t cmd_pending;
     std::queue<uint256_t> cmd_pending_buffer;
@@ -248,6 +252,7 @@ class HotStuffBase: public HotStuffCore {
     /** Called to replicate the execution of a command, the application should
      * implement this to make transition for the application state. */
     virtual void state_machine_execute(const Finality &) = 0;
+    virtual int GetKey(uint256_t cmd_hash) = 0;
 
     public:
     HotStuffBase(uint32_t blk_size,
@@ -266,7 +271,7 @@ class HotStuffBase: public HotStuffCore {
     /* the API for HotStuffBase */
 
     /* Submit the command to be decided. */
-    void exec_command(uint256_t cmd_hash, commit_cb_t callback);
+    void exec_command(uint256_t cmd_hash, int key, int val, commit_cb_t callback);
     void start(std::vector<std::tuple<NetAddr, pubkey_bt, uint256_t>> &&replicas,
                 bool ec_loop = false);
 
