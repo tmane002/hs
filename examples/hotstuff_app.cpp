@@ -304,18 +304,57 @@ int main(int argc, char **argv) {
     std::vector<std::tuple<std::string, std::string, std::string>> other_replicas;
     std::vector<std::tuple<std::string, std::string, std::string>> all_replicas;
 
+
+
+
+
+
+
+
+
+
+
     std::unordered_map<int, int> cluster_map;
 
 
-    cluster_map[0] = 0;
-    cluster_map[1] = 0;
-    cluster_map[2] = 0;
-    cluster_map[3] = 0;
 
-    cluster_map[4] = 1;
-    cluster_map[5] = 1;
-    cluster_map[6] = 1;
-    cluster_map[7] = 1;
+
+
+    const std::string filePath = "cluster_info_hs.txt"; // Change this to the path of your file
+
+    // Open the file
+    std::ifstream inputFile(filePath);
+
+
+    // Vector to store the numbers
+    std::vector<int> numbers;
+
+    // Read numbers from the file
+    int temp_cluster_count = 0;
+    int number;
+    while (inputFile >> number) {
+
+        numbers.push_back(number);
+        cluster_map[temp_cluster_count] = number;
+        temp_cluster_count++;
+    }
+
+    // Close the file
+    inputFile.close();
+
+    HOTSTUFF_LOG_INFO("cluster_map[0], cluster_map[4] is "
+                      "%d, %d, %d, %d", cluster_map[0], cluster_map[4]);
+
+//
+//    cluster_map[0] = 0;
+//    cluster_map[1] = 0;
+//    cluster_map[2] = 0;
+//    cluster_map[3] = 0;
+//
+//    cluster_map[4] = 1;
+//    cluster_map[5] = 1;
+//    cluster_map[6] = 1;
+//    cluster_map[7] = 1;
 //
 //    cluster_map[8] = 2;
 //    cluster_map[9] = 2;
