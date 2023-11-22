@@ -228,7 +228,7 @@ bool try_send(bool check = true) {
 
         mrand->next();
         int temp_value = 1;
-        
+
         HOTSTUFF_LOG_INFO("temp_key, temp_value are : %d, %d", temp_key, temp_value);
 
 

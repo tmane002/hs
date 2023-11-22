@@ -122,7 +122,14 @@ class HotStuffApp: public HotStuff {
 
     int GetKey(uint256_t cmd_hash)
     {
-        std::pair key_val = key_val_store.at(cmd_hash);
+
+        try
+        {
+            std::pair key_val = key_val_store.at(cmd_hash);
+
+        } catch (const std::out_of_range& e) {
+            HOTSTUFF_LOG_INFO("caught exception 1");
+        }
 
         return  key_val.first;
     }
@@ -130,7 +137,13 @@ class HotStuffApp: public HotStuff {
     void state_machine_execute(const Finality &fin) override {
 
 
-        std::pair key_val = key_val_store.at(fin.cmd_hash);
+        try{
+
+                std::pair key_val = key_val_store.at(fin.cmd_hash);
+        } catch (const std::out_of_range& e) {
+            HOTSTUFF_LOG_INFO("caught exception 2");
+        }
+
 
         key_val_store.erase(fin.cmd_hash);
 
