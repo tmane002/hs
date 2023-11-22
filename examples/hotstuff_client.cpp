@@ -19,6 +19,7 @@
 #include <memory>
 #include <signal.h>
 #include <sys/time.h>
+#include <fstream>
 
 #include "hotstuff/database.h"
 #include "hotstuff/in_memory_db.cpp"
@@ -33,6 +34,7 @@
 #include "hotstuff/util.h"
 #include "hotstuff/type.h"
 #include "hotstuff/client.h"
+
 
 #define CPU_FREQ 2.2
 

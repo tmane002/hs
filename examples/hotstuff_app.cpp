@@ -24,6 +24,7 @@
 #include <chrono>
 #include <thread>
 #include <sstream>
+#include <fstream>
 
 #include "salticidae/stream.h"
 #include "salticidae/util.h"
