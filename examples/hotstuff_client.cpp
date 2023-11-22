@@ -227,7 +227,7 @@ bool try_send(bool check = true) {
         int temp_key = zipf(table_size - 1, g_zipf_theta);
 
         mrand->next();
-        int temp_value = 1;
+        int temp_value = 2;
 
         HOTSTUFF_LOG_INFO("temp_key, temp_value are : %d, %d", temp_key, temp_value);
 

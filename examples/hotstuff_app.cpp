@@ -122,45 +122,45 @@ class HotStuffApp: public HotStuff {
 
     int GetKey(uint256_t cmd_hash)
     {
+        bool cond = key_val_store.find(cmd_hash) != key_val_store.end();
 
-        try
+        if (cond)
         {
+
             std::pair key_val = key_val_store.at(cmd_hash);
 
-        } catch (const std::out_of_range& e) {
-            HOTSTUFF_LOG_INFO("caught exception 1");
+            return  key_val.first;
         }
-
-        return  key_val.first;
+        return NULL;
     }
 
     void state_machine_execute(const Finality &fin) override {
 
-
-        try{
-
-                std::pair key_val = key_val_store.at(fin.cmd_hash);
-        } catch (const std::out_of_range& e) {
-            HOTSTUFF_LOG_INFO("caught exception 2");
-        }
-
-
-        key_val_store.erase(fin.cmd_hash);
-
-        std::string status = "READ/UPDATE";
-
-        HOTSTUFF_LOG_INFO("state_machine_execute: status = %s ", status.c_str());
-
-        if (key_val.first%2==0)
+        bool cond = key_val_store.find(fin.cmd_hash) != key_val_store.end();
+        if (cond)
         {
-            db->Put(std::to_string(key_val.first), std::to_string(key_val.second));
-            status = "UPDATE";
-        }
-        else
-        {
-            status =  "READ: value = " + db->Get(std::to_string(key_val.first));
 
-        }
+
+            std::pair key_val = key_val_store.at(fin.cmd_hash);
+
+
+
+            key_val_store.erase(fin.cmd_hash);
+
+            std::string status = "READ/UPDATE";
+
+            HOTSTUFF_LOG_INFO("state_machine_execute: status = %s ", status.c_str());
+
+            if (key_val.first%2==0)
+            {
+                db->Put(std::to_string(key_val.first), std::to_string(key_val.second));
+                status = "UPDATE";
+            }
+            else
+            {
+                status =  "READ: value = " + db->Get(std::to_string(key_val.first));
+
+            }
 
 //
 //        HOTSTUFF_LOG_INFO("state_machine_execute: done op with key %d, status = %s ",
@@ -168,17 +168,18 @@ class HotStuffApp: public HotStuff {
 
 
 
-        reset_imp_timer();
-        #ifndef HOTSTUFF_ENABLE_BENCHMARK
+            reset_imp_timer();
+            #ifndef HOTSTUFF_ENABLE_BENCHMARK
 
-//                HOTSTUFF_LOG_INFO("replicated %s",
-//                                  std::string(fin).c_str()
-//                );
                 HOTSTUFF_LOG_INFO("replicated %s with key, val = %d, %d, with stored value: %d, status: %s",
                                   std::string(fin).c_str(), key_val.first, key_val.second,
                                   std::stoi( db->Get(std::to_string(key_val.first)) )
-                                  , status.c_str());
-        #endif
+                        , status.c_str());
+            #endif
+
+
+
+        }
 
 
 
