@@ -165,16 +165,26 @@ class HotStuffApp: public HotStuff {
 //
 //        HOTSTUFF_LOG_INFO("state_machine_execute: done op with key %d, status = %s ",
 //                          key_val.first, status.c_str());
-
-
+//
+//
 
             reset_imp_timer();
             #ifndef HOTSTUFF_ENABLE_BENCHMARK
+
+            HOTSTUFF_LOG_INFO("replicated %s",
+                              std::string(fin).c_str());
+
+
+
 
                 HOTSTUFF_LOG_INFO("replicated %s with key, val = %d, %d, with stored value: %d, status: %s",
                                   std::string(fin).c_str(), key_val.first, key_val.second,
                                   std::stoi( db->Get(std::to_string(key_val.first)) )
                         , status.c_str());
+
+
+
+
             #endif
 
 
@@ -330,7 +340,16 @@ int main(int argc, char **argv) {
 
 
     std::unordered_map<int, int> cluster_map;
-
+//
+//    cluster_map[0] = 0;
+//    cluster_map[1] = 0;
+//    cluster_map[2] = 0;
+//    cluster_map[3] = 0;
+//
+//    cluster_map[4] = 1;
+//    cluster_map[5] = 1;
+//    cluster_map[6] = 1;
+//    cluster_map[7] = 1;
 
 
 
@@ -339,6 +358,12 @@ int main(int argc, char **argv) {
 
     // Open the file
     std::ifstream inputFile(filePath);
+
+
+    if (!inputFile.is_open()) {
+        // File does not exist, throw an exception
+        throw HotStuffError("cluster_info_hs.txt missing");
+    }
 
 
     // Vector to store the numbers
@@ -350,12 +375,19 @@ int main(int argc, char **argv) {
     while (inputFile >> number) {
 
         numbers.push_back(number);
+        HOTSTUFF_LOG_INFO("temp_cluster_count, number is %d, %d", temp_cluster_count, number);
+
         cluster_map[temp_cluster_count] = number;
         temp_cluster_count++;
     }
 
     // Close the file
     inputFile.close();
+
+
+    for (const auto& pair : cluster_map) {
+        HOTSTUFF_LOG_INFO( "checking cluster_map[%d] = %d " ,int(pair.first) , int(pair.second));
+    }
 
     HOTSTUFF_LOG_INFO("cluster_map[0], cluster_map[4] is "
                       "%d, %d", cluster_map[0], cluster_map[4]);
@@ -638,8 +670,8 @@ void HotStuffApp::client_request_cmd_handler(MsgReqCmd &&msg, const conn_t &conn
 
 
     key_val_store.insert(std::make_pair(cmd_hash, std::make_pair(int(cmd->get_key()), int(cmd->get_val()))));
-
     HOTSTUFF_LOG_INFO("key_val_store inserted");
+
     exec_command(cmd_hash, int(cmd->get_key()), int(cmd->get_val()), [this, addr](Finality fin) {
         resp_queue.enqueue(std::make_pair(fin, addr));
 
@@ -708,14 +740,15 @@ void HotStuffApp::start_mc(const std::vector<std::tuple<NetAddr, bytearray_t, by
     db->Open("db-test");
 
 
-    for (int i=0;i < 20000; i++)
-    {
-        db->Put(std::to_string(i), std::to_string(0));
-    }
+//    for (int i=0;i < 20000; i++)
+//    {
+//        db->Put(std::to_string(i), std::to_string(0));
+//    }
 
 
     printf("DB testing\nInsert key K1 with value V1\n");
     db->Put("K1", "V1");
+    printf("DB K1, V1 inserted\n");
 
 
     HotStuff::start_mc(reps, all_reps, other_reps, cluster_map_input,join_node_cluster, orig_idx);

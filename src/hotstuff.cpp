@@ -1312,6 +1312,8 @@ namespace hotstuff {
 
                 if (cmd_pending_buffer.size() >= blk_size)
                 {
+                    HOTSTUFF_LOG_INFO("Block size worth of pending cmds found");
+
                     std::vector<uint256_t> cmds;
                     for (uint32_t i = 0; i < blk_size; i++)
                     {
