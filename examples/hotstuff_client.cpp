@@ -19,12 +19,6 @@
 #include <memory>
 #include <signal.h>
 #include <sys/time.h>
-#include <fstream>
-
-#include "hotstuff/database.h"
-#include "hotstuff/in_memory_db.cpp"
-#include "hotstuff/helper.h"
-
 
 #include "salticidae/type.h"
 #include "salticidae/netaddr.h"
@@ -34,9 +28,6 @@
 #include "hotstuff/util.h"
 #include "hotstuff/type.h"
 #include "hotstuff/client.h"
-
-
-#define CPU_FREQ 2.2
 
 using salticidae::Config;
 
@@ -62,26 +53,12 @@ uint32_t nfaulty;
 
 uint32_t n_clusters;
 
-
-uint32_t table_size =  20000;
-double denom = 0;
-double g_zipf_theta = 0.5;
-double zeta_2_theta;
-uint64_t the_n;
-
-
-myrand *mrand;
-
 struct Request {
     command_t cmd;
     size_t confirmed;
     salticidae::ElapsedTime et;
     Request(const command_t &cmd): cmd(cmd), confirmed(0) { et.start(); }
 };
-
-
-
-
 
 using Net = salticidae::MsgNetwork<opcode_t>;
 
@@ -95,114 +72,79 @@ std::vector<NetAddr> replicas;
 std::vector<std::pair<struct timeval, double>> elapsed;
 std::unique_ptr<Net> mn;
 
-
-
-
-
-uint64_t zipf(uint64_t n, double theta)
-{
-    assert(this->the_n == n);
-    assert(theta == g_zipf_theta);
-    double alpha = 1 / (1 - theta);
-    double zetan = denom;
-    double eta = (1 - pow(2.0 / n, 1 - theta)) /
-                 (1 - zeta_2_theta / zetan);
-    //	double eta = (1 - pow(2.0 / n, 1 - theta)) /
-    //		(1 - zeta_2_theta / zetan);
-    double u = (double)(mrand->next() % 10000000) / 10000000;
-    double uz = u * zetan;
-    if (uz < 1)
-        return 1;
-    if (uz < 1 + pow(0.5, theta))
-        return 2;
-    return 1 + (uint64_t)(n * pow(eta * u - eta + 1, alpha));
-}
-
-
-uint64_t get_server_clock()
-{
-#if defined(__i386__)
-    uint64_t ret;
-	__asm__ __volatile__("rdtsc"
-						 : "=A"(ret));
-#elif defined(__x86_64__)
-    unsigned hi, lo;
-	__asm__ __volatile__("rdtsc"
-						 : "=a"(lo), "=d"(hi));
-	uint64_t ret = ((uint64_t)lo) | (((uint64_t)hi) << 32);
-	ret = (uint64_t)((double)ret / CPU_FREQ);
-#else
-    timespec *tp = new timespec;
-    clock_gettime(CLOCK_REALTIME, tp);
-    uint64_t ret = tp->tv_sec * 1000000000 + tp->tv_nsec;
-    delete tp;
-#endif
-    return ret;
-}
-
-
-
-
-
 void connect_all()
 {
 
 
 
+    cluster_map[0] = 0;
+    cluster_map[1] = 0;
+    cluster_map[2] = 0;
+    cluster_map[3] = 0;
 
-    const std::string filePath = "cluster_info_hs.txt"; // Change this to the path of your file
-
-    // Open the file
-    std::ifstream inputFile(filePath);
-
-
-
-    if (!inputFile.is_open()) {
-        // File does not exist, throw an exception
-        throw HotStuffError("cluster_info_hs.txt missing");
-    }
-
-    // Vector to store the numbers
-    std::vector<int> numbers;
-
-    // Read numbers from the file
-    int temp_cluster_count = 0;
-    int number;
-    while (inputFile >> number) {
-
-        numbers.push_back(number);
-        cluster_map[temp_cluster_count] = number;
-        temp_cluster_count++;
-    }
-
-    // Close the file
-    inputFile.close();
-
+    cluster_map[4] = 1;
+    cluster_map[5] = 1;
+    cluster_map[6] = 1;
+    cluster_map[7] = 1;
+//
+//    cluster_map[8] = 2;
+//    cluster_map[9] = 2;
+//    cluster_map[10] = 2;
+//    cluster_map[11] = 2;
+//
+//    cluster_map[12] = 3;
+//    cluster_map[13] = 3;
+//    cluster_map[14] = 3;
+//    cluster_map[15] = 3;
+//
+//    cluster_map[16] = 4;
+//    cluster_map[17] = 4;
+//    cluster_map[18] = 4;
+//    cluster_map[19] = 4;
+//
+//    cluster_map[20] = 5;
+//    cluster_map[21] = 5;
+//    cluster_map[22] = 5;
+//    cluster_map[23] = 5;
 //
 //
-//    cluster_map[0] = 0;
-//    cluster_map[1] = 0;
-//    cluster_map[2] = 0;
-//    cluster_map[3] = 0;
 //
-//    cluster_map[4] = 1;
-//    cluster_map[5] = 1;
-//    cluster_map[6] = 1;
-//    cluster_map[7] = 1;
+//
+//    cluster_map[24] = 6;
+//    cluster_map[25] = 6;
+//    cluster_map[26] = 6;
+//    cluster_map[27] = 6;
+//
+//    cluster_map[28] = 7;
+//    cluster_map[29] = 7;
+//    cluster_map[30] = 7;
+//    cluster_map[31] = 7;
+//
+//    cluster_map[32] = 8;
+//    cluster_map[33] = 8;
+//    cluster_map[34] = 8;
+//    cluster_map[35] = 8;
+//
+//    cluster_map[36] = 9;
+//    cluster_map[37] = 9;
+//    cluster_map[38] = 9;
+//    cluster_map[39] = 9;
+//
+//    cluster_map[40] = 10;
+//    cluster_map[41] = 10;
+//    cluster_map[42] = 10;
+//    cluster_map[43] = 10;
+//
+//    cluster_map[44] = 11;
+//    cluster_map[45] = 11;
+//    cluster_map[46] = 11;
+//    cluster_map[47] = 11;
 
-    HOTSTUFF_LOG_INFO("cluster_map[0], cluster_map[4] is "
-                      "%d, %d", cluster_map[0], cluster_map[4]);
-
-
-    mrand = (myrand *) new myrand();
-
-    mrand->init(get_server_clock());
 
 
 
-    zeta_2_theta = zeta(2, g_zipf_theta);
-    the_n = table_size - 1;
-    denom = zeta(the_n, g_zipf_theta);
+
+
 
 
 
@@ -228,7 +170,7 @@ void connect_all()
             conns.insert(std::make_pair(i, mn->connect_sync(replicas[i])));
         }
     }
-    nfaulty = (nfaulty - 1)/3;
+    nfaulty = (nfaulty -1)/3;
     HOTSTUFF_LOG_INFO("CHECK Set nfaulty = %zu, replicas.size() = %d", nfaulty, replicas.size());
 
 }
@@ -239,26 +181,9 @@ bool try_send(bool check = true) {
 //        HOTSTUFF_LOG_INFO("cid is %d",int(cid));
 
 //        auto cmd = new CommandDummy(cid, cnt++, 127,0,0,1);
-
-
-        int g_zipf_theta = 0.5;
-        int temp_key = zipf(table_size - 1, g_zipf_theta);
-
-        mrand->next();
-        int temp_value = 2;
-
-        HOTSTUFF_LOG_INFO("temp_key, temp_value are : %d, %d", temp_key, temp_value);
-
-
-        auto cmd = new CommandDummy(cid, cnt++, temp_key, temp_value);
+        auto cmd = new CommandDummy(cid, cnt++);
 
         MsgReqCmd msg(*cmd);
-
-//        auto test_cmd = parse_cmd_client(msg.serialized);
-//
-//
-//        HOTSTUFF_LOG_INFO("test_cmd with n, key, value = %d, %d, %d",
-//                          int(test_cmd->get_cid()), int(test_cmd->get_key()), int(test_cmd->get_val()) );
 
         int count = 0;
 
@@ -319,8 +244,8 @@ void client_resp_cmd_handler(MsgRespCmd &&msg, const Net::conn_t &) {
     if (++it->second.confirmed <= nfaulty) return; // wait for f + 1 ack
 //#ifndef HOTSTUFF_ENABLE_BENCHMARK
     HOTSTUFF_LOG_INFO("%.6f ",
-                        std::string(fin).c_str(),
-                        et.elapsed_sec);
+                      std::string(fin).c_str(),
+                      et.elapsed_sec);
 //#else
     struct timeval tv;
     gettimeofday(&tv, nullptr);
