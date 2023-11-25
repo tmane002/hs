@@ -102,8 +102,12 @@ namespace hotstuff {
     }
 
 // TODO: improve this function
-    void HotStuffBase::exec_command(uint256_t cmd_hash, commit_cb_t callback) {
+    void HotStuffBase::exec_command(uint256_t cmd_hash, int key, int val, commit_cb_t callback) {
+
+
         cmd_pending.enqueue(std::make_pair(cmd_hash, callback));
+
+
     }
 
     void HotStuffBase::on_fetch_blk(const block_t &blk) {
@@ -496,11 +500,11 @@ namespace hotstuff {
 
 
             HOTSTUFF_LOG_INFO("j1 is %d, it!=finished_mc_cids.end() is %d, finished_j1 is %d"
-                    ,int(j1), it!=finished_mc_cids.end(), finished_j1);
+                              ,int(j1), it!=finished_mc_cids.end(), finished_j1);
             if (j1 && finished_j1)
             {
                 HOTSTUFF_LOG_INFO("quorum reached for first join message, with cmd_height = %d"
-                        , int(prop.other_cluster_block_height));
+                                  , int(prop.other_cluster_block_height));
                 Proposal prop_j2(id, btemp, nullptr, cluster_id, cluster_id, int(prop.other_cluster_block_height), 5);
                 bool leader_check = check_leader();
 //                if (leader_check)
@@ -548,7 +552,7 @@ namespace hotstuff {
             bool finished_j2 = finished_ready_cids.find(int(prop.other_cluster_block_height))==finished_ready_cids.end();
 
             HOTSTUFF_LOG_INFO("j2 is %d, it!=finished_mc_cids.end() is %d, finished_j2 is %d"
-                    ,int(j2), it!=finished_mc_cids.end(), int(finished_j2));
+                              ,int(j2), it!=finished_mc_cids.end(), int(finished_j2));
 
             if (j2 && finished_j2)
             {
@@ -881,7 +885,7 @@ namespace hotstuff {
 //        -get_config().nmajority+1);
 
         HOTSTUFF_LOG_INFO("Broadcasting to other clusters with clustermap[0] = %d, %d, %d, %d, other_peers.size = %d"
-                , cluster_map[0],
+                          , cluster_map[0],
                           cluster_map[4],cluster_map[8], cluster_map[9], other_peers.size());
 
 
@@ -989,38 +993,41 @@ namespace hotstuff {
         HOTSTUFF_LOG_INFO("decide after mc message START for blk height:%d", blk_height);
 
 
-        const uint256_t blk_hash = storage->find_blk_hash_for_cid(blk_height);
+            const uint256_t blk_hash = storage->find_blk_hash_for_cid(blk_height);
 
-        static const uint8_t negativeOne[] = { 0xFF };
+            static const uint8_t negativeOne[] = { 0xFF };
 
-        if (blk_hash!= negativeOne)
-        {
-
-            block_t btemp = storage->find_blk(blk_hash);
-
-
-
-
-
-            if (did_update(blk_height))
+            if (blk_hash!= negativeOne)
             {
-                for (size_t i = 0; i < (btemp->get_cmds()).size(); i++) {
-                    LOG_INFO("Since already updated, do_decide for height:%d, btemp = %s, blk_hash = %d",
-                             int(btemp->get_height()), std::string(*btemp).c_str(), blk_hash);
-                    do_decide(Finality(id, 1, i, btemp->get_height(),
-                                       (btemp->get_cmds())[i], btemp->get_hash()));
+
+                block_t btemp = storage->find_blk(blk_hash);
+
+
+
+
+
+                if (did_update(blk_height))
+                {
+                    for (size_t i = 0; i < (btemp->get_cmds()).size(); i++) {
+                        LOG_INFO("Since already updated, do_decide for height:%d, btemp = %s, blk_hash = %d",
+                                 int(btemp->get_height()), std::string(*btemp).c_str(), blk_hash);
+
+
+
+                        do_decide(Finality(id, 1, i, btemp->get_height(),
+                                           (btemp->get_cmds())[i], btemp->get_hash()));
+                    }
+
+                    reset_remote_view_change_timer(blk_height);
+
+
                 }
 
-                reset_remote_view_change_timer(blk_height);
+                if (int(blk_height)==6000) LOG_INFO("LatencyPlot: Finished execution") ;
+
 
 
             }
-
-            if (int(blk_height)==6000) LOG_INFO("LatencyPlot: Finished execution") ;
-
-
-
-        }
 
 
 
@@ -1075,7 +1082,7 @@ namespace hotstuff {
 
 
     void HotStuffBase::do_decide(Finality &&fin) {
-        HOTSTUFF_LOG_INFO("Tejas: do_decide() START");
+    HOTSTUFF_LOG_INFO("Tejas: do_decide() START");
 
 
 
@@ -1141,6 +1148,8 @@ namespace hotstuff {
                     it = decision_waiting.insert(std::make_pair(cmd_hash, e.second)).first;
                 else
                     e.second(Finality(id, 0, 0, 0, cmd_hash, uint256_t()));
+
+
                 if (proposer != get_id()) continue;
                 cmd_pending_buffer.push(cmd_hash);
                 if (cmd_pending_buffer.size() >= blk_size)
@@ -1258,14 +1267,55 @@ namespace hotstuff {
 
                 const auto &cmd_hash = e.first;
                 auto it = decision_waiting.find(cmd_hash);
+
+
+
+//
+//                if (it == decision_waiting.end())
+//                    it = decision_waiting.insert(std::make_pair(cmd_hash, e.second)).first;
+//                else
+//                    e.second(Finality(id, 0, 0, 0, cmd_hash, uint256_t()));
+
+
+
                 if (it == decision_waiting.end())
+                {
+                    HOTSTUFF_LOG_INFO("decision_waiting, cmd_hash absent (this mostly happens)");
+
                     it = decision_waiting.insert(std::make_pair(cmd_hash, e.second)).first;
+
+                }
                 else
-                    e.second(Finality(id, 0, 0, 0, cmd_hash, uint256_t()));
+                {
+                    HOTSTUFF_LOG_INFO("decision_waiting, cmd_hash present");
+
+
+                    e.second(Finality(id, 0, 0, 0, cmd_hash, uint256_t()) );
+
+                }
+
+                int key = GetKey(cmd_hash);
+                HOTSTUFF_LOG_INFO("key is %d", key);
+
+
+                if (key%2==1)
+                {
+                    do_decide(Finality(id, 1, 0, 0, cmd_hash, uint256_t()) );
+                }
+
                 if (proposer != get_id()) continue;
-                cmd_pending_buffer.push(cmd_hash);
+
+                if (key%2==0)
+                {
+                    cmd_pending_buffer.push(cmd_hash);
+
+                }
+
+
                 if (cmd_pending_buffer.size() >= blk_size)
                 {
+                    HOTSTUFF_LOG_INFO("Block size worth of pending cmds found");
+
                     std::vector<uint256_t> cmds;
                     for (uint32_t i = 0; i < blk_size; i++)
                     {
@@ -1274,10 +1324,19 @@ namespace hotstuff {
                     }
                     pmaker->beat().then([this, cmds = std::move(cmds)](ReplicaID proposer) {
                         if (proposer == get_id())
+                        {
+
                             on_propose(cmds, pmaker->get_parents());
+
+                        }
                     });
                     return true;
                 }
+
+
+
+
+
             }
             return false;
         });

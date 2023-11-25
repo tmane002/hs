@@ -24,6 +24,7 @@
 #include <chrono>
 #include <thread>
 #include <sstream>
+#include <fstream>
 
 #include "salticidae/stream.h"
 #include "salticidae/util.h"
@@ -37,6 +38,10 @@
 #include "hotstuff/client.h"
 #include "hotstuff/hotstuff.h"
 #include "hotstuff/liveness.h"
+
+#include "hotstuff/database.h"
+#include "hotstuff/in_memory_db.cpp"
+#include "hotstuff/helper.h"
 
 using salticidae::MsgNetwork;
 using salticidae::ClientNetwork;
@@ -97,6 +102,11 @@ class HotStuffApp: public HotStuff {
     salticidae::BoxObj<salticidae::ThreadCall> req_tcall;
 
 
+
+    std::unordered_map<const uint256_t, std::pair<int, int>> key_val_store;
+
+    DataBase *db = new InMemoryDB();
+
     void client_request_cmd_handler(MsgReqCmd &&, const conn_t &);
 
     static command_t parse_cmd(DataStream &s) {
@@ -110,12 +120,79 @@ class HotStuffApp: public HotStuff {
         impeach_timer.add(impeach_timeout);
     }
 
+    int GetKey(uint256_t cmd_hash)
+    {
+        bool cond = key_val_store.find(cmd_hash) != key_val_store.end();
+
+        if (cond)
+        {
+
+            std::pair key_val = key_val_store.at(cmd_hash);
+
+            return  key_val.first;
+        }
+        return NULL;
+    }
+
     void state_machine_execute(const Finality &fin) override {
 
-        reset_imp_timer();
-#ifndef HOTSTUFF_ENABLE_BENCHMARK
-        HOTSTUFF_LOG_INFO("replicated %s", std::string(fin).c_str());
-#endif
+        bool cond = key_val_store.find(fin.cmd_hash) != key_val_store.end();
+        if (cond)
+        {
+
+
+            std::pair key_val = key_val_store.at(fin.cmd_hash);
+
+
+
+            key_val_store.erase(fin.cmd_hash);
+
+            std::string status = "READ/UPDATE";
+
+            HOTSTUFF_LOG_INFO("state_machine_execute: status = %s ", status.c_str());
+
+            if (key_val.first%2==0)
+            {
+                db->Put(std::to_string(key_val.first), std::to_string(key_val.second));
+                status = "UPDATE";
+            }
+            else
+            {
+                status =  "READ: value = " + db->Get(std::to_string(key_val.first));
+
+            }
+
+//
+//        HOTSTUFF_LOG_INFO("state_machine_execute: done op with key %d, status = %s ",
+//                          key_val.first, status.c_str());
+//
+//
+
+            reset_imp_timer();
+            #ifndef HOTSTUFF_ENABLE_BENCHMARK
+
+            HOTSTUFF_LOG_INFO("replicated %s",
+                              std::string(fin).c_str());
+
+
+
+
+                HOTSTUFF_LOG_INFO("replicated %s with key, val = %d, %d, with stored value: %d, status: %s",
+                                  std::string(fin).c_str(), key_val.first, key_val.second,
+                                  std::stoi( db->Get(std::to_string(key_val.first)) )
+                        , status.c_str());
+
+
+
+
+            #endif
+
+
+
+        }
+
+
+
     }
 
 
@@ -127,7 +204,7 @@ class HotStuffApp: public HotStuff {
     void print_stat() const;
 #endif
 
-public:
+    public:
     HotStuffApp(uint32_t blk_size,
                 double stat_period,
                 double impeach_timeout,
@@ -145,8 +222,8 @@ public:
 
     void start(const std::vector<std::tuple<NetAddr, bytearray_t, bytearray_t>> &reps);
     void start_mc(const std::vector<std::tuple<NetAddr, bytearray_t, bytearray_t>> &reps,
-                  const std::vector<std::tuple<NetAddr, bytearray_t, bytearray_t>> &all_reps,
-                  const std::vector<std::tuple<NetAddr, bytearray_t, bytearray_t>> &other_reps,
+               const std::vector<std::tuple<NetAddr, bytearray_t, bytearray_t>> &all_reps,
+               const std::vector<std::tuple<NetAddr, bytearray_t, bytearray_t>> &other_reps,
                   std::unordered_map<int, int> cluster_map_input, int join_node_cluster, int orig_idx);
 
 
@@ -252,79 +329,68 @@ int main(int argc, char **argv) {
     std::vector<std::tuple<std::string, std::string, std::string>> other_replicas;
     std::vector<std::tuple<std::string, std::string, std::string>> all_replicas;
 
+
+
+
+
+
+
+
+
+
+
     std::unordered_map<int, int> cluster_map;
-
-
-    cluster_map[0] = 0;
-    cluster_map[1] = 0;
-    cluster_map[2] = 0;
-    cluster_map[3] = 0;
-
-    cluster_map[4] = 1;
-    cluster_map[5] = 1;
-    cluster_map[6] = 1;
-    cluster_map[7] = 1;
 //
-//    cluster_map[8] = 2;
-//    cluster_map[9] = 2;
-//    cluster_map[10] = 2;
-//    cluster_map[11] = 2;
+//    cluster_map[0] = 0;
+//    cluster_map[1] = 0;
+//    cluster_map[2] = 0;
+//    cluster_map[3] = 0;
 //
-//    cluster_map[12] = 3;
-//    cluster_map[13] = 3;
-//    cluster_map[14] = 3;
-//    cluster_map[15] = 3;
-//
-//    cluster_map[16] = 4;
-//    cluster_map[17] = 4;
-//    cluster_map[18] = 4;
-//    cluster_map[19] = 4;
-//
-//    cluster_map[20] = 5;
-//    cluster_map[21] = 5;
-//    cluster_map[22] = 5;
-//    cluster_map[23] = 5;
-//
-//
-//
-//
-//    cluster_map[24] = 6;
-//    cluster_map[25] = 6;
-//    cluster_map[26] = 6;
-//    cluster_map[27] = 6;
-//
-//    cluster_map[28] = 7;
-//    cluster_map[29] = 7;
-//    cluster_map[30] = 7;
-//    cluster_map[31] = 7;
-//
-//    cluster_map[32] = 8;
-//    cluster_map[33] = 8;
-//    cluster_map[34] = 8;
-//    cluster_map[35] = 8;
-//
-//    cluster_map[36] = 9;
-//    cluster_map[37] = 9;
-//    cluster_map[38] = 9;
-//    cluster_map[39] = 9;
-//
-//    cluster_map[40] = 10;
-//    cluster_map[41] = 10;
-//    cluster_map[42] = 10;
-//    cluster_map[43] = 10;
-//
-//    cluster_map[44] = 11;
-//    cluster_map[45] = 11;
-//    cluster_map[46] = 11;
-//    cluster_map[47] = 11;
-//
-//
-//
-//
-//
+//    cluster_map[4] = 1;
+//    cluster_map[5] = 1;
+//    cluster_map[6] = 1;
+//    cluster_map[7] = 1;
 
 
 
+
+    const std::string filePath = "cluster_info_hs.txt"; // Change this to the path of your file
+
+    // Open the file
+    std::ifstream inputFile(filePath);
+
+
+    if (!inputFile.is_open()) {
+        // File does not exist, throw an exception
+        throw HotStuffError("cluster_info_hs.txt missing");
+    }
+
+
+    // Vector to store the numbers
+    std::vector<int> numbers;
+
+    // Read numbers from the file
+    int temp_cluster_count = 0;
+    int number;
+    while (inputFile >> number) {
+
+        numbers.push_back(number);
+        HOTSTUFF_LOG_INFO("temp_cluster_count, number is %d, %d", temp_cluster_count, number);
+
+        cluster_map[temp_cluster_count] = number;
+        temp_cluster_count++;
+    }
+
+    // Close the file
+    inputFile.close();
+
+
+    for (const auto& pair : cluster_map) {
+        HOTSTUFF_LOG_INFO( "checking cluster_map[%d] = %d " ,int(pair.first) , int(pair.second));
+    }
+
+    HOTSTUFF_LOG_INFO("cluster_map[0], cluster_map[4] is "
+                      "%d, %d", cluster_map[0], cluster_map[4]);
 
 
 
@@ -462,38 +528,38 @@ int main(int argc, char **argv) {
     {
         auto tls_priv_key = new salticidae::PKey(
                 salticidae::PKey::create_privkey_from_der(
-                        hotstuff::from_hex(opt_tls_privkey->get())));
+                    hotstuff::from_hex(opt_tls_privkey->get())));
         auto tls_cert = new salticidae::X509(
                 salticidae::X509::create_from_der(
-                        hotstuff::from_hex(opt_tls_cert->get())));
+                    hotstuff::from_hex(opt_tls_cert->get())));
         repnet_config
-                .enable_tls(true)
-                .tls_key(tls_priv_key)
-                .tls_cert(tls_cert);
+            .enable_tls(true)
+            .tls_key(tls_priv_key)
+            .tls_cert(tls_cert);
     }
     repnet_config
-            .burst_size(opt_repburst->get())
-            .nworker(opt_repnworker->get());
+        .burst_size(opt_repburst->get())
+        .nworker(opt_repnworker->get());
     clinet_config
-            .burst_size(opt_cliburst->get())
-            .nworker(opt_clinworker->get());
+        .burst_size(opt_cliburst->get())
+        .nworker(opt_clinworker->get());
 
     HOTSTUFF_LOG_INFO("dsadasd 3.5\n");
 
     papp = new HotStuffApp(opt_blk_size->get(),
-                           opt_stat_period->get(),
-                           opt_imp_timeout->get(),
-                           cluster_idx,
-                           cluster_map[int(idx)],
-                           n_clusters,
-                           hotstuff::from_hex(opt_privkey->get()),
-                           plisten_addr,
-                           NetAddr("0.0.0.0", client_port),
-                           std::move(pmaker),
-                           ec,
-                           opt_nworker->get(),
-                           repnet_config,
-                           clinet_config);
+                        opt_stat_period->get(),
+                        opt_imp_timeout->get(),
+                        cluster_idx,
+                        cluster_map[int(idx)],
+                        n_clusters,
+                        hotstuff::from_hex(opt_privkey->get()),
+                        plisten_addr,
+                        NetAddr("0.0.0.0", client_port),
+                        std::move(pmaker),
+                        ec,
+                        opt_nworker->get(),
+                        repnet_config,
+                        clinet_config);
     std::vector<std::tuple<NetAddr, bytearray_t, bytearray_t>> reps;
     std::vector<std::tuple<NetAddr, bytearray_t, bytearray_t>> all_reps;
     std::vector<std::tuple<NetAddr, bytearray_t, bytearray_t>> other_reps;
@@ -503,9 +569,9 @@ int main(int argc, char **argv) {
     {
         auto p = split_ip_port_cport(std::get<0>(r));
         reps.push_back(std::make_tuple(
-                NetAddr(p.first),
-                hotstuff::from_hex(std::get<1>(r)),
-                hotstuff::from_hex(std::get<2>(r))));
+            NetAddr(p.first),
+            hotstuff::from_hex(std::get<1>(r)),
+            hotstuff::from_hex(std::get<2>(r))));
     }
 
 
@@ -541,29 +607,32 @@ int main(int argc, char **argv) {
 }
 
 HotStuffApp::HotStuffApp(uint32_t blk_size,
-                         double stat_period,
-                         double impeach_timeout,
-                         ReplicaID idx,
-                         int cluster_id,
-                         int n_clusters,
-                         const bytearray_t &raw_privkey,
-                         NetAddr plisten_addr,
-                         NetAddr clisten_addr,
-                         hotstuff::pacemaker_bt pmaker,
-                         const EventContext &ec,
-                         size_t nworker,
-                         const Net::Config &repnet_config,
-                         const ClientNetwork<opcode_t>::Config &clinet_config):
-        HotStuff(blk_size, idx, cluster_id, n_clusters, raw_privkey,
-                 plisten_addr, std::move(pmaker), ec, nworker, repnet_config),
-        stat_period(stat_period),
-        impeach_timeout(impeach_timeout),
-        ec(ec),
-        cn(req_ec, clinet_config),
-        clisten_addr(clisten_addr) {
+                        double stat_period,
+                        double impeach_timeout,
+                        ReplicaID idx,
+                        int cluster_id,
+                        int n_clusters,
+                        const bytearray_t &raw_privkey,
+                        NetAddr plisten_addr,
+                        NetAddr clisten_addr,
+                        hotstuff::pacemaker_bt pmaker,
+                        const EventContext &ec,
+                        size_t nworker,
+                        const Net::Config &repnet_config,
+                        const ClientNetwork<opcode_t>::Config &clinet_config):
+    HotStuff(blk_size, idx, cluster_id, n_clusters, raw_privkey,
+            plisten_addr, std::move(pmaker), ec, nworker, repnet_config),
+    stat_period(stat_period),
+    impeach_timeout(impeach_timeout),
+    ec(ec),
+    cn(req_ec, clinet_config),
+    clisten_addr(clisten_addr) {
     /* prepare the thread used for sending back confirmations */
     resp_tcall = new salticidae::ThreadCall(resp_ec);
     req_tcall = new salticidae::ThreadCall(req_ec);
+
+
+
 
 
     resp_queue.reg_handler(resp_ec, [this](resp_queue_t &q) {
@@ -593,11 +662,17 @@ HotStuffApp::HotStuffApp(uint32_t blk_size,
 void HotStuffApp::client_request_cmd_handler(MsgReqCmd &&msg, const conn_t &conn) {
     const NetAddr addr = conn->get_addr();
     auto cmd = parse_cmd(msg.serialized);
+
     const auto &cmd_hash = cmd->get_hash();
+    HOTSTUFF_LOG_INFO("cmd node info is ");
+    HOTSTUFF_LOG_INFO("processing cmd %s, with cid: %d, key: %d, value: %d",
+                      std::string(*cmd).c_str(), int(cmd->get_cid()), int(cmd->get_key()), int(cmd->get_val()) );
 
-    HOTSTUFF_LOG_INFO("processing cmd %s, with cid: %d", std::string(*cmd).c_str(), int(cmd->get_cid()));
 
-    exec_command(cmd_hash, [this, addr](Finality fin) {
+    key_val_store.insert(std::make_pair(cmd_hash, std::make_pair(int(cmd->get_key()), int(cmd->get_val()))));
+    HOTSTUFF_LOG_INFO("key_val_store inserted");
+
+    exec_command(cmd_hash, int(cmd->get_key()), int(cmd->get_val()), [this, addr](Finality fin) {
         resp_queue.enqueue(std::make_pair(fin, addr));
 
 
@@ -640,8 +715,8 @@ void HotStuffApp::start(const std::vector<std::tuple<NetAddr, bytearray_t, bytea
 
 
 void HotStuffApp::start_mc(const std::vector<std::tuple<NetAddr, bytearray_t, bytearray_t>> &reps,
-                           const std::vector<std::tuple<NetAddr, bytearray_t, bytearray_t>> &all_reps,
-                           const std::vector<std::tuple<NetAddr, bytearray_t, bytearray_t>> &other_reps,
+                        const std::vector<std::tuple<NetAddr, bytearray_t, bytearray_t>> &all_reps,
+                        const std::vector<std::tuple<NetAddr, bytearray_t, bytearray_t>> &other_reps,
                            std::unordered_map<int, int> cluster_map_input, int join_node_cluster, int orig_idx) {
     ev_stat_timer = TimerEvent(ec, [this](TimerEvent &) {
         HotStuff::print_stat();
@@ -660,6 +735,20 @@ void HotStuffApp::start_mc(const std::vector<std::tuple<NetAddr, bytearray_t, by
     HOTSTUFF_LOG_INFO("blk_size = %lu", blk_size);
     HOTSTUFF_LOG_INFO("conns = %lu", HotStuff::size());
     HOTSTUFF_LOG_INFO("** starting the event loop...");
+
+
+    db->Open("db-test");
+
+
+//    for (int i=0;i < 20000; i++)
+//    {
+//        db->Put(std::to_string(i), std::to_string(0));
+//    }
+
+
+    printf("DB testing\nInsert key K1 with value V1\n");
+    db->Put("K1", "V1");
+    printf("DB K1, V1 inserted\n");
 
 
     HotStuff::start_mc(reps, all_reps, other_reps, cluster_map_input,join_node_cluster, orig_idx);
