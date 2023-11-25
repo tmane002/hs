@@ -1299,17 +1299,17 @@ namespace hotstuff {
 
 
 //                if (key%2==1)
-//                {
-//                    do_decide(Finality(id, 1, 0, 0, cmd_hash, uint256_t()) );
-//                }
+                {
+                    do_decide(Finality(id, 1, 0, 0, cmd_hash, uint256_t()) );
+                }
 
                 if (proposer != get_id()) continue;
 
 //                if (key%2==0)
-                {
-                    cmd_pending_buffer.push(cmd_hash);
-
-                }
+//                {
+//                    cmd_pending_buffer.push(cmd_hash);
+//
+//                }
 
 
                 if (cmd_pending_buffer.size() >= blk_size)
