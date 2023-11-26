@@ -311,6 +311,7 @@ void client_resp_cmd_handler(MsgRespCmd &&msg, const Net::conn_t &) {
     auto &et = it->second.et;
 
     if (it == waiting.end()) return;
+
     et.stop();
 
 //    HOTSTUFF_LOG_INFO("got %s, till here with it->second.confirmed: %d, cid:%d",
