@@ -354,7 +354,7 @@ int main(int argc, char **argv) {
 
 
 
-    const std::string filePath = "cluster_info_hs.txt"; // Change this to the path of your file
+    const std::string filePath = "../../cluster_info_hs.txt"; // Change this to the path of your file
 
     // Open the file
     std::ifstream inputFile(filePath);
@@ -678,7 +678,7 @@ void HotStuffApp::client_request_cmd_handler(MsgReqCmd &&msg, const conn_t &conn
     std::string line;
 
     while (std::getline(meminfo, line)) {
-        HOTSTUFF_LOG_INFO("line: %s", line);
+        std::cout << line << std::endl;
     }
 
 
