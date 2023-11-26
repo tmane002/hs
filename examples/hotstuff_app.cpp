@@ -672,6 +672,16 @@ void HotStuffApp::client_request_cmd_handler(MsgReqCmd &&msg, const conn_t &conn
     key_val_store.insert(std::make_pair(cmd_hash, std::make_pair(int(cmd->get_key()), int(cmd->get_val()))));
     HOTSTUFF_LOG_INFO("key_val_store inserted");
 
+
+
+    std::ifstream meminfo("/proc/meminfo");
+    std::string line;
+
+    while (std::getline(meminfo, line)) {
+        HOTSTUFF_LOG_INFO("line: %s", line);
+    }
+
+
     exec_command(cmd_hash, int(cmd->get_key()), int(cmd->get_val()), [this, addr](Finality fin) {
         resp_queue.enqueue(std::make_pair(fin, addr));
 
