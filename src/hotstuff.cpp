@@ -104,6 +104,7 @@ namespace hotstuff {
 // TODO: improve this function
     void HotStuffBase::exec_command(uint256_t cmd_hash, int key, int val, commit_cb_t callback) {
 
+        HOTSTUFF_LOG_INFO("exec_command, adding to cmd_pending");
 
         cmd_pending.enqueue(std::make_pair(cmd_hash, callback));
 
