@@ -168,7 +168,8 @@ class HotStuffApp: public HotStuff {
 //
 //
 
-            reset_imp_timer();
+//            reset_imp_timer();
+            
             #ifndef HOTSTUFF_ENABLE_BENCHMARK
 
             HOTSTUFF_LOG_INFO("replicated %s",
