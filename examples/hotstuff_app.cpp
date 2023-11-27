@@ -136,31 +136,31 @@ class HotStuffApp: public HotStuff {
 
     void state_machine_execute(const Finality &fin) override {
 
-        bool cond = key_val_store.find(fin.cmd_hash) != key_val_store.end();
-        if (cond)
+//        bool cond = key_val_store.find(fin.cmd_hash) != key_val_store.end();
+//        if (cond)
         {
 
-
-            std::pair key_val = key_val_store.at(fin.cmd_hash);
-
-
-
-            key_val_store.erase(fin.cmd_hash);
-
-            std::string status = "READ/UPDATE";
-
-            HOTSTUFF_LOG_INFO("state_machine_execute: status = %s ", status.c_str());
-
-//            if (key_val.first%2==0)
+//
+//            std::pair key_val = key_val_store.at(fin.cmd_hash);
+//
+//
+//
+//            key_val_store.erase(fin.cmd_hash);
+//
+//            std::string status = "READ/UPDATE";
+//
+//            HOTSTUFF_LOG_INFO("state_machine_execute: status = %s ", status.c_str());
+//
+////            if (key_val.first%2==0)
+////            {
+////                db->Put(std::to_string(key_val.first), std::to_string(key_val.second));
+////                status = "UPDATE";
+////            }
+////            else
 //            {
-//                db->Put(std::to_string(key_val.first), std::to_string(key_val.second));
-//                status = "UPDATE";
+//                status =  "READ: value = " + db->Get(std::to_string(key_val.first));
+//
 //            }
-//            else
-            {
-                status =  "READ: value = " + db->Get(std::to_string(key_val.first));
-
-            }
 
 //
 //        HOTSTUFF_LOG_INFO("state_machine_execute: done op with key %d, status = %s ",
@@ -175,13 +175,13 @@ class HotStuffApp: public HotStuff {
                               std::string(fin).c_str());
 
 
-
-
-                HOTSTUFF_LOG_INFO("replicated %s with key, val = %d, %d, with stored value: %d, status: %s",
-                                  std::string(fin).c_str(), key_val.first, key_val.second,
-                                  std::stoi( db->Get(std::to_string(key_val.first)) )
-                        , status.c_str());
-
+//
+//
+//                HOTSTUFF_LOG_INFO("replicated %s with key, val = %d, %d, with stored value: %d, status: %s",
+//                                  std::string(fin).c_str(), key_val.first, key_val.second,
+//                                  std::stoi( db->Get(std::to_string(key_val.first)) )
+//                        , status.c_str());
+//
 
 
 
