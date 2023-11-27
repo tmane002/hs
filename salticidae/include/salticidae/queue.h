@@ -87,7 +87,7 @@ class FreeList {
     }
 };
 
-const size_t MPMCQ_SIZE = 8096;
+const size_t MPMCQ_SIZE = 16384;
 
 template<typename T>
 class MPMCQueue {

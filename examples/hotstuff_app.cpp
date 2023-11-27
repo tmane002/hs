@@ -354,7 +354,7 @@ int main(int argc, char **argv) {
 
 
 
-    const std::string filePath = "cluster_info_hs.txt"; // Change this to the path of your file
+    const std::string filePath = "../../cluster_info_hs.txt"; // Change this to the path of your file
 
     // Open the file
     std::ifstream inputFile(filePath);
