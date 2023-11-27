@@ -1087,7 +1087,7 @@ namespace hotstuff {
 
 
 
-        part_decided++;
+//        part_decided++;
 
 
         state_machine_execute(fin);
