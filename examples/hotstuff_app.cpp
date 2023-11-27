@@ -136,31 +136,32 @@ class HotStuffApp: public HotStuff {
 
     void state_machine_execute(const Finality &fin) override {
 
-//        bool cond = key_val_store.find(fin.cmd_hash) != key_val_store.end();
-//        if (cond)
+        bool cond = key_val_store.find(fin.cmd_hash) != key_val_store.end();
+        if (cond)
         {
 
-//
-//            std::pair key_val = key_val_store.at(fin.cmd_hash);
-//
-//
-//
+
+            std::pair key_val = key_val_store.at(fin.cmd_hash);
+
+
+
 //            key_val_store.erase(fin.cmd_hash);
-//
-//            std::string status = "READ/UPDATE";
-//
-//            HOTSTUFF_LOG_INFO("state_machine_execute: status = %s ", status.c_str());
-//
-////            if (key_val.first%2==0)
-////            {
-////                db->Put(std::to_string(key_val.first), std::to_string(key_val.second));
-////                status = "UPDATE";
-////            }
-////            else
+
+            std::string status = "READ/UPDATE";
+
+            HOTSTUFF_LOG_INFO("state_machine_execute: status = %s ", status.c_str());
+
+//            if (key_val.first%2==0)
 //            {
-//                status =  "READ: value = " + db->Get(std::to_string(key_val.first));
-//
+//                db->Put(std::to_string(key_val.first), std::to_string(key_val.second));
+//                status = "UPDATE";
 //            }
+//            else
+            {
+//                status =  "READ: value = " + db->Get(std::to_string(key_val.first));
+                status =  "READ";
+
+            }
 
 //
 //        HOTSTUFF_LOG_INFO("state_machine_execute: done op with key %d, status = %s ",
@@ -168,14 +169,15 @@ class HotStuffApp: public HotStuff {
 //
 //
 
-            reset_imp_timer();
+//            reset_imp_timer();
+
             #ifndef HOTSTUFF_ENABLE_BENCHMARK
 
             HOTSTUFF_LOG_INFO("replicated %s",
                               std::string(fin).c_str());
 
 
-//
+
 //
 //                HOTSTUFF_LOG_INFO("replicated %s with key, val = %d, %d, with stored value: %d, status: %s",
 //                                  std::string(fin).c_str(), key_val.first, key_val.second,
