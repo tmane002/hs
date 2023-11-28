@@ -110,7 +110,9 @@ namespace hotstuff {
 
 //        insert_key_val(cmd_hash, key, val);
 
-        key_val_store[(cmd_hash)] = std::pair(key,val);
+        key_val_store[cmd_hash] = std::pair(key,val);
+
+        HOTSTUFF_LOG_INFO("exec_cmd with key, val = %d, %d", key_val_store[cmd_hash].first, key_val_store[cmd_hash].second);
 
 
         cmd_pending.enqueue(std::make_pair(cmd_hash, callback));
