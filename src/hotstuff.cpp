@@ -110,7 +110,7 @@ namespace hotstuff {
 
 //        insert_key_val(cmd_hash, key, val);
 
-        key_val_store[get_hex10(cmd_hash).c_str()] = std::pair(key,val);
+        key_val_store[(cmd_hash)] = std::pair(key,val);
 
 
         cmd_pending.enqueue(std::make_pair(cmd_hash, callback));
@@ -1304,15 +1304,15 @@ namespace hotstuff {
 
 
 
-                bool cond = key_val_store.find(get_hex10(cmd_hash).c_str()) != key_val_store.end();
+                bool cond = key_val_store.find((cmd_hash)) != key_val_store.end();
 
                 if (!cond)
                 {
-                    throw std::invalid_argument("Key Not Found  during executing ");
+                    throw std::invalid_argument("Key Not Found,  during executing %s, did it print? ", std::string(cmd_hash));
                 }
 
 
-                int key = key_val_store.at(get_hex10(cmd_hash).c_str()).first;
+                int key = key_val_store.at((cmd_hash)).first;
                 HOTSTUFF_LOG_INFO("key is %d", key);
 
 

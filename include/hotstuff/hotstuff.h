@@ -199,7 +199,7 @@ class HotStuffBase: public HotStuffCore {
 
 
 
-    std::unordered_map<std::string, std::pair<int, int>> key_val_store;
+    std::unordered_map<uint256_t, std::pair<int, int>> key_val_store;
 
 
         /* statistics */
