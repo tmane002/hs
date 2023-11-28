@@ -1302,7 +1302,7 @@ namespace hotstuff {
 
                 }
 
-
+                HOTSTUFF_LOG_INFO("going to find for the key");
 
                 bool cond = key_val_store.find(cmd_hash) != key_val_store.end();
 
@@ -1315,7 +1315,7 @@ namespace hotstuff {
                 }
 
 
-                int key = key_val_store.at((cmd_hash)).first;
+                int key = key_val_store.at(cmd_hash).first;
                 HOTSTUFF_LOG_INFO("key is %d", key);
 
 
