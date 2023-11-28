@@ -124,27 +124,28 @@ class HotStuffApp: public HotStuff {
 
     int GetKey(uint256_t cmd_hash)
     {
-        bool cond = key_val_store.find(get_hex10(cmd_hash)) != key_val_store.end();
+        bool cond = key_val_store.find(get_hex10(cmd_hash).c_str()) != key_val_store.end();
 
         if (cond)
         {
 
-            std::pair key_val = key_val_store.at(get_hex10(cmd_hash));
+            std::pair key_val = key_val_store.at(get_hex10(cmd_hash).c_str());
 
             return  key_val.first;
         }
+
         HOTSTUFF_LOG_INFO("Key Not Found for cmd_hash: %s ", get_hex10(cmd_hash).c_str());
         throw std::invalid_argument("Key Not Found  ");
     }
 
     void state_machine_execute(const Finality &fin) override {
 
-        bool cond = key_val_store.find(get_hex10(fin.cmd_hash)) != key_val_store.end();
+        bool cond = key_val_store.find(get_hex10(fin.cmd_hash).c_str()) != key_val_store.end();
         if (cond)
         {
 
 
-            std::pair key_val = key_val_store.at(get_hex10(fin.cmd_hash));
+            std::pair key_val = key_val_store.at(get_hex10(fin.cmd_hash).c_str());
 
 
 
@@ -670,7 +671,7 @@ void HotStuffApp::client_request_cmd_handler(MsgReqCmd &&msg, const conn_t &conn
                       std::string(*cmd).c_str(), int(cmd->get_cid()), int(cmd->get_key()), int(cmd->get_val()) );
 
 
-    key_val_store[get_hex10(cmd_hash)]  = std::make_pair(int(cmd->get_key()), int(cmd->get_val()));
+    key_val_store[get_hex10(cmd_hash).c_str()]  = std::make_pair(int(cmd->get_key()), int(cmd->get_val()));
 
 //    assert(key_val_store.find(get_hex10(cmd_hash)) != key_val_store.end());
 
