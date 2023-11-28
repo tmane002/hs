@@ -153,7 +153,7 @@ class HotStuffApp: public HotStuff {
 
 //            if (key_val.first%2==0)
             {
-//                db->Put(std::to_string(key_val.first), std::to_string(key_val.second));
+                db->Put(std::to_string(key_val.first), std::to_string(key_val.second));
                 status = "UPDATE";
             }
 //            else
