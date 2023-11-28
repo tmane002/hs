@@ -145,7 +145,7 @@ class HotStuffApp: public HotStuff {
 
 
 
-//            key_val_store.erase(fin.cmd_hash);
+            key_val_store.erase(fin.cmd_hash);
 
             std::string status = "READ/UPDATE";
 
