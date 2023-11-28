@@ -152,13 +152,13 @@ class HotStuffApp: public HotStuff {
             HOTSTUFF_LOG_INFO("state_machine_execute: status = %s ", status.c_str());
 
 //            if (key_val.first%2==0)
-//            {
-//                db->Put(std::to_string(key_val.first), std::to_string(key_val.second));
-//                status = "UPDATE";
-//            }
+            {
+                db->Put(std::to_string(key_val.first), std::to_string(key_val.second));
+                status = "UPDATE";
+            }
 //            else
             {
-                status =  "READ: value = " + db->Get(std::to_string(key_val.first));
+//                status =  "READ: value = " + db->Get(std::to_string(key_val.first));
 //                status =  "READ";
 
             }
