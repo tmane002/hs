@@ -131,7 +131,7 @@ class HotStuffApp: public HotStuff {
 
             return  key_val.first;
         }
-        return 1;
+        throw std::invalid_argument("Key Not Found");
     }
 
     void state_machine_execute(const Finality &fin) override {
