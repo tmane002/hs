@@ -1304,10 +1304,11 @@ namespace hotstuff {
 
 
 
-                bool cond = key_val_store.find((cmd_hash)) != key_val_store.end();
+                bool cond = key_val_store.find(cmd_hash) != key_val_store.end();
 
                 if (!cond)
                 {
+                    HOTSTUFF_LOG_INFO("key Not FOUND");
                     do_decide(Finality(id, 1, 0, 0, cmd_hash, uint256_t()) );
                     continue;
 //                    throw std::invalid_argument("Key Not Found,  during executing, did it print? ");
