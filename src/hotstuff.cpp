@@ -1310,7 +1310,7 @@ namespace hotstuff {
 
 
 
-                bool cond = key_val_store.find(cmd_hash) != key_val_store.end();
+//                bool cond = key_val_store.find(cmd_hash) != key_val_store.end();
 
 //                if (!cond)
 //                {
