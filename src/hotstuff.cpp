@@ -1295,18 +1295,18 @@ namespace hotstuff {
 
                 }
 
-//                int key = GetKey(cmd_hash);
-//                HOTSTUFF_LOG_INFO("key is %d", key);
+                int key = GetKey(cmd_hash);
+                HOTSTUFF_LOG_INFO("key is %d", key);
 
 
-//                if (key%2==1)
-//                {
-//                    do_decide(Finality(id, 1, 0, 0, cmd_hash, uint256_t()) );
-//                }
+                if (key%2==1)
+                {
+                    do_decide(Finality(id, 1, 0, 0, cmd_hash, uint256_t()) );
+                }
 
                 if (proposer != get_id()) continue;
 
-//                if (key%2==0)
+                if (key%2==0)
                 {
                     cmd_pending_buffer.push(cmd_hash);
 
