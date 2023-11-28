@@ -106,6 +106,8 @@ namespace hotstuff {
 
         HOTSTUFF_LOG_INFO("exec_command, adding to cmd_pending with current size");
 
+
+
         cmd_pending.enqueue(std::make_pair(cmd_hash, callback));
 
 

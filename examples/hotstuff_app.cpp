@@ -657,6 +657,9 @@ HotStuffApp::HotStuffApp(uint32_t blk_size,
     cn.listen(clisten_addr);
 }
 
+
+
+
 void HotStuffApp::client_request_cmd_handler(MsgReqCmd &&msg, const conn_t &conn) {
     const NetAddr addr = conn->get_addr();
     auto cmd = parse_cmd(msg.serialized);
@@ -668,6 +671,9 @@ void HotStuffApp::client_request_cmd_handler(MsgReqCmd &&msg, const conn_t &conn
 
 
     key_val_store.insert(std::make_pair(cmd_hash, std::make_pair(int(cmd->get_key()), int(cmd->get_val()))));
+
+    assert(key_val_store.find(cmd_hash) != key_val_store.end());
+
     HOTSTUFF_LOG_INFO("key_val_store inserted");
 
 
