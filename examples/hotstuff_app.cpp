@@ -47,7 +47,7 @@ using salticidae::MsgNetwork;
 using salticidae::ClientNetwork;
 using salticidae::ElapsedTime;
 using salticidae::Config;
-using salticidae::get_hex;
+using salticidae::get_hex10;
 
 using salticidae::_1;
 using salticidae::_2;
@@ -133,7 +133,7 @@ class HotStuffApp: public HotStuff {
 
             return  key_val.first;
         }
-        HOTSTUFF_LOG_INFO("Key Not Found for cmd_hash: %s ", get_hex(cmd_hash).c_str());
+        HOTSTUFF_LOG_INFO("Key Not Found for cmd_hash: %s ", get_hex10(cmd_hash).c_str());
         throw std::invalid_argument("Key Not Found  ");
     }
 
