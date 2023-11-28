@@ -122,7 +122,7 @@ class HotStuffApp: public HotStuff {
         impeach_timer.add(impeach_timeout);
     }
 
-    int GetKey(uint256_t cmd_hash)
+    int GetKey(const uint256_t cmd_hash)
     {
         bool cond = key_val_store.find((cmd_hash)) != key_val_store.end();
 
@@ -140,12 +140,14 @@ class HotStuffApp: public HotStuff {
 
     void state_machine_execute(const Finality &fin) override {
 
-        bool cond = key_val_store.find(fin.cmd_hash) != key_val_store.end();
+        const uint256_t c_hash = fin.cmd_hash;
+
+        bool cond = key_val_store.find(c_hash) != key_val_store.end();
         if (cond)
         {
 
 
-            std::pair key_val = key_val_store.at(fin.cmd_hash);
+            std::pair key_val = key_val_store.at(c_hash);
 
 
 
