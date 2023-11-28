@@ -158,8 +158,8 @@ class HotStuffApp: public HotStuff {
 //            }
 //            else
             {
-//                status =  "READ: value = " + db->Get(std::to_string(key_val.first));
-                status =  "READ";
+                status =  "READ: value = " + db->Get(std::to_string(key_val.first));
+//                status =  "READ";
 
             }
 
@@ -178,12 +178,12 @@ class HotStuffApp: public HotStuff {
 
 
 
-//
-//                HOTSTUFF_LOG_INFO("replicated %s with key, val = %d, %d, with stored value: %d, status: %s",
-//                                  std::string(fin).c_str(), key_val.first, key_val.second,
-//                                  std::stoi( db->Get(std::to_string(key_val.first)) )
-//                        , status.c_str());
-//
+
+                HOTSTUFF_LOG_INFO("replicated %s with key, val = %d, %d, with stored value: %d, status: %s",
+                                  std::string(fin).c_str(), key_val.first, key_val.second,
+                                  std::stoi( db->Get(std::to_string(key_val.first)) )
+                        , status.c_str());
+
 
 
 
