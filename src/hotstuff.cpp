@@ -1308,7 +1308,9 @@ namespace hotstuff {
 
                 if (!cond)
                 {
-                    throw std::invalid_argument("Key Not Found,  during executing %s, did it print? ", std::string(cmd_hash));
+                    do_decide(Finality(id, 1, 0, 0, cmd_hash, uint256_t()) );
+
+//                    throw std::invalid_argument("Key Not Found,  during executing, did it print? ");
                 }
 
 
