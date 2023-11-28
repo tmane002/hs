@@ -1298,9 +1298,8 @@ namespace hotstuff {
                 }
 
 
-                const uint256_t &c_hash = cmd_hash;
 
-                int key = GetKey(c_hash);
+                int key = GetKey(cmd_hash);
                 HOTSTUFF_LOG_INFO("key is %d", key);
 
 

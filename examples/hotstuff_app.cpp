@@ -122,9 +122,9 @@ class HotStuffApp: public HotStuff {
         impeach_timer.add(impeach_timeout);
     }
 
-    int GetKey(const uint256_t cmd_hash)
+    int GetKey(uint256_t cmd_hash)
     {
-        bool cond = key_val_store.find((cmd_hash)) != key_val_store.end();
+        bool cond = key_val_store.find(cmd_hash) != key_val_store.end();
 
         if (cond)
         {
@@ -140,14 +140,14 @@ class HotStuffApp: public HotStuff {
 
     void state_machine_execute(const Finality &fin) override {
 
-        const uint256_t &c_hash = fin.cmd_hash;
 
-        bool cond = key_val_store.find(c_hash) != key_val_store.end();
+
+        bool cond = key_val_store.find(fin.cmd_hash) != key_val_store.end();
         if (cond)
         {
 
 
-            std::pair key_val = key_val_store.at(c_hash);
+            std::pair key_val = key_val_store.at(fin.cmd_hash);
 
 
 
@@ -190,6 +190,13 @@ class HotStuffApp: public HotStuff {
 
 
 
+        }
+        else
+        {
+            HOTSTUFF_LOG_INFO("tried to replicate %s",
+                              std::string(fin).c_str());
+
+            throw std::invalid_argument("Key Not Found  during executing ");
         }
 
 
@@ -675,7 +682,7 @@ void HotStuffApp::client_request_cmd_handler(MsgReqCmd &&msg, const conn_t &conn
 
     HOTSTUFF_LOG_INFO("Key inserted for cmd_hash: %s ", get_hex10(cmd->get_hash()).c_str());
 
-    key_val_store.insert(std::pair(cmd->get_hash(), std::make_pair(int(cmd->get_key()), int(cmd->get_val())) ) ) ;
+    key_val_store.insert(std::pair(cmd_hash, std::make_pair(int(cmd->get_key()), int(cmd->get_val())) ) ) ;
 
 //    assert(key_val_store.find(get_hex10(cmd_hash)) != key_val_store.end());
 
@@ -689,6 +696,7 @@ void HotStuffApp::client_request_cmd_handler(MsgReqCmd &&msg, const conn_t &conn
 //    while (std::getline(meminfo, line)) {
 //        std::cout << line << std::endl;
 //    }
+
 
 
     exec_command(cmd_hash, int(cmd->get_key()), int(cmd->get_val()), [this, addr](Finality fin) {
