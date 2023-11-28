@@ -105,7 +105,7 @@ class HotStuffApp: public HotStuff {
 
 
 
-    std::unordered_map<const uint256_t, std::pair<int, int>> key_val_store;
+    std::unordered_map<std::string, std::pair<int, int>> key_val_store;
 
     DataBase *db = new InMemoryDB();
 
@@ -124,12 +124,12 @@ class HotStuffApp: public HotStuff {
 
     int GetKey(uint256_t cmd_hash)
     {
-        bool cond = key_val_store.find(cmd_hash) != key_val_store.end();
+        bool cond = key_val_store.find(get_hex10(cmd_hash)) != key_val_store.end();
 
         if (cond)
         {
 
-            std::pair key_val = key_val_store.at(cmd_hash);
+            std::pair key_val = key_val_store.at(get_hex10(cmd_hash));
 
             return  key_val.first;
         }
@@ -139,12 +139,12 @@ class HotStuffApp: public HotStuff {
 
     void state_machine_execute(const Finality &fin) override {
 
-        bool cond = key_val_store.find(fin.cmd_hash) != key_val_store.end();
+        bool cond = key_val_store.find(get_hex10(fin.cmd_hash)) != key_val_store.end();
         if (cond)
         {
 
 
-            std::pair key_val = key_val_store.at(fin.cmd_hash);
+            std::pair key_val = key_val_store.at(get_hex10(fin.cmd_hash));
 
 
 
@@ -670,9 +670,9 @@ void HotStuffApp::client_request_cmd_handler(MsgReqCmd &&msg, const conn_t &conn
                       std::string(*cmd).c_str(), int(cmd->get_cid()), int(cmd->get_key()), int(cmd->get_val()) );
 
 
-    key_val_store.insert(std::make_pair(cmd_hash, std::make_pair(int(cmd->get_key()), int(cmd->get_val()))));
+    key_val_store.insert(std::make_pair(get_hex10(cmd_hash), std::make_pair(int(cmd->get_key()), int(cmd->get_val()))));
 
-    assert(key_val_store.find(cmd_hash) != key_val_store.end());
+//    assert(key_val_store.find(get_hex10(cmd_hash)) != key_val_store.end());
 
     HOTSTUFF_LOG_INFO("key_val_store inserted");
 
