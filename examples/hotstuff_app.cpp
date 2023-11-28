@@ -133,7 +133,7 @@ class HotStuffApp: public HotStuff {
 
             return  key_val.first;
         }
-        HOTSTUFF_LOG_INFO("Key Not Found for cmd_hash: %.1s ", get_hex(cmd_hash).c_str());
+        HOTSTUFF_LOG_INFO("Key Not Found for cmd_hash: %s ", get_hex(cmd_hash).c_str());
         throw std::invalid_argument("Key Not Found  ");
     }
 
