@@ -1309,7 +1309,7 @@ namespace hotstuff {
                 if (!cond)
                 {
                     do_decide(Finality(id, 1, 0, 0, cmd_hash, uint256_t()) );
-
+                    continue;
 //                    throw std::invalid_argument("Key Not Found,  during executing, did it print? ");
                 }
 
