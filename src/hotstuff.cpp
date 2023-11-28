@@ -1295,8 +1295,8 @@ namespace hotstuff {
 
                 }
 
-//                int key = GetKey(cmd_hash);
-//                HOTSTUFF_LOG_INFO("key is %d", key);
+                int key = GetKey(cmd_hash);
+                HOTSTUFF_LOG_INFO("key is %d", key);
 
 
 //                if (key%2==1)
