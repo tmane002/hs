@@ -108,14 +108,13 @@ namespace hotstuff {
 
         HOTSTUFF_LOG_INFO("exec_command, adding to cmd_pending with current size");
 
-//        insert_key_val(cmd_hash, key, val);
 
         key_val_store[cmd_hash] = std::pair(key,val);
 
         HOTSTUFF_LOG_INFO("exec_cmd with key, val = %d, %d", key_val_store[cmd_hash].first, key_val_store[cmd_hash].second);
 
 
-        cmd_pending.enqueue(std::make_pair(cmd_hash, callback));
+        cmd_pending.enqueue(std::make_pair(std::make_pair(cmd_hash,key), callback));
 
 
     }
@@ -1099,6 +1098,7 @@ namespace hotstuff {
         part_decided++;
 
 
+
         state_machine_execute(fin);
 
 
@@ -1143,42 +1143,42 @@ namespace hotstuff {
 
         if (ec_loop)
             ec.dispatch();
-
-        cmd_pending.reg_handler(ec, [this](cmd_queue_t &q) {
-            std::pair<uint256_t, commit_cb_t> e;
-            while (q.try_dequeue(e))
-            {
-                ReplicaID proposer = pmaker->get_proposer();
-
-                LOG_INFO("Leader is %d", (int)proposer);
-
-                const auto &cmd_hash = e.first;
-                auto it = decision_waiting.find(cmd_hash);
-                if (it == decision_waiting.end())
-                    it = decision_waiting.insert(std::make_pair(cmd_hash, e.second)).first;
-                else
-                    e.second(Finality(id, 0, 0, 0, cmd_hash, uint256_t()));
-
-
-                if (proposer != get_id()) continue;
-                cmd_pending_buffer.push(cmd_hash);
-                if (cmd_pending_buffer.size() >= blk_size)
-                {
-                    std::vector<uint256_t> cmds;
-                    for (uint32_t i = 0; i < blk_size; i++)
-                    {
-                        cmds.push_back(cmd_pending_buffer.front());
-                        cmd_pending_buffer.pop();
-                    }
-                    pmaker->beat().then([this, cmds = std::move(cmds)](ReplicaID proposer) {
-                        if (proposer == get_id())
-                            on_propose(cmds, pmaker->get_parents());
-                    });
-                    return true;
-                }
-            }
-            return false;
-        });
+//
+//        cmd_pending.reg_handler(ec, [this](cmd_queue_t &q) {
+//            std::pair<uint256_t, commit_cb_t> e;
+//            while (q.try_dequeue(e))
+//            {
+//                ReplicaID proposer = pmaker->get_proposer();
+//
+//                LOG_INFO("Leader is %d", (int)proposer);
+//
+//                const auto &cmd_hash = e.first;
+//                auto it = decision_waiting.find(cmd_hash);
+//                if (it == decision_waiting.end())
+//                    it = decision_waiting.insert(std::make_pair(cmd_hash, e.second)).first;
+//                else
+//                    e.second(Finality(id, 0, 0, 0, cmd_hash, uint256_t()));
+//
+//
+//                if (proposer != get_id()) continue;
+//                cmd_pending_buffer.push(cmd_hash);
+//                if (cmd_pending_buffer.size() >= blk_size)
+//                {
+//                    std::vector<uint256_t> cmds;
+//                    for (uint32_t i = 0; i < blk_size; i++)
+//                    {
+//                        cmds.push_back(cmd_pending_buffer.front());
+//                        cmd_pending_buffer.pop();
+//                    }
+//                    pmaker->beat().then([this, cmds = std::move(cmds)](ReplicaID proposer) {
+//                        if (proposer == get_id())
+//                            on_propose(cmds, pmaker->get_parents());
+//                    });
+//                    return true;
+//                }
+//            }
+//            return false;
+//        });
     }
 
 
@@ -1268,14 +1268,14 @@ namespace hotstuff {
             ec.dispatch();
 
         cmd_pending.reg_handler(ec, [this](cmd_queue_t &q) {
-            std::pair<uint256_t, commit_cb_t> e;
+            std::pair<std::pair<uint256_t, int>, commit_cb_t> e;
             while (q.try_dequeue(e))
             {
                 ReplicaID proposer = pmaker->get_proposer();
 
                 LOG_INFO("Leader is %d", (int)proposer);
 
-                const auto &cmd_hash = e.first;
+                const auto &cmd_hash = e.first.first;
                 auto it = decision_waiting.find(cmd_hash);
 
 
@@ -1305,21 +1305,25 @@ namespace hotstuff {
                 }
 
                 HOTSTUFF_LOG_INFO("going to find for the key");
+                HOTSTUFF_LOG_INFO("key is %d", int(e.first.second));
+
+
+
 
                 bool cond = key_val_store.find(cmd_hash) != key_val_store.end();
 
-                if (!cond)
-                {
-                    HOTSTUFF_LOG_INFO("key Not FOUND");
-                    do_decide(Finality(id, 1, 0, 0, cmd_hash, uint256_t()) );
-                    continue;
-//                    throw std::invalid_argument("Key Not Found,  during executing, did it print? ");
-                }
+//                if (!cond)
+//                {
+//                    HOTSTUFF_LOG_INFO("key Not FOUND");
+//                    do_decide(Finality(id, 1, 0, 0, cmd_hash, uint256_t()) );
+//                    continue;
+////                    throw std::invalid_argument("Key Not Found,  during executing, did it print? ");
+//                }
 
 
-                int key = key_val_store.at(cmd_hash).first;
-                HOTSTUFF_LOG_INFO("key is %d", key);
-
+                int key = int(e.first.second);
+//                HOTSTUFF_LOG_INFO("key is %d", key);
+//                int tmp_p_dec = part_decided;
 
                 if (key%2==1)
                 {
@@ -1331,7 +1335,6 @@ namespace hotstuff {
                 if (key%2==0)
                 {
                     cmd_pending_buffer.push(cmd_hash);
-
                 }
 
 
