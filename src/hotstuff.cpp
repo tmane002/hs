@@ -20,6 +20,8 @@
 #include "hotstuff/liveness.h"
 
 using salticidae::static_pointer_cast;
+using salticidae::get_hex10;
+
 
 #define LOG_INFO HOTSTUFF_LOG_INFO
 #define LOG_DEBUG HOTSTUFF_LOG_INFO
@@ -106,7 +108,10 @@ namespace hotstuff {
 
         HOTSTUFF_LOG_INFO("exec_command, adding to cmd_pending with current size");
 
-        insert_key_val(cmd_hash, key, val);
+//        insert_key_val(cmd_hash, key, val);
+
+        key_val_store[get_hex10(cmd_hash).c_str()] = std::pair(key,val);
+
 
         cmd_pending.enqueue(std::make_pair(cmd_hash, callback));
 
@@ -1299,7 +1304,15 @@ namespace hotstuff {
 
 
 
-                int key = GetKey(cmd_hash);
+                bool cond = key_val_store.find(get_hex10(cmd_hash).c_str()) != key_val_store.end();
+
+                if (!cond)
+                {
+                    throw std::invalid_argument("Key Not Found  during executing ");
+                }
+
+
+                int key = key_val_store.at(get_hex10(cmd_hash).c_str()).first;
                 HOTSTUFF_LOG_INFO("key is %d", key);
 
 

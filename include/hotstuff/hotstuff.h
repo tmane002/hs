@@ -197,7 +197,12 @@ class HotStuffBase: public HotStuffCore {
     cmd_queue_t cmd_pending;
     std::queue<uint256_t> cmd_pending_buffer;
 
-    /* statistics */
+
+
+    std::unordered_map<std::string, std::pair<int, int>> key_val_store;
+
+
+        /* statistics */
     uint64_t fetched;
     uint64_t delivered;
     mutable uint64_t nsent;
@@ -252,8 +257,8 @@ class HotStuffBase: public HotStuffCore {
      * implement this to make transition for the application state. */
     virtual void state_machine_execute(const Finality &) = 0;
 
-    virtual int GetKey(uint256_t cmd_hash) = 0;
-    virtual void insert_key_val(uint256_t cmd_hash, int key, int val) = 0;
+//    virtual int GetKey(uint256_t cmd_hash) = 0;
+//    virtual void insert_key_val(uint256_t cmd_hash, int key, int val) = 0;
 
     public:
     HotStuffBase(uint32_t blk_size,

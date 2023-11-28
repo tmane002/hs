@@ -105,7 +105,7 @@ class HotStuffApp: public HotStuff {
 
 
 
-    std::unordered_map<std::string, std::pair<int, int>> key_val_store;
+//    std::unordered_map<std::string, std::pair<int, int>> key_val_store;
 
     DataBase *db = new InMemoryDB();
 
@@ -121,33 +121,33 @@ class HotStuffApp: public HotStuff {
         impeach_timer.del();
         impeach_timer.add(impeach_timeout);
     }
-
-    int GetKey(uint256_t cmd_hash)
-    {
-        bool cond = key_val_store.find(get_hex10(cmd_hash).c_str()) != key_val_store.end();
-
-        if (cond)
-        {
-
-            std::pair key_val = key_val_store.at(get_hex10(cmd_hash).c_str());
-
-            return  key_val.first;
-        }
-
-        HOTSTUFF_LOG_INFO("Key Not Found for cmd_hash:%s", get_hex10(cmd_hash).c_str());
-        throw std::invalid_argument("Key Not Found  ");
-    }
+//
+//    int GetKey(uint256_t cmd_hash)
+//    {
+//        bool cond = key_val_store.find(get_hex10(cmd_hash).c_str()) != key_val_store.end();
+//
+//        if (cond)
+//        {
+//
+//            std::pair key_val = key_val_store.at(get_hex10(cmd_hash).c_str());
+//
+//            return  key_val.first;
+//        }
+//
+//        HOTSTUFF_LOG_INFO("Key Not Found for cmd_hash:%s", get_hex10(cmd_hash).c_str());
+//        throw std::invalid_argument("Key Not Found  ");
+//    }
 
     void state_machine_execute(const Finality &fin) override {
 
 
 
-        bool cond = key_val_store.find(get_hex10(fin.cmd_hash).c_str()) != key_val_store.end();
-        if (cond)
+//        bool cond = key_val_store.find(get_hex10(fin.cmd_hash).c_str()) != key_val_store.end();
+//        if (cond)
         {
 
 
-            std::pair key_val = key_val_store.at(get_hex10(fin.cmd_hash).c_str());
+//            std::pair key_val = key_val_store.at(get_hex10(fin.cmd_hash).c_str());
 
 
 
@@ -156,14 +156,14 @@ class HotStuffApp: public HotStuff {
 
             HOTSTUFF_LOG_INFO("state_machine_execute: status = %s ", status.c_str());
 
-            if (key_val.first%2==0)
+//            if (key_val.first%2==0)
             {
-                db->Put(std::to_string(key_val.first), std::to_string(key_val.second));
-                status = "UPDATE";
+//                db->Put(std::to_string(key_val.first), std::to_string(key_val.second));
+//                status = "UPDATE";
             }
-            else
+//            else
             {
-                status =  "READ: value = " + db->Get(std::to_string(key_val.first));
+//                status =  "READ: value = " + db->Get(std::to_string(key_val.first));
 
             }
 
@@ -176,12 +176,12 @@ class HotStuffApp: public HotStuff {
                               std::string(fin).c_str());
 
 
-
-
-                HOTSTUFF_LOG_INFO("replicated %s with key, val = %d, %d, with stored value: %d, status: %s",
-                                  std::string(fin).c_str(), key_val.first, key_val.second,
-                                  std::stoi( db->Get(std::to_string(key_val.first)) )
-                        , status.c_str());
+//
+//
+//                HOTSTUFF_LOG_INFO("replicated %s with key, val = %d, %d, with stored value: %d, status: %s",
+//                                  std::string(fin).c_str(), key_val.first, key_val.second,
+//                                  std::stoi( db->Get(std::to_string(key_val.first)) )
+//                        , status.c_str());
 
 
 
@@ -191,13 +191,13 @@ class HotStuffApp: public HotStuff {
 
 
         }
-        else
-        {
-            HOTSTUFF_LOG_INFO("tried to replicate %s",
-                              std::string(fin).c_str());
-
-            throw std::invalid_argument("Key Not Found  during executing ");
-        }
+//        else
+//        {
+//            HOTSTUFF_LOG_INFO("tried to replicate %s",
+//                              std::string(fin).c_str());
+//
+//            throw std::invalid_argument("Key Not Found  during executing ");
+//        }
 
 
 
@@ -667,13 +667,13 @@ HotStuffApp::HotStuffApp(uint32_t blk_size,
     cn.listen(clisten_addr);
 }
 
-void HotStuffApp::insert_key_val(uint256_t cmd_hash, int key, int val)
-{
-
-    key_val_store.insert(std::pair(get_hex10(cmd_hash).c_str(), std::make_pair(int(cmd->get_key()), int(cmd->get_val())) ) ) ;
-
-
-}
+//void HotStuffApp::insert_key_val(uint256_t cmd_hash, int key, int val)
+//{
+//
+//    key_val_store.insert(std::pair(get_hex10(cmd_hash).c_str(), std::make_pair(int(cmd->get_key()), int(cmd->get_val())) ) ) ;
+//
+//
+//}
 
 
 
@@ -687,13 +687,13 @@ void HotStuffApp::client_request_cmd_handler(MsgReqCmd &&msg, const conn_t &conn
                       std::string(*cmd).c_str(), int(cmd->get_cid()), int(cmd->get_key()), int(cmd->get_val()) );
 
 
-    HOTSTUFF_LOG_INFO("Key inserted for cmd_hash: %s ", get_hex10(cmd->get_hash()).c_str());
+//    HOTSTUFF_LOG_INFO("Key goinginserted for cmd_hash: %s ", get_hex10(cmd->get_hash()).c_str());
 
 //    key_val_store.insert(std::pair(cmd_hash, std::make_pair(int(cmd->get_key()), int(cmd->get_val())) ) ) ;
 
 //    assert(key_val_store.find(get_hex10(cmd_hash)) != key_val_store.end());
 
-    HOTSTUFF_LOG_INFO("key_val_store inserted");
+//    HOTSTUFF_LOG_INFO("key_val_store inserted");
 
 
 //
