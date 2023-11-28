@@ -140,7 +140,7 @@ class HotStuffApp: public HotStuff {
 
     void state_machine_execute(const Finality &fin) override {
 
-        const uint256_t c_hash = fin.cmd_hash;
+        const uint256_t &c_hash = fin.cmd_hash;
 
         bool cond = key_val_store.find(c_hash) != key_val_store.end();
         if (cond)
