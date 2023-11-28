@@ -671,6 +671,8 @@ void HotStuffApp::client_request_cmd_handler(MsgReqCmd &&msg, const conn_t &conn
                       std::string(*cmd).c_str(), int(cmd->get_cid()), int(cmd->get_key()), int(cmd->get_val()) );
 
 
+    HOTSTUFF_LOG_INFO("Key inserted for cmd_hash: %s ", get_hex10(cmd->get_hash()).c_str());
+
     key_val_store.insert(std::pair(cmd->get_hash(), std::make_pair(int(cmd->get_key()), int(cmd->get_val())) ) ) ;
 
 //    assert(key_val_store.find(get_hex10(cmd_hash)) != key_val_store.end());
