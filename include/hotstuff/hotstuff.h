@@ -251,7 +251,9 @@ class HotStuffBase: public HotStuffCore {
     /** Called to replicate the execution of a command, the application should
      * implement this to make transition for the application state. */
     virtual void state_machine_execute(const Finality &) = 0;
+
     virtual int GetKey(uint256_t cmd_hash) = 0;
+    virtual void insert_key_val(uint256_t cmd_hash, int key, int val) = 0;
 
     public:
     HotStuffBase(uint32_t blk_size,
