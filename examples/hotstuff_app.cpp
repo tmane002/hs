@@ -142,7 +142,7 @@ class HotStuffApp: public HotStuff {
         HOTSTUFF_LOG_INFO("db_write: key, val is %d, %d", key, val);
 
 //        db->Put(std::to_string(0), std::to_string(2));
-        db->Get(std::to_string(key));
+//        db->Get(std::to_string(key));
 
         status =  "UPDATE";
 
