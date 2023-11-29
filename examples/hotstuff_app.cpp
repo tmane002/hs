@@ -129,7 +129,7 @@ class HotStuffApp: public HotStuff {
         std::string status = "";
         HOTSTUFF_LOG_INFO("db_read: key is %d", key);
 
-        db->Get(std::to_string(key));
+//        db->Get(std::to_string(key));
         status =  "READ";
 
 
