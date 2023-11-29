@@ -1417,18 +1417,18 @@ namespace hotstuff {
                 int val = e.first.second.second;
 
                 HOTSTUFF_LOG_INFO("before db entry");
-
-                try
-                {
-                    key_val_store[cmd_hash] = std::pair(key,val);
-
-                } catch (const std::exception& e) {
-                    // Handle the exception
-                    HOTSTUFF_LOG_INFO( "Exception caught:  key_val_store");
-                } catch (...)
-                {
-                    HOTSTUFF_LOG_INFO( "Exception caught:  key_val_store, exception 2");
-                }
+//
+//                try
+//                {
+//                    key_val_store[cmd_hash] = std::pair(key,val);
+//
+//                } catch (const std::exception& e) {
+//                    // Handle the exception
+//                    HOTSTUFF_LOG_INFO( "Exception caught:  key_val_store");
+//                } catch (...)
+//                {
+//                    HOTSTUFF_LOG_INFO( "Exception caught:  key_val_store, exception 2");
+//                }
 
                 HOTSTUFF_LOG_INFO("after db entry");
 
