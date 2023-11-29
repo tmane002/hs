@@ -12,7 +12,6 @@
 #ifndef _DATABASE__
 #define _DATABASE__
 
-
 #include <string>
 #include <unordered_map>
 //#include "sqlite3.h"
