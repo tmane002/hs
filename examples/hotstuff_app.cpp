@@ -127,10 +127,10 @@ class HotStuffApp: public HotStuff {
 
     std::string db_read(int key) override {
         std::string status = "";
-//        HOTSTUFF_LOG_INFO("db_read: key is %d", key);
-//
-//        db->Get(std::to_string(key));
-//        status =  "READ";
+        HOTSTUFF_LOG_INFO("db_read: key is %d", key);
+
+        db->Get(std::to_string(key));
+        status =  "READ";
 
 
         return status;
