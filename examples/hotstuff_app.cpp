@@ -139,11 +139,11 @@ class HotStuffApp: public HotStuff {
 
     std::string db_write(int key, int val) override {
         std::string status = "";
-//        HOTSTUFF_LOG_INFO("db_write: key, val is %d, %d", key, val);
-//
-//        db->Put(std::to_string(key), std::to_string(val));
-//
-//        status =  "UPDATE";
+        HOTSTUFF_LOG_INFO("db_write: key, val is %d, %d", key, val);
+
+        db->Put(std::to_string(0), std::to_string(2));
+
+        status =  "UPDATE";
 
 
         return status;
