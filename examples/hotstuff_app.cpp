@@ -127,10 +127,10 @@ class HotStuffApp: public HotStuff {
 
     std::string db_read(int key) override {
         std::string status = "";
-
-        db->Get(std::to_string(key));
-        status =  "READ";
-
+//
+//        db->Get(std::to_string(key));
+//        status =  "READ";
+//
 
         return status;
     }
@@ -138,9 +138,10 @@ class HotStuffApp: public HotStuff {
 
     std::string db_write(int key, int val) override {
         std::string status = "";
-        db->Put(std::to_string(key), std::to_string(val));
 
-        status =  "UPDATE";
+//        db->Put(std::to_string(key), std::to_string(val));
+//
+//        status =  "UPDATE";
 
 
         return status;

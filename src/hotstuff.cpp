@@ -1119,6 +1119,9 @@ namespace hotstuff {
         } catch (const std::exception& e) {
             // Handle the exception
             HOTSTUFF_LOG_INFO( "Exception caught:  READ_ONLY");
+        } catch (...)
+        {
+            HOTSTUFF_LOG_INFO( "Exception caught:  READ_ONLY, exception 2");
         }
 
 
@@ -1185,6 +1188,9 @@ namespace hotstuff {
         } catch (const std::exception& e) {
             // Handle the exception
             HOTSTUFF_LOG_INFO( "Exception caught:  UPDATE");
+        } catch (...)
+        {
+            HOTSTUFF_LOG_INFO( "Exception caught:  UPDATE, exception 2");
         }
 
 
@@ -1392,7 +1398,6 @@ namespace hotstuff {
 
                 }
 
-                HOTSTUFF_LOG_INFO("going to find for the key");
                 HOTSTUFF_LOG_INFO("key, val is %d, %d", e.first.second.first, e.first.second.second);
 
 
@@ -1411,12 +1416,25 @@ namespace hotstuff {
                 int key = e.first.second.first;
                 int val = e.first.second.second;
 
+                HOTSTUFF_LOG_INFO("before db entry");
 
-                key_val_store[cmd_hash] = std::pair(key,val);
+                try
+                {
+                    key_val_store[cmd_hash] = std::pair(key,val);
+
+                } catch (const std::exception& e) {
+                    // Handle the exception
+                    HOTSTUFF_LOG_INFO( "Exception caught:  key_val_store");
+                } catch (...)
+                {
+                    HOTSTUFF_LOG_INFO( "Exception caught:  key_val_store, exception 2");
+                }
+
+                HOTSTUFF_LOG_INFO("after db entry");
 
 
 
-//                HOTSTUFF_LOG_INFO("key is %d", key);
+                HOTSTUFF_LOG_INFO("stored in key_val_store");
 //                int tmp_p_dec = part_decided;
 
                 if (key%2==1)
