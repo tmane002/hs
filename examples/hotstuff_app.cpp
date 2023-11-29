@@ -121,22 +121,33 @@ class HotStuffApp: public HotStuff {
         impeach_timer.del();
         impeach_timer.add(impeach_timeout);
     }
-//
-//    int GetKey(uint256_t cmd_hash)
-//    {
-//        bool cond = key_val_store.find(get_hex10(cmd_hash).c_str()) != key_val_store.end();
-//
-//        if (cond)
-//        {
-//
-//            std::pair key_val = key_val_store.at(get_hex10(cmd_hash).c_str());
-//
-//            return  key_val.first;
-//        }
-//
-//        HOTSTUFF_LOG_INFO("Key Not Found for cmd_hash:%s", get_hex10(cmd_hash).c_str());
-//        throw std::invalid_argument("Key Not Found  ");
-//    }
+
+
+
+
+    std::string db_read(int key) override {
+        std::string status = "";
+
+        db->Get(std::to_string(key));
+        status =  "READ";
+
+
+        return status;
+    }
+
+
+    std::string db_write(int key, int val) override {
+        std::string status = "";
+        db->Put(std::to_string(key), std::to_string(val));
+
+        status =  "UPDATE";
+
+
+        return status;
+    }
+
+
+
 
     void state_machine_execute(const Finality &fin) override {
 
@@ -152,9 +163,9 @@ class HotStuffApp: public HotStuff {
 
 
 
-            std::string status = "READ/UPDATE";
+            std::string status = "";
 
-            HOTSTUFF_LOG_INFO("state_machine_execute: status = %s ", status.c_str());
+//            HOTSTUFF_LOG_INFO("state_machine_execute: status = %s ", status.c_str());
 
 //            if (key_val.first%2==0)
             {

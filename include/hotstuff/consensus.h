@@ -132,6 +132,8 @@ public:
     protected:
     /** Called by HotStuffCore upon the decision being made for cmd. */
     virtual void do_decide(Finality &&fin) = 0;
+    virtual void do_decide_read_only(Finality &&fin) = 0;
+
     virtual void do_consensus(const block_t &blk) = 0;
     /** Called by HotStuffCore upon broadcasting a new proposal.
      * The user should send the proposal message to all replicas except for

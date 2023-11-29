@@ -114,7 +114,7 @@ namespace hotstuff {
         HOTSTUFF_LOG_INFO("exec_cmd with key, val = %d, %d", key_val_store[cmd_hash].first, key_val_store[cmd_hash].second);
 
 
-        cmd_pending.enqueue(std::make_pair(std::make_pair(cmd_hash,key), callback));
+        cmd_pending.enqueue(std::make_pair(std::make_pair(cmd_hash,std::make_pair(key, val)), callback));
 
 
     }
@@ -1086,12 +1086,10 @@ namespace hotstuff {
     }
 
 
+    void HotStuffBase::do_decide_read_only(Finality &&fin) {
+        HOTSTUFF_LOG_INFO("Tejas: do_decide() START");
 
-
-
-
-    void HotStuffBase::do_decide(Finality &&fin) {
-    HOTSTUFF_LOG_INFO("Tejas: do_decide() START");
+        std::string status = "";
 
 
 
@@ -1100,6 +1098,83 @@ namespace hotstuff {
 
 
         state_machine_execute(fin);
+
+
+        bool cond = key_val_store.find(fin.cmd_hash) != key_val_store.end();
+
+
+        if (!cond)
+        {
+            throw std::invalid_argument("Key Not Found,  during READ executing, did it print? ");
+        }
+
+
+
+
+        std::pair key_val = key_val_store.at(fin.cmd_hash);
+
+        status =  db_read(key_val.first);
+
+
+
+        HOTSTUFF_LOG_INFO("status is %s", status);
+
+
+
+
+        auto it = decision_waiting.find(fin.cmd_hash);
+        if (it != decision_waiting.end())
+        {
+            it->second(std::move(fin));
+            decision_waiting.erase(it);
+        }
+
+
+
+
+//    HOTSTUFF_LOG_INFO("Tejas: do_decide() END");
+
+    }
+
+
+
+    void HotStuffBase::do_decide(Finality &&fin) {
+    HOTSTUFF_LOG_INFO("Tejas: do_decide() START");
+
+        std::string status = "";
+
+
+        part_decided++;
+
+
+
+        state_machine_execute(fin);
+
+
+
+
+
+        bool cond = key_val_store.find(fin.cmd_hash) != key_val_store.end();
+
+
+        if (!cond)
+        {
+            throw std::invalid_argument("Key Not Found,  during UPDATE executing, did it print? ");
+        }
+
+
+
+
+        std::pair key_val = key_val_store.at(fin.cmd_hash);
+
+
+        status =  db_write(key_val.first, key_val.second);
+
+
+
+        HOTSTUFF_LOG_INFO("status is %s", status);
+
+
 
 
         auto it = decision_waiting.find(fin.cmd_hash);
@@ -1268,7 +1343,7 @@ namespace hotstuff {
             ec.dispatch();
 
         cmd_pending.reg_handler(ec, [this](cmd_queue_t &q) {
-            std::pair<std::pair<uint256_t, int>, commit_cb_t> e;
+            std::pair<std::pair<uint256_t, std::pair<int, int>>, commit_cb_t> e;
             while (q.try_dequeue(e))
             {
                 ReplicaID proposer = pmaker->get_proposer();
@@ -1305,7 +1380,7 @@ namespace hotstuff {
                 }
 
                 HOTSTUFF_LOG_INFO("going to find for the key");
-                HOTSTUFF_LOG_INFO("key is %d", int(e.first.second));
+                HOTSTUFF_LOG_INFO("key, val is %d, %d", e.first.second.first, e.first.second.second);
 
 
 
@@ -1320,22 +1395,28 @@ namespace hotstuff {
 ////                    throw std::invalid_argument("Key Not Found,  during executing, did it print? ");
 //                }
 
+                int key = e.first.second.first;
+                int val = e.first.second.second;
 
-                int key = int(e.first.second);
+
+                key_val_store[cmd_hash] = std::pair(key,val);
+
+
+
 //                HOTSTUFF_LOG_INFO("key is %d", key);
 //                int tmp_p_dec = part_decided;
 
-//                if (key%2==1)
+                if (key%2==1)
                 {
-                    do_decide(Finality(id, 1, 0, 0, cmd_hash, uint256_t()) );
+                    do_decide_read_only(Finality(id, 1, 0, 0, cmd_hash, uint256_t()) );
                 }
 
                 if (proposer != get_id()) continue;
 
-//                if (key%2==0)
-//                {
-//                    cmd_pending_buffer.push(cmd_hash);
-//                }
+                if (key%2==0)
+                {
+                    cmd_pending_buffer.push(cmd_hash);
+                }
 
 
                 if (cmd_pending_buffer.size() >= blk_size)

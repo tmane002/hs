@@ -193,7 +193,7 @@ class HotStuffBase: public HotStuffCore {
 
 
 
-    using cmd_queue_t = salticidae::MPSCQueueEventDriven<std::pair<std::pair<uint256_t, int>, commit_cb_t>>;
+    using cmd_queue_t = salticidae::MPSCQueueEventDriven<std::pair<std::pair<uint256_t, std::pair<int, int>>, commit_cb_t>>;
     cmd_queue_t cmd_pending;
     std::queue<uint256_t> cmd_pending_buffer;
 
@@ -249,13 +249,18 @@ class HotStuffBase: public HotStuffCore {
 
     void do_vote(ReplicaID, const Vote &) override;
     void do_decide(Finality &&) override;
+    void do_decide_read_only(Finality &&) override;
+
     void do_consensus(const block_t &blk) override;
+
 
     protected:
 
     /** Called to replicate the execution of a command, the application should
      * implement this to make transition for the application state. */
     virtual void state_machine_execute(const Finality &) = 0;
+    virtual std::string db_read(int key) = 0;
+    virtual std::string db_write(int key, int val) = 0;
 
 //    virtual int GetKey(uint256_t cmd_hash) = 0;
 //    virtual void insert_key_val(uint256_t cmd_hash, int key, int val) = 0;
