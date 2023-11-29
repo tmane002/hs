@@ -1100,24 +1100,30 @@ namespace hotstuff {
         state_machine_execute(fin);
 
 
-        bool cond = key_val_store.find(fin.cmd_hash) != key_val_store.end();
+
+        try {
+            bool cond = key_val_store.find(fin.cmd_hash) != key_val_store.end();
 
 
-        if (!cond)
-        {
-            throw std::invalid_argument("Key Not Found,  during READ executing, did it print? ");
+            if (cond)
+            {
+                std::pair key_val = key_val_store.at(fin.cmd_hash);
+
+                status =  db_read(key_val.first);
+
+                HOTSTUFF_LOG_INFO("status is %s", status);
+            }
+
+
+
+        } catch (const std::exception& e) {
+            // Handle the exception
+            HOTSTUFF_LOG_INFO( "Exception caught:  READ_ONLY");
         }
 
 
 
 
-        std::pair key_val = key_val_store.at(fin.cmd_hash);
-
-        status =  db_read(key_val.first);
-
-
-
-        HOTSTUFF_LOG_INFO("status is %s", status);
 
 
 
@@ -1154,25 +1160,32 @@ namespace hotstuff {
 
 
 
-        bool cond = key_val_store.find(fin.cmd_hash) != key_val_store.end();
 
 
-        if (!cond)
-        {
-            throw std::invalid_argument("Key Not Found,  during UPDATE executing, did it print? ");
+
+        try {
+
+
+            bool cond = key_val_store.find(fin.cmd_hash) != key_val_store.end();
+
+            if (cond)
+            {
+//                throw std::invalid_argument("Key Not Found,  during UPDATE executing, did it print? ");
+                std::pair key_val = key_val_store.at(fin.cmd_hash);
+                status =  db_write(key_val.first, key_val.second);
+
+                HOTSTUFF_LOG_INFO("status is %s", status);
+
+
+            }
+
+
+
+
+        } catch (const std::exception& e) {
+            // Handle the exception
+            HOTSTUFF_LOG_INFO( "Exception caught:  UPDATE");
         }
-
-
-
-
-        std::pair key_val = key_val_store.at(fin.cmd_hash);
-
-
-        status =  db_write(key_val.first, key_val.second);
-
-
-
-        HOTSTUFF_LOG_INFO("status is %s", status);
 
 
 
