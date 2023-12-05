@@ -1407,10 +1407,7 @@ namespace hotstuff {
                 {
                 bool cond = key_val_store.find(cmd_hash) != key_val_store.end();
 
-                } catch (const std::exception& e) {
-                    // Handle the exception
-                    HOTSTUFF_LOG_INFO( "Exception caught:  key_val_store");
-                } catch (...)
+                }  catch (...)
                 {
                     HOTSTUFF_LOG_INFO( "Exception caught:  key_val_store, exception 2");
                 }
