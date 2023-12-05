@@ -109,9 +109,9 @@ namespace hotstuff {
         HOTSTUFF_LOG_INFO("exec_command, adding to cmd_pending with current size");
 
 
-//        key_val_store[cmd_hash] = std::pair(key,val);
-//
-//        HOTSTUFF_LOG_INFO("exec_cmd with key, val = %d, %d", key_val_store[cmd_hash].first, key_val_store[cmd_hash].second);
+        key_val_store[cmd_hash] = std::pair(key,val);
+
+        HOTSTUFF_LOG_INFO("exec_cmd with key, val = %d, %d", key_val_store[cmd_hash].first, key_val_store[cmd_hash].second);
 
 
         cmd_pending.enqueue(std::make_pair(std::make_pair(cmd_hash,std::make_pair(key, val)), callback));
