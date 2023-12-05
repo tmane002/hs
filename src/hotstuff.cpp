@@ -1174,7 +1174,6 @@ namespace hotstuff {
 
             if (cond)
             {
-//                throw std::invalid_argument("Key Not Found,  during UPDATE executing, did it print? ");
                 std::pair key_val = key_val_store.at(fin.cmd_hash);
                 status =  db_write(key_val.first, key_val.second);
 
@@ -1417,33 +1416,10 @@ namespace hotstuff {
 
                 HOTSTUFF_LOG_INFO("before db entry");
 
+                key_val_store[cmd_hash] = std::pair(key,val);
+                HOTSTUFF_LOG_INFO("Added to DB successfully");
 
-//                bool cond = true;
-
-//                try
-//                {
-                    key_val_store[cmd_hash] = std::pair(key,val);
-                    HOTSTUFF_LOG_INFO("Added to DB successfully");
-
-//                }  catch (...)
-//                {
-//                    HOTSTUFF_LOG_INFO("Added to DB unsuccessful");
-//                }
-//
-//                } catch (const std::exception& e) {
-//                    // Handle the exception
-//                    HOTSTUFF_LOG_INFO( "Exception caught:  key_val_store");
-//                } catch (...)
-//                {
-//                    HOTSTUFF_LOG_INFO( "Exception caught:  key_val_store, exception 2");
-//                }
-
-                HOTSTUFF_LOG_INFO("after db entry");
-
-
-
-//                int tmp_p_dec = part_decided;
-
+                
                 if (key%2==1)
                 {
                     do_decide_read_only(Finality(id, 1, 0, 0, cmd_hash, uint256_t()) );
