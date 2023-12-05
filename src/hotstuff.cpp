@@ -1165,34 +1165,34 @@ namespace hotstuff {
 
 
 
-//
-//        try {
-//
-//
-//            bool cond = key_val_store.find(fin.cmd_hash) != key_val_store.end();
-//
-//            if (cond)
-//            {
-////                throw std::invalid_argument("Key Not Found,  during UPDATE executing, did it print? ");
-//                std::pair key_val = key_val_store.at(fin.cmd_hash);
-//                status =  db_write(key_val.first, key_val.second);
-//
-//                HOTSTUFF_LOG_INFO("status is %s", status);
-//
-//
-//            }
-//
-//
-//
-//
-//        } catch (const std::exception& e) {
-//            // Handle the exception
-//            HOTSTUFF_LOG_INFO( "Exception caught:  UPDATE");
-//        } catch (...)
-//        {
-//            HOTSTUFF_LOG_INFO( "Exception caught:  UPDATE, exception 2");
-//        }
-//
+
+//        try
+        {
+
+
+            bool cond = key_val_store.find(fin.cmd_hash) != key_val_store.end();
+
+            if (cond)
+            {
+//                throw std::invalid_argument("Key Not Found,  during UPDATE executing, did it print? ");
+                std::pair key_val = key_val_store.at(fin.cmd_hash);
+                status =  db_write(key_val.first, key_val.second);
+
+                HOTSTUFF_LOG_INFO("do_decide: write completed, status is %s", status);
+
+
+            }
+            else
+            {
+                HOTSTUFF_LOG_INFO("do_decide: write incomplete");
+
+            }
+
+
+
+
+        }
+
 
 
 
