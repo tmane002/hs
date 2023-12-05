@@ -1430,7 +1430,14 @@ namespace hotstuff {
 //                {
                 if (cond)
                 {
+                    HOTSTUFF_LOG_INFO("Added to DB successfully");
+
                     key_val_store[cmd_hash] = std::pair(key,val);
+                }
+                else
+                {
+                    HOTSTUFF_LOG_INFO("Added to DB unsuccessful");
+
                 }
 //
 //                } catch (const std::exception& e) {
