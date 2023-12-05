@@ -1178,7 +1178,7 @@ namespace hotstuff {
                 std::pair key_val = key_val_store.at(fin.cmd_hash);
                 status =  db_write(key_val.first, key_val.second);
 
-                HOTSTUFF_LOG_INFO("do_decide: write completed, status is %s", status);
+                HOTSTUFF_LOG_INFO("do_decide: write completed, status is %s", status.c_str());
 
 
             }
