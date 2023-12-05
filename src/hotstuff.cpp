@@ -1420,15 +1420,15 @@ namespace hotstuff {
 
                 bool cond = true;
 
-                try
-                {
+//                try
+//                {
                     key_val_store[cmd_hash] = std::pair(key,val);
                     HOTSTUFF_LOG_INFO("Added to DB successfully");
 
-                }  catch (...)
-                {
-                    HOTSTUFF_LOG_INFO("Added to DB unsuccessful");
-                }
+//                }  catch (...)
+//                {
+//                    HOTSTUFF_LOG_INFO("Added to DB unsuccessful");
+//                }
 //
 //                } catch (const std::exception& e) {
 //                    // Handle the exception
