@@ -1401,9 +1401,20 @@ namespace hotstuff {
                 HOTSTUFF_LOG_INFO("key, val is %d, %d", e.first.second.first, e.first.second.second);
 
 
+                bool cond = false;
 
+                try
+                {
+                bool cond = key_val_store.find(cmd_hash) != key_val_store.end();
 
-//                bool cond = key_val_store.find(cmd_hash) != key_val_store.end();
+                } catch (const std::exception& e) {
+                    // Handle the exception
+                    HOTSTUFF_LOG_INFO( "Exception caught:  key_val_store");
+                } catch (...)
+                {
+                    HOTSTUFF_LOG_INFO( "Exception caught:  key_val_store, exception 2");
+                }
+
 
 //                if (!cond)
 //                {
@@ -1420,7 +1431,10 @@ namespace hotstuff {
 //
 //                try
 //                {
-//                    key_val_store[cmd_hash] = std::pair(key,val);
+                if (cond)
+                {
+                    key_val_store[cmd_hash] = std::pair(key,val);
+                }
 //
 //                } catch (const std::exception& e) {
 //                    // Handle the exception

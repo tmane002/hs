@@ -199,7 +199,6 @@ class HotStuffBase: public HotStuffCore {
 
 
 
-    std::unordered_map<uint256_t, std::pair<int, int>> key_val_store;
 
 
         /* statistics */
@@ -327,6 +326,9 @@ class HotStuffBase: public HotStuffCore {
     std::set<int> finished_ready_cids;
 
     std::unordered_map<int, int> tentative_join_set;
+
+    std::unordered_map<uint256_t, std::pair<int, int>> key_val_store;
+
     std::vector<std::tuple<NetAddr, pubkey_bt, uint256_t>> all_replicas_h;
 
     std::set<int> tentative_leave_set;
