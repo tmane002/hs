@@ -1100,30 +1100,30 @@ namespace hotstuff {
         state_machine_execute(fin);
 
 
-//
-//        try {
-//            bool cond = key_val_store.find(fin.cmd_hash) != key_val_store.end();
-//
-//
-//            if (cond)
-//            {
-//                std::pair key_val = key_val_store.at(fin.cmd_hash);
-//
-//                status =  db_read(key_val.first);
-//
-//                HOTSTUFF_LOG_INFO("status is %s", status);
-//            }
-//
-//
-//
-//        } catch (const std::exception& e) {
-//            // Handle the exception
-//            HOTSTUFF_LOG_INFO( "Exception caught:  READ_ONLY");
-//        } catch (...)
-//        {
-//            HOTSTUFF_LOG_INFO( "Exception caught:  READ_ONLY, exception 2");
-//        }
-//
+
+//        try
+        {
+            bool cond = key_val_store.find(fin.cmd_hash) != key_val_store.end();
+
+
+            if (cond)
+            {
+                std::pair key_val = key_val_store.at(fin.cmd_hash);
+
+                status =  db_read(key_val.first);
+
+                HOTSTUFF_LOG_INFO("do_decide_read_only: key found, status is %s", status);
+            }
+            else
+            {
+                HOTSTUFF_LOG_INFO("do_decide_read_only: key not found", status);
+
+            }
+
+
+
+        }
+
 
 
 
@@ -1418,7 +1418,7 @@ namespace hotstuff {
                 HOTSTUFF_LOG_INFO("before db entry");
 
 
-                bool cond = true;
+//                bool cond = true;
 
 //                try
 //                {
