@@ -1401,16 +1401,7 @@ namespace hotstuff {
                 HOTSTUFF_LOG_INFO("key, val is %d, %d", e.first.second.first, e.first.second.second);
 
 
-                bool cond = false;
 
-                try
-                {
-                bool cond = key_val_store.find(cmd_hash) != key_val_store.end();
-
-                }  catch (...)
-                {
-                    HOTSTUFF_LOG_INFO( "Exception caught:  key_val_store, exception 2");
-                }
 
 
 //                if (!cond)
@@ -1425,19 +1416,18 @@ namespace hotstuff {
                 int val = e.first.second.second;
 
                 HOTSTUFF_LOG_INFO("before db entry");
-//
-//                try
-//                {
-                if (cond)
+
+
+                bool cond = true;
+
+                try
                 {
+                    key_val_store[cmd_hash] = std::pair(key,val);
                     HOTSTUFF_LOG_INFO("Added to DB successfully");
 
-                    key_val_store[cmd_hash] = std::pair(key,val);
-                }
-                else
+                }  catch (...)
                 {
                     HOTSTUFF_LOG_INFO("Added to DB unsuccessful");
-
                 }
 //
 //                } catch (const std::exception& e) {
@@ -1452,7 +1442,6 @@ namespace hotstuff {
 
 
 
-                HOTSTUFF_LOG_INFO("stored in key_val_store");
 //                int tmp_p_dec = part_decided;
 
                 if (key%2==1)
