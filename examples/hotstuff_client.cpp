@@ -247,7 +247,7 @@ bool try_send(bool check = true) {
         mrand->next();
         int temp_value = 2;
 
-        HOTSTUFF_LOG_INFO("temp_key, temp_value are : %d, %d", temp_key, temp_value);
+//        HOTSTUFF_LOG_INFO("temp_key, temp_value are : %d, %d", temp_key, temp_value);
 
 
         auto cmd = new CommandDummy(cid, cnt++, temp_key, temp_value);
@@ -318,9 +318,11 @@ void client_resp_cmd_handler(MsgRespCmd &&msg, const Net::conn_t &) {
 //                      int(it->second.cmd->get_cid()));
     if (++it->second.confirmed <= nfaulty) return; // wait for f + 1 ack
 //#ifndef HOTSTUFF_ENABLE_BENCHMARK
+
+// space after %.6f allows it to not be included for throughput/latency computation
     HOTSTUFF_LOG_INFO("%.6f ",
-                        std::string(fin).c_str(),
-                        et.elapsed_sec);
+                      std::string(fin).c_str(),
+                      et.elapsed_sec);
 //#else
     struct timeval tv;
     gettimeofday(&tv, nullptr);
