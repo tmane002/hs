@@ -283,8 +283,8 @@ bool try_send(bool check = true) {
 //                cmd1->get_hash(), Request(cmd1)));
 //
 
-        HOTSTUFF_LOG_INFO("sent message with waiting size =%d and cid:%d with cmd %.10s",
-                          waiting.size(), int(cnt),get_hex(cmd->get_hash()).c_str() );
+//        HOTSTUFF_LOG_INFO("sent message with waiting size =%d and cid:%d with cmd %.10s",
+//                          waiting.size(), int(cnt),get_hex(cmd->get_hash()).c_str() );
 
         if (max_iter_num > 0)
         {
@@ -318,8 +318,6 @@ void client_resp_cmd_handler(MsgRespCmd &&msg, const Net::conn_t &) {
 //                      int(it->second.cmd->get_cid()));
     if (++it->second.confirmed <= nfaulty) return; // wait for f + 1 ack
 //#ifndef HOTSTUFF_ENABLE_BENCHMARK
-
-// space after %.6f allows it to not be included for throughput/latency computation
     HOTSTUFF_LOG_INFO("%.6f ",
                       std::string(fin).c_str(),
                       et.elapsed_sec);
