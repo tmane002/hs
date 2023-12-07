@@ -337,7 +337,12 @@ class PMRoundRobinProposer: virtual public PaceMaker {
     }
 
     void do_new_consensus(int x, const std::vector<uint256_t> &cmds) {
-        auto blk = hsc->on_propose(cmds, get_parents(), bytearray_t());
+
+        const std::vector<int> keys(cmds.size(), 0);
+        const std::vector<int> vals(vals.size(), 0);
+
+
+        auto blk = hsc->on_propose(cmds, keys, vals, get_parents(), bytearray_t());
         pm_qc_manual.reject();
         (pm_qc_manual = hsc->async_qc_finish(blk))
             .then([this, x]() {

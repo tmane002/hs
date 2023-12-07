@@ -21,12 +21,14 @@
 #include <queue>
 #include <unordered_map>
 #include <unordered_set>
+#include <mutex>
 
 #include "salticidae/util.h"
 #include "salticidae/network.h"
 #include "salticidae/msg.h"
 #include "hotstuff/util.h"
 #include "hotstuff/consensus.h"
+
 
 namespace hotstuff {
 
@@ -91,6 +93,10 @@ struct MsgRespBlock {
     MsgRespBlock(DataStream &&s): serialized(std::move(s)) {}
     void postponed_parse(HotStuffCore *hsc);
 };
+
+
+
+
 
 using promise::promise_t;
 
@@ -195,7 +201,7 @@ class HotStuffBase: public HotStuffCore {
 
     using cmd_queue_t = salticidae::MPSCQueueEventDriven<std::pair<std::pair<uint256_t, std::pair<int, int>>, commit_cb_t>>;
     cmd_queue_t cmd_pending;
-    std::queue<uint256_t> cmd_pending_buffer;
+    std::queue<std::tuple<uint256_t, int, int>> cmd_pending_buffer;
 
 
 
@@ -247,8 +253,8 @@ class HotStuffBase: public HotStuffCore {
     void do_inform_reconfig(int cluster_no, int node_id, int orig_node_id) override;
 
     void do_vote(ReplicaID, const Vote &) override;
-    void do_decide(Finality &&) override;
-    void do_decide_read_only(Finality &&) override;
+    void do_decide(Finality &&, int key, int val) override;
+    void do_decide_read_only(Finality &&, int key, int value) override;
 
     void do_consensus(const block_t &blk) override;
 
@@ -327,7 +333,7 @@ class HotStuffBase: public HotStuffCore {
 
     std::unordered_map<int, int> tentative_join_set;
 
-    std::unordered_map<uint256_t, std::pair<int, int>> key_val_store;
+//    std::unordered_map<uint256_t, std::pair<int, int>> key_val_store;
 
     std::vector<std::tuple<NetAddr, pubkey_bt, uint256_t>> all_replicas_h;
 

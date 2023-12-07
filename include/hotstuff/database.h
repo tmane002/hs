@@ -16,6 +16,8 @@
 #include <unordered_map>
 //#include "sqlite3.h"
 #include <vector>
+#include "HashMap.h"
+
 /**
  * class DataBase
  *
@@ -106,7 +108,9 @@ public:
 class InMemoryDB : public DataBase
 {
 private:
-    using dbTable = std::unordered_map<std::string, std::string>;
+//    using dbTable = std::unordered_map<std::string, std::string>;
+    using dbTable = CTSL::HashMap<std::string, std::string>;
+
 
     std::string activeTable;
     std::unordered_map<std::string, dbTable> *db;

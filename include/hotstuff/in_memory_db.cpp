@@ -6,6 +6,7 @@
 #include "database.h"
 #include <unordered_map>
 #include <iostream>
+#include "HashMap.h"
 
 InMemoryDB::InMemoryDB()
 {
@@ -15,6 +16,8 @@ InMemoryDB::InMemoryDB()
 int InMemoryDB::Open(const std::string)
 {
     db = new std::unordered_map<std::string, dbTable>();
+//    db =     CTSL::HashMap<std::string, dbTable>();
+
     activeTable = "table1";
 
     std::cout << std::endl
@@ -25,19 +28,27 @@ int InMemoryDB::Open(const std::string)
 
 std::string InMemoryDB::Get(const std::string key)
 {
-    if (((*db)[activeTable]).find(key) == ((*db)[activeTable]).end())
+    std::string value;
+
+//    if (((*db)[activeTable]).find(key) == ((*db)[activeTable]).end())
+    if (   !(((*db)[activeTable]).find(key, value) )  )
     {
         return "0";
     }
 
-    return (*db)[activeTable][key];
+    return value;
 }
 
 std::string InMemoryDB::Put(const std::string key, const std::string value)
 {
-    std::string oldValue = Get(key);
-    (*db)[activeTable][key] = value;
-    return oldValue;
+//    std::string oldValue = Get(key);
+
+
+//    (*db)[activeTable][key] = value;
+    (*db)[activeTable].insert(key, value);
+
+
+    return "1";
 }
 
 

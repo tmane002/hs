@@ -119,7 +119,7 @@ public:
     /** Call to submit new commands to be decided (executed). "Parents" must
      * contain at least one block, and the first block is the actual parent,
      * while the others are uncles/aunts */
-    block_t on_propose(const std::vector<uint256_t> &cmds,
+    block_t on_propose(const std::vector<uint256_t> &cmds, const std::vector<int> &keys, const std::vector<int> &vals,
                     const std::vector<block_t> &parents,
                     bytearray_t &&extra = bytearray_t());
 
@@ -131,8 +131,8 @@ public:
      * the events. */
     protected:
     /** Called by HotStuffCore upon the decision being made for cmd. */
-    virtual void do_decide(Finality &&fin) = 0;
-    virtual void do_decide_read_only(Finality &&fin) = 0;
+    virtual void do_decide(Finality &&fin, int key, int val) = 0;
+    virtual void do_decide_read_only(Finality &&fin, int key, int value) = 0;
 
     virtual void do_consensus(const block_t &blk) = 0;
     /** Called by HotStuffCore upon broadcasting a new proposal.

@@ -35,7 +35,6 @@
 #include "hotstuff/type.h"
 #include "hotstuff/client.h"
 
-
 #define CPU_FREQ 2.2
 
 using salticidae::Config;

@@ -126,6 +126,9 @@ namespace hotstuff {
         friend HotStuffCore;
         std::vector<uint256_t> parent_hashes;
         std::vector<uint256_t> cmds;
+        std::vector<int> keys;
+        std::vector<int> vals;
+
         quorum_cert_bt qc;
         bytearray_t extra;
 
@@ -158,6 +161,8 @@ namespace hotstuff {
 
         Block(const std::vector<block_t> &parents,
               const std::vector<uint256_t> &cmds,
+              const std::vector<int> &keys,
+              const std::vector<int> &vals,
               quorum_cert_bt &&qc,
               bytearray_t &&extra,
               uint32_t height,
@@ -166,6 +171,8 @@ namespace hotstuff {
               int8_t decision = 0):
                 parent_hashes(get_hashes(parents)),
                 cmds(cmds),
+                keys(keys),
+                vals(vals),
                 qc(std::move(qc)),
                 extra(std::move(extra)),
                 hash(salticidae::get_hash(*this)),
@@ -205,6 +212,13 @@ namespace hotstuff {
             return cmds;
         }
 
+        const std::vector<int> &get_keys() const {
+            return keys;
+        }
+
+        const std::vector<int> &get_vals() const {
+            return vals;
+        }
         const std::vector<block_t> &get_parents() const {
             return parents;
         }

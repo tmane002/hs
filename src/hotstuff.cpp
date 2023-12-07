@@ -1022,9 +1022,25 @@ namespace hotstuff {
                                  int(btemp->get_height()), std::string(*btemp).c_str(), blk_hash);
 
 
+                        if ((btemp->get_keys()).empty())
+                        {
+                            LOG_INFO("btemp keys not found");
+                            do_decide(Finality(id, 1, i, btemp->get_height(),
+                                               (btemp->get_cmds())[i],
+                                               btemp->get_hash()),  0, -1);
 
-                        do_decide(Finality(id, 1, i, btemp->get_height(),
-                                           (btemp->get_cmds())[i], btemp->get_hash()));
+                        }
+                        else
+                        {
+                            LOG_INFO("btemp keys found");
+
+                            do_decide(Finality(id, 1, i, btemp->get_height(),
+                                               (btemp->get_cmds())[i],
+                                               btemp->get_hash()),  (btemp->get_keys())[i], (btemp->get_vals())[i]);
+
+                        }
+
+
                     }
 
                     reset_remote_view_change_timer(blk_height);
@@ -1086,7 +1102,7 @@ namespace hotstuff {
     }
 
 
-    void HotStuffBase::do_decide_read_only(Finality &&fin) {
+    void HotStuffBase::do_decide_read_only(Finality &&fin, int key, int value) {
         HOTSTUFF_LOG_INFO("Tejas: do_decide() START");
 
         std::string status = "";
@@ -1102,27 +1118,28 @@ namespace hotstuff {
 
 
 //        try
-        {
-            bool cond = key_val_store.find(fin.cmd_hash) != key_val_store.end();
-
-
-            if (cond)
+//        {
+//            bool cond = key_val_store.find(fin.cmd_hash) != key_val_store.end();
+//
+//
+//            if (cond)
             {
-                std::pair key_val = key_val_store.at(fin.cmd_hash);
+//                std::pair key_val = key_val_store.at(fin.cmd_hash);
 
-                status =  db_read(key_val.first);
+//                status =  db_read(key_val.first);
+                status =  db_read(key);
 
                 HOTSTUFF_LOG_INFO("do_decide_read_only: key found, status is %s", status);
             }
-            else
-            {
-                HOTSTUFF_LOG_INFO("do_decide_read_only: key not found", status);
+//            else
+//            {
+//                HOTSTUFF_LOG_INFO("do_decide_read_only: key not found", status);
+//
+//            }
 
-            }
 
 
-
-        }
+//        }
 
 
 
@@ -1147,7 +1164,7 @@ namespace hotstuff {
 
 
 
-    void HotStuffBase::do_decide(Finality &&fin) {
+    void HotStuffBase::do_decide(Finality &&fin, int key, int val) {
     HOTSTUFF_LOG_INFO("Tejas: do_decide() START");
 
         std::string status = "";
@@ -1170,22 +1187,23 @@ namespace hotstuff {
         {
 
 
-            bool cond = key_val_store.find(fin.cmd_hash) != key_val_store.end();
+//            bool cond = key_val_store.find(fin.cmd_hash) != key_val_store.end();
 
-            if (cond)
+//            if (cond)
             {
-                std::pair key_val = key_val_store.at(fin.cmd_hash);
-                status =  db_write(key_val.first, key_val.second);
+//                std::pair key_val = key_val_store.at(fin.cmd_hash);
+//                status =  db_write(key_val.first, key_val.second);
+                status =  db_write(key, val);
 
                 HOTSTUFF_LOG_INFO("do_decide: write completed, status is %s", status.c_str());
 
 
             }
-            else
-            {
-                HOTSTUFF_LOG_INFO("do_decide: write incomplete");
-
-            }
+//            else
+//            {
+//                HOTSTUFF_LOG_INFO("do_decide: write incomplete");
+//
+//            }
 
 
 
@@ -1414,22 +1432,22 @@ namespace hotstuff {
                 int key = e.first.second.first;
                 int val = e.first.second.second;
 
-                HOTSTUFF_LOG_INFO("before db entry");
-
-                key_val_store[cmd_hash] = std::pair(key,val);
-                HOTSTUFF_LOG_INFO("Added to DB successfully");
+//                HOTSTUFF_LOG_INFO("before db entry");
+//
+////                key_val_store[cmd_hash] = std::pair(key,val);
+//                HOTSTUFF_LOG_INFO("Added to DB successfully");
 
                 
                 if (key%2==1)
                 {
-                    do_decide_read_only(Finality(id, 1, 0, 0, cmd_hash, uint256_t()) );
+                    do_decide_read_only(Finality(id, 1, 0, 0, cmd_hash, uint256_t()), key, val );
                 }
 
                 if (proposer != get_id()) continue;
 
                 if (key%2==0)
                 {
-                    cmd_pending_buffer.push(cmd_hash);
+                    cmd_pending_buffer.push(std::make_tuple(cmd_hash, key, val));
                 }
 
 
@@ -1438,16 +1456,23 @@ namespace hotstuff {
                     HOTSTUFF_LOG_INFO("Block size worth of pending cmds found");
 
                     std::vector<uint256_t> cmds;
+                    std::vector<int> keys;
+                    std::vector<int> vals;
+
                     for (uint32_t i = 0; i < blk_size; i++)
                     {
-                        cmds.push_back(cmd_pending_buffer.front());
+                        cmds.push_back(std::get<0>(cmd_pending_buffer.front()));
+                        keys.push_back(std::get<1>(cmd_pending_buffer.front()));
+                        vals.push_back(std::get<2>(cmd_pending_buffer.front()));
+
+
                         cmd_pending_buffer.pop();
                     }
-                    pmaker->beat().then([this, cmds = std::move(cmds)](ReplicaID proposer) {
+                    pmaker->beat().then([this, cmds = std::move(cmds), keys = std::move(keys), vals = std::move(vals)  ](ReplicaID proposer) {
                         if (proposer == get_id())
                         {
 
-                            on_propose(cmds, pmaker->get_parents());
+                            on_propose(cmds, keys, vals, pmaker->get_parents());
 
                         }
                     });

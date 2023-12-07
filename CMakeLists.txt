@@ -24,6 +24,16 @@ include_directories(salticidae/include)
 
 
 
+# Add the path to Folly headers
+include_directories(../folly)
+
+# Locate Folly libraries
+find_library(TBB_LIBRARY tbb)
+find_library(TBBMALLOC_LIBRARY tbbmalloc)
+
+
+
+
 find_package(OpenSSL REQUIRED)
 find_package(Threads REQUIRED)
 
