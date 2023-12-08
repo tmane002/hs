@@ -106,7 +106,8 @@ namespace hotstuff {
 // TODO: improve this function
     void HotStuffBase::exec_command(uint256_t cmd_hash, int key, int val, commit_cb_t callback) {
 
-        HOTSTUFF_LOG_INFO("exec_command, adding to cmd_pending with current size");
+        HOTSTUFF_LOG_INFO("exec_command, adding to cmd_pending with current size with key= %d, val = %d",
+                          key, val);
 
 
 //        key_val_store[cmd_hash] = std::pair(key,val);
@@ -1021,24 +1022,23 @@ namespace hotstuff {
                         LOG_INFO("Since already updated, do_decide for height:%d, btemp = %s, blk_hash = %d",
                                  int(btemp->get_height()), std::string(*btemp).c_str(), blk_hash);
 
-
-                        if ((btemp->get_keys()).empty())
+//                        if ((btemp->get_keys()).empty())
                         {
                             LOG_INFO("btemp keys not found");
-                            do_decide(Finality(id, 1, i, btemp->get_height(),
-                                               (btemp->get_cmds())[i],
-                                               btemp->get_hash()),  0, -1);
-
-                        }
-                        else
-                        {
-                            LOG_INFO("btemp keys found");
-
                             do_decide(Finality(id, 1, i, btemp->get_height(),
                                                (btemp->get_cmds())[i],
                                                btemp->get_hash()),  (btemp->get_keys())[i], (btemp->get_vals())[i]);
 
                         }
+//                        else
+//                        {
+//                            LOG_INFO("btemp keys found");
+//
+//                            do_decide(Finality(id, 1, i, btemp->get_height(),
+//                                               (btemp->get_cmds())[i],
+//                                               btemp->get_hash()),  (btemp->get_keys())[i], (btemp->get_vals())[i]);
+//
+//                        }
 
 
                     }
@@ -1438,14 +1438,14 @@ namespace hotstuff {
 //                HOTSTUFF_LOG_INFO("Added to DB successfully");
 
                 
-                if (key%2==1)
+                if (1>2)//(key%2==1)
                 {
                     do_decide_read_only(Finality(id, 1, 0, 0, cmd_hash, uint256_t()), key, val );
                 }
 
                 if (proposer != get_id()) continue;
 
-                if (key%2==0)
+                if (2>1)//(key%2==0)
                 {
                     cmd_pending_buffer.push(std::make_tuple(cmd_hash, key, val));
                 }
