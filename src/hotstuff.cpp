@@ -1438,14 +1438,14 @@ namespace hotstuff {
 //                HOTSTUFF_LOG_INFO("Added to DB successfully");
 
                 
-                if (2>1)//(key%100>-1)
+                if (1>2)//(key%100>-1)
                 {
                     do_decide_read_only(Finality(id, 1, 0, 0, cmd_hash, uint256_t()), key, val );
                 }
 
                 if (proposer != get_id()) continue;
 
-                if (1>2)//(key%100<=15)
+                if (2>1)//(key%100<=15)
                 {
                     cmd_pending_buffer.push(std::make_tuple(cmd_hash, key, val));
                 }
