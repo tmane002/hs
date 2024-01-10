@@ -25,6 +25,7 @@
 #include <thread>
 #include <sstream>
 #include <fstream>
+#include <filesystem>
 
 #include "salticidae/stream.h"
 #include "salticidae/util.h"
@@ -385,6 +386,12 @@ int main(int argc, char **argv) {
 
     if (!inputFile.is_open()) {
         // File does not exist, throw an exception
+
+
+        namespace fs = std::filesystem;
+        std::cout << "Current working directory: " << fs::current_path() << std::endl;
+
+
         throw HotStuffError("cluster_info_hs.txt missing");
     }
 
