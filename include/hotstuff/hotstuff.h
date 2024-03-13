@@ -331,6 +331,10 @@ class HotStuffBase: public HotStuffCore {
     std::set<int> finished_echo_cids;
     std::set<int> finished_ready_cids;
 
+
+    std::unordered_map<int, std::vector<int>> times_tracker;
+
+
     std::unordered_map<int, int> tentative_join_set;
 
 //    std::unordered_map<uint256_t, std::pair<int, int>> key_val_store;

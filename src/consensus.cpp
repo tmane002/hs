@@ -348,6 +348,9 @@ block_t HotStuffCore::on_propose(const std::vector<uint256_t> &cmds, const std::
 
     if (int(parents[0]->height + 1)==6000) LOG_INFO("LatencyPlot: Processing message from client") ;
 
+
+
+
     do_broadcast_proposal(prop);
 
 

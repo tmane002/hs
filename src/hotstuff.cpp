@@ -784,6 +784,9 @@ namespace hotstuff {
     void HotStuffBase::do_broadcast_proposal(const Proposal &prop) {
 
         HOTSTUFF_LOG_INFO("broadcasting to peers with size is %d\n", peers.size());
+
+
+
         pn.multicast_msg(MsgPropose(prop), peers);
 
     }
