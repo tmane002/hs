@@ -167,7 +167,7 @@ class HotStuffBase: public HotStuffCore {
     std::vector<PeerId> other_peers_f_plus_one;
 
 
-    int rvct_timeout = 20;
+    int rvct_timeout = 50;
 
 //    TimerEvent remote_view_change_timer;
     std::unordered_map<int, TimerEvent> cid_to_remote_view_change_timer;
