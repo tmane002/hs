@@ -1,6 +1,6 @@
 #!/bin/bash
 
-for i in $(seq 1 2)
+for i in $(seq 1 500)
 do
     sudo killall hotstuff-app
     sleep 0.6
