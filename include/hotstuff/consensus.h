@@ -261,8 +261,8 @@ struct Proposal: public Serializable {
         s >> cluster_number >> pre_amp_cluster_number >> other_cluster_block_height >> msg_type >> proposer;
         Block _blk;
         _blk.unserialize(s, hsc);
-        HOTSTUFF_LOG_INFO("msg_type is %d, cluster_number is %d, _blk.get_height() is %d, other_cluster_block_height is %d, blk cache size is %d, cmd cache size is %d",
-                          msg_type, cluster_number, int(_blk.get_height()), other_cluster_block_height, hsc->storage->get_blk_cache_size(), hsc->storage->get_cmd_cache_size());
+        HOTSTUFF_LOG_INFO("msg_type is %d, cluster_number is %d, _blk.get_height() is %d, other_cluster_block_height is %d, blk cache size is %d, cmd cache size is %d, proposer is %d",
+                          msg_type, cluster_number, int(_blk.get_height()), other_cluster_block_height, hsc->storage->get_blk_cache_size(), hsc->storage->get_cmd_cache_size(), proposer);
 
 //        blk = hsc->storage->add_blk(std::move(_blk), hsc->get_config());
         if (msg_type!=9)
