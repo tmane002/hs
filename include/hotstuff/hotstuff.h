@@ -37,7 +37,7 @@ using salticidae::ElapsedTime;
 using salticidae::_1;
 using salticidae::_2;
 
-const double ent_waiting_timeout = 10;
+const double ent_waiting_timeout = 20;
 const double double_inf = 1e10;
 
 
