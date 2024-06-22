@@ -267,7 +267,10 @@ bool try_send(bool check = true) {
 
         for (auto &p: conns)
         {
-            HOTSTUFF_LOG_INFO("sending msg to connection %d", p.first);
+            HOTSTUFF_LOG_INFO("sending msg to connection %d, is_terminated: %d", p.first, int(p.second->is_terminated()));
+
+
+
             mn->send_msg(msg, p.second);
             count++;
         }
