@@ -223,6 +223,7 @@ void connect_all()
     {
         if (cluster_map[int(i)]==int(cid % n_clusters))
         {
+            HOTSTUFF_LOG_INFO("connecting to replica %d", i);
             nfaulty++;
             conns.insert(std::make_pair(i, mn->connect_sync(replicas[i])));
         }
@@ -266,6 +267,7 @@ bool try_send(bool check = true) {
 
         for (auto &p: conns)
         {
+            HOTSTUFF_LOG_INFO("sending msg to connection %d", p.first);
             mn->send_msg(msg, p.second);
             count++;
         }
