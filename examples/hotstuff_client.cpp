@@ -269,7 +269,11 @@ bool try_send(bool check = true) {
         {
             HOTSTUFF_LOG_INFO("sending msg to connection %d, is_terminated: %d", p.first, int(p.second->is_terminated()));
 
-
+            if (p.second->is_terminated())
+            {
+                HOTSTUFF_LOG_INFO("trying to reconnect to i");
+                conns.insert(std::make_pair(p.first, mn->connect_sync(replicas[p.first])));
+            }
 
             mn->send_msg(msg, p.second);
             count++;
