@@ -68,7 +68,6 @@ double g_zipf_theta = 0.5;
 double zeta_2_theta;
 uint64_t the_n;
 
-
 myrand *mrand;
 
 struct Request {
@@ -271,9 +270,13 @@ bool try_send(bool check = true) {
 
             if (p.second->is_terminated())
             {
+                p.second->get_net()->stop();
+                p.second->get_net()->start();
+                p.second->get_pool()->stop();
+                p.second->get_pool()->start();
+
 //                HOTSTUFF_LOG_INFO("trying to reconnect to i");
 //                conns.insert(std::make_pair(p.first, mn->connect_sync(replicas[p.first])));
-
                 HOTSTUFF_LOG_INFO("After connection, is_terminated: %d", int(p.second->is_terminated()));
             }
 
