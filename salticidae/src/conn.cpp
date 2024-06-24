@@ -179,9 +179,13 @@ void ConnPool::Conn::_send_data_tls(const conn_t &conn, int fd, int events) {
                 }
             }
             else
+            {
+                SALTICIDAE_LOG_INFO("tls send successfull");
                 /* rewind the leftover */
                 conn->send_buffer.rewind(
-                    bytearray_t(buff_seg.begin() + ret, buff_seg.end()));
+                        bytearray_t(buff_seg.begin() + ret, buff_seg.end()));
+            }
+
             /* wait for the next write callback */
             conn->ready_send = false;
             return;
