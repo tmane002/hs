@@ -636,7 +636,13 @@ namespace hotstuff {
         auto &blk_hashes = msg.blk_hashes;
         std::vector<promise_t> pms;
         for (const auto &h: blk_hashes)
+        {
+            LOG_INFO("got MsgReqBlock from %s", replica);
+            LOG_INFO("fetching after receiving MsgRespBlock");
+
             pms.push_back(async_fetch_blk(h, nullptr));
+
+        }
         promise::all(pms).then([replica, this](const promise::values_t values) {
             std::vector<block_t> blks;
             for (auto &v: values)
