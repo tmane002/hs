@@ -592,6 +592,7 @@ class ConnPool {
         auto ret = *(static_cast<conn_t *>(
                     disp_tcall->call([this, addr](ThreadCall::Handle &h) {
             conn_t conn;
+            SALTICIDAE_LOG_INFO("Trying connection");
             conn = _connect(addr);
             h.set_result(conn);
         }).get()));

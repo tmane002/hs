@@ -394,13 +394,29 @@ ConnPool::conn_t ConnPool::_connect(const NetAddr &addr) {
     int fd;
     int one = 1;
     if ((fd = socket(AF_INET, SOCK_STREAM, IPPROTO_TCP)) < 0)
+    {
+
+        SALTICIDAE_LOG_INFO("throwing SALTI_ERROR_CONNECT:1 error");
+
         throw ConnPoolError(SALTI_ERROR_CONNECT, errno);
+
+    }
+
     if (setsockopt(fd, SOL_SOCKET, SO_REUSEADDR, (const char *)&one, sizeof(one)) < 0 ||
         //setsockopt(fd, SOL_SOCKET, SO_REUSEPORT, (const char *)&one, sizeof(one)) < 0 ||
         setsockopt(fd, SOL_TCP, TCP_NODELAY, (const char *)&one, sizeof(one)) < 0)
+    {
+        SALTICIDAE_LOG_INFO("throwing SALTI_ERROR_CONNECT:2 error");
+
         throw ConnPoolError(SALTI_ERROR_CONNECT, errno);
+
+    }
     if (fcntl(fd, F_SETFL, O_NONBLOCK) == -1)
+    {
+        SALTICIDAE_LOG_INFO("throwing SALTI_ERROR_CONNECT:3 error");
+
         throw ConnPoolError(SALTI_ERROR_CONNECT, errno);
+    }
     conn_t conn = create_conn();
     conn->send_buffer.set_capacity(max_send_buff_size);
     conn->recv_chunk_size = recv_chunk_size;
