@@ -557,7 +557,7 @@ FetchContext<ent_type>::FetchContext(
 template<EntityType ent_type>
 void FetchContext<ent_type>::send(const PeerId &replica) {
 
-    HOTSTUFF_LOG_INFO("sending fetch_msg");
+    HOTSTUFF_LOG_INFO("sending fetch_msg to %s", replica);
     hs->part_fetched_replica[replica]++;
     hs->pn.send_msg(fetch_msg, replica);
 }
