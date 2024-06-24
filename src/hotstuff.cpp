@@ -124,7 +124,7 @@ namespace hotstuff {
 #ifdef HOTSTUFF_BLK_PROFILE
         blk_profiler.get_tx(blk->get_hash());
 #endif
-        LOG_DEBUG("fetched %.10s", get_hex(blk->get_hash()).c_str());
+        LOG_INFO("fetched %.10s", get_hex(blk->get_hash()).c_str());
         part_fetched++;
         fetched++;
         //for (auto cmd: blk->get_cmds()) on_fetch_cmd(cmd);
@@ -629,7 +629,8 @@ namespace hotstuff {
     void HotStuffBase::req_blk_handler(MsgReqBlock &&msg, const Net::conn_t &conn) {
         const PeerId replica = conn->get_peer_id();
 
-        LOG_INFO("function req_blk_handler:start");
+
+        LOG_INFO("got MsgReqBlock from %s", replica);
         if (replica.is_null()) return;
         auto &blk_hashes = msg.blk_hashes;
         std::vector<promise_t> pms;
@@ -650,9 +651,18 @@ namespace hotstuff {
     }
 
     void HotStuffBase::resp_blk_handler(MsgRespBlock &&msg, const Net::conn_t &) {
+
+        LOG_INFO("got MsgRespBlock");
+
         msg.postponed_parse(this);
         for (const auto &blk: msg.blks)
-            if (blk) on_fetch_blk(blk);
+        {
+            if (blk)
+            {
+                LOG_INFO("fetching block %s after receiving MsgRespBlock", std::string(*blk).c_str());
+                on_fetch_blk(blk);
+            }
+        }
     }
 
     bool HotStuffBase::conn_handler(const salticidae::ConnPool::conn_t &conn, bool connected) {
