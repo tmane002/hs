@@ -195,6 +195,7 @@ namespace hotstuff {
 #ifdef HOTSTUFF_BLK_PROFILE
             blk_profiler.rec_tx(blk_hash, false);
 #endif
+            HOTSTUFF_LOG_INFO("Adding to blk_fetch_waiting");
             it = blk_fetch_waiting.insert(
                     std::make_pair(
                             blk_hash,
@@ -216,6 +217,7 @@ namespace hotstuff {
             return static_cast<promise_t &>(it->second);
         BlockDeliveryContext pm{[](promise_t){}};
         it = blk_delivery_waiting.insert(std::make_pair(blk_hash, pm)).first;
+
         /* otherwise the on_deliver_batch will resolve */
         async_fetch_blk(blk_hash, &replica).then([this, replica](block_t blk) {
             /* qc_ref should be fetched */
@@ -640,6 +642,7 @@ namespace hotstuff {
                 auto blk = promise::any_cast<block_t>(v);
                 blks.push_back(blk);
             }
+
             pn.send_msg(MsgRespBlock(blks), replica);
         });
     }
