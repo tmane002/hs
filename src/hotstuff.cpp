@@ -195,7 +195,8 @@ namespace hotstuff {
 #ifdef HOTSTUFF_BLK_PROFILE
             blk_profiler.rec_tx(blk_hash, false);
 #endif
-            HOTSTUFF_LOG_INFO("Adding to blk_fetch_waiting");
+            HOTSTUFF_LOG_INFO("Adding to blk_fetch_waiting %.10s", get_hex(blk_hash).c_str());
+
             it = blk_fetch_waiting.insert(
                     std::make_pair(
                             blk_hash,
