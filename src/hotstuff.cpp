@@ -629,7 +629,7 @@ namespace hotstuff {
     void HotStuffBase::req_blk_handler(MsgReqBlock &&msg, const Net::conn_t &conn) {
         const PeerId replica = conn->get_peer_id();
 
-
+        LOG_INFO("function req_blk_handler:start");
         if (replica.is_null()) return;
         auto &blk_hashes = msg.blk_hashes;
         std::vector<promise_t> pms;
@@ -642,6 +642,8 @@ namespace hotstuff {
                 auto blk = promise::any_cast<block_t>(v);
                 blks.push_back(blk);
             }
+
+            LOG_INFO("sending MsgRespBlock to replica: %s",(replica));
 
             pn.send_msg(MsgRespBlock(blks), replica);
         });
