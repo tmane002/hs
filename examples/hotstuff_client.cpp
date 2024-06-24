@@ -59,6 +59,7 @@ uint32_t cid;
 uint32_t cnt = 0;
 uint32_t nfaulty;
 
+
 uint32_t n_clusters;
 
 
@@ -67,6 +68,8 @@ double denom = 0;
 double g_zipf_theta = 0.5;
 double zeta_2_theta;
 uint64_t the_n;
+
+
 
 
 myrand *mrand;
@@ -272,7 +275,8 @@ bool try_send(bool check = true) {
             if (p.second->is_terminated())
             {
 //                HOTSTUFF_LOG_INFO("trying to reconnect to i");
-                conns.insert(std::make_pair(p.first, mn->connect_sync(replicas[p.first])));
+//                mn->
+//                conns.insert(std::make_pair(p.first, mn->connect_sync(replicas[p.first])));
 //                mn->connect(replicas[p.first]);
 //                mn.get().
 //                conns.insert(std::make_pair(p.first, mn->connect_sync(replicas[p.first])));
