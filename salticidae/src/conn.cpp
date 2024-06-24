@@ -83,7 +83,7 @@ void ConnPool::Conn::_send_data(const conn_t &conn, int fd, int events) {
                 conn->send_buffer.rewind(std::move(buff_seg));
                 if (ret < 0 && errno != EWOULDBLOCK)
                 {
-                    SALTICIDAE_LOG_INFO("send(%d) failure: %s", fd, strerror(errno));
+                    SALTICIDAE_LOG_INFO("non_tls: send(%d) failure: %s", fd, strerror(errno));
                     conn->cpool->worker_terminate(conn);
                     return;
                 }
@@ -173,7 +173,7 @@ void ConnPool::Conn::_send_data_tls(const conn_t &conn, int fd, int events) {
                 conn->send_buffer.rewind(std::move(buff_seg));
                 if (ret < 0 && tls->get_error(ret) != SSL_ERROR_WANT_WRITE)
                 {
-                    SALTICIDAE_LOG_INFO("send(%d) failure: %s", fd, strerror(errno));
+                    SALTICIDAE_LOG_INFO("tls send(%d) failure: %s", fd, strerror(errno));
                     conn->cpool->worker_terminate(conn);
                     return;
                 }
