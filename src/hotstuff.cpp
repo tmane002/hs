@@ -641,6 +641,9 @@ namespace hotstuff {
             for (auto &v: values)
             {
                 auto blk = promise::any_cast<block_t>(v);
+
+                LOG_INFO("adding block %s after receiving MsgReqBlock", std::string(*blk).c_str());
+
                 blks.push_back(blk);
             }
 
