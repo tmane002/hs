@@ -728,7 +728,7 @@ void HotStuffApp::client_request_cmd_handler(MsgReqCmd &&msg, const conn_t &conn
 
 
 
-    exec_command(cmd_hash, resp_queue_tint(cmd->get_key()), int(cmd->get_val()), [this, addr](Finality fin) {
+    exec_command(cmd_hash, int(cmd->get_key()), int(cmd->get_val()), [this, addr](Finality fin) {
         resp_queue.enqueue(std::make_pair(fin, addr));
 
 
