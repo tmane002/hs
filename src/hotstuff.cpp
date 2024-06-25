@@ -793,6 +793,7 @@ namespace hotstuff {
         pn.reg_handler(salticidae::generic_bind(&HotStuffBase::req_blk_handler, this, _1, _2));
         pn.reg_handler(salticidae::generic_bind(&HotStuffBase::resp_blk_handler, this, _1, _2));
         pn.reg_conn_handler(salticidae::generic_bind(&HotStuffBase::conn_handler, this, _1, _2));
+
         pn.reg_error_handler([](const std::exception_ptr _err, bool fatal, int32_t async_id) {
             try {
                 std::rethrow_exception(_err);
