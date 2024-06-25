@@ -634,6 +634,7 @@ namespace hotstuff {
         LOG_INFO("got MsgReqBlock from %s", replica);
         if (replica.is_null()) return;
         auto &blk_hashes = msg.blk_hashes;
+
         std::vector<promise_t> pms;
         for (const auto &h: blk_hashes)
         {
