@@ -274,14 +274,15 @@ bool try_send(bool check = true) {
 
             if (p.second->is_terminated())
             {
-                mn->stop();
-                mn->start();
+//                mn->stop();
+//                mn->
 
 //                HOTSTUFF_LOG_INFO("trying to reconnect to i");
 //                mn->
 //                conns.insert(std::make_pair(p.first, mn->connect_sync(replicas[p.first])));
 //                mn->connect(replicas[p.first]);
 //                mn.get().
+                
                 conns.insert(std::make_pair(p.first, mn->connect_sync(replicas[p.first])));
 
                 HOTSTUFF_LOG_INFO("After connection, is_terminated: %d", int(p.second->is_terminated()));
