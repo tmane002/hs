@@ -804,6 +804,8 @@ namespace hotstuff {
 
         LOG_INFO("--- rid: %d",int(rid));
 
+
+
         pn.start();
         pn.listen(listen_addr);
     }
