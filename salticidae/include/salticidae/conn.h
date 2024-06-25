@@ -593,11 +593,13 @@ class ConnPool {
                     disp_tcall->call([this, addr](ThreadCall::Handle &h) {
             conn_t conn;
             SALTICIDAE_LOG_INFO("Trying connection");
+
             conn = _connect(addr);
             h.set_result(conn);
         }).get()));
         return ret;
     }
+
 
     /** Actively connect to remote addr (async). */
     int32_t connect(const NetAddr &addr) {

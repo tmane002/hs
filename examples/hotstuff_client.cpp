@@ -34,6 +34,7 @@
 #include "hotstuff/util.h"
 #include "hotstuff/type.h"
 #include "hotstuff/client.h"
+#include "salticidae/conn.h"
 
 #define CPU_FREQ 2.2
 
@@ -282,7 +283,8 @@ bool try_send(bool check = true) {
 //                conns.insert(std::make_pair(p.first, mn->connect_sync(replicas[p.first])));
 //                mn->connect(replicas[p.first]);
 //                mn.get().
-                
+                mn->terminate(p.second);
+
                 conns.insert(std::make_pair(p.first, mn->connect_sync(replicas[p.first])));
 
                 HOTSTUFF_LOG_INFO("After connection, is_terminated: %d", int(p.second->is_terminated()));
