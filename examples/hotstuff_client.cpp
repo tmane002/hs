@@ -75,6 +75,8 @@ uint64_t the_n;
 
 myrand *mrand;
 
+
+
 struct Request {
     command_t cmd;
     size_t confirmed;
@@ -87,6 +89,10 @@ struct Request {
 
 
 using Net = salticidae::MsgNetwork<opcode_t>;
+
+
+void client_resp_cmd_handler(MsgRespCmd &&msg, const Net::conn_t &);
+
 
 std::unordered_map<ReplicaID, Net::conn_t> conns;
 std::unordered_map<ReplicaID, Net::conn_t> my_conns;
@@ -277,7 +283,6 @@ bool try_send(bool check = true) {
             {
 //                mn->stop();
 //                mn->
-                p.second
 //                HOTSTUFF_LOG_INFO("trying to reconnect to i");
 //                mn->
 //                conns.insert(std::make_pair(p.first, mn->connect_sync(replicas[p.first])));
