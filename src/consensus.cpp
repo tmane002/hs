@@ -68,7 +68,7 @@ bool HotStuffCore::on_deliver_blk(const block_t &blk) {
 
     if (blk->delivered)
     {
-        LOG_WARN("attempt to deliver a block twice");
+        LOG_WARN("attempt to deliver a block twice: %s", std::string(*blk).c_str());
         return false;
     }
     blk->parents.clear();
@@ -89,7 +89,7 @@ bool HotStuffCore::on_deliver_blk(const block_t &blk) {
 
     blk->delivered = true;
 
-    LOG_DEBUG("deliver %s", std::string(*blk).c_str());
+    LOG_INFO("deliver %s", std::string(*blk).c_str());
 
     store_in_map_for_mc(blk);
 
