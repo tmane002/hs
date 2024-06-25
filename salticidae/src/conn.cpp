@@ -155,6 +155,7 @@ void ConnPool::Conn::_send_data_tls(const conn_t &conn, int fd, int events) {
         conn->cpool->worker_terminate(conn);
         return;
     }
+
     ssize_t ret = conn->recv_chunk_size;
     auto &tls = conn->tls;
     for (;;)
