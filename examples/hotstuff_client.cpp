@@ -289,11 +289,11 @@ bool try_send(bool check = true) {
 //                mn->connect(replicas[p.first]);
 //                mn.get().
                 mn->terminate(p.second);
-                mn->stop();
+//                mn->stop();
+//
+//                mn->reg_handler(client_resp_cmd_handler);
 
-                mn->reg_handler(client_resp_cmd_handler);
-
-                mn->start();
+//                mn->start();
 
                 conns.insert(std::make_pair(p.first, mn->connect_sync(replicas[p.first])));
 

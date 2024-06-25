@@ -633,6 +633,8 @@ class ConnPool {
     void terminate(const conn_t &conn) {
         disp_tcall->async_call([this, conn](ThreadCall::Handle &) {
             try {
+                SALTICIDAE_LOG_INFO("disp_terminate connection");
+
                 disp_terminate(conn);
             } catch (...) {
                 disp_error_cb(std::current_exception());

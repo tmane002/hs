@@ -295,10 +295,23 @@ void ConnPool::worker_terminate(const conn_t &conn) {
 void ConnPool::disp_terminate(const conn_t &conn) {
     auto worker = conn->worker;
     if (worker)
+    {
+        SALTICIDAE_LOG_INFO("disp_terminate: worker (yes) ");
+
         worker_terminate(conn);
+
+    }
     else
         disp_tcall->async_call([this, conn](ThreadCall::Handle &) {
-            if (!conn->set_terminated()) return;
+
+            SALTICIDAE_LOG_INFO("disp_terminate: worker (no) ");
+
+            if (!conn->set_terminated())
+            {
+                SALTICIDAE_LOG_INFO("disp_terminate: !conn->set_terminated() true ");
+
+                return;
+            }
             on_worker_teardown(conn);
             //conn->stop();
             del_conn(conn);
@@ -458,6 +471,8 @@ ConnPool::conn_t ConnPool::_connect(const NetAddr &addr) {
 }
 
 void ConnPool::del_conn(const conn_t &conn) {
+    SALTICIDAE_LOG_INFO("deleteing connection %s", std::string(*conn).c_str());
+
     auto it = pool.find(conn->fd);
     assert(it != pool.end());
     pool.erase(it);
