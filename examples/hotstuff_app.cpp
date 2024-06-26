@@ -275,7 +275,7 @@ int main(int argc, char **argv) {
 
     auto opt_blk_size = Config::OptValInt::create(1);
     auto opt_parent_limit = Config::OptValInt::create(-1);
-    auto opt_stat_period = Config::OptValDouble::create(10);
+    auto opt_stat_period = Config::OptValDouble::create(1);
     auto opt_replicas = Config::OptValStrVec::create();
     auto opt_idx = Config::OptValInt::create(0);
     auto opt_client_port = Config::OptValInt::create(-1);

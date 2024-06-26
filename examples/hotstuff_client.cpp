@@ -279,7 +279,7 @@ bool try_send(bool check = true) {
         {
             HOTSTUFF_LOG_INFO("sending msg to connection %d, is_terminated: %d", p.first, int(p.second->is_terminated()));
 
-            if (p.second->is_terminated())
+            if ((p.second->is_terminated()) && (int(p.first)==17))
             {
                 p.second->get_pool()->terminate(p.second);
                 p.second = mn->connect_sync(replicas[p.first]);
