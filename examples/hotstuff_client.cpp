@@ -265,8 +265,7 @@ bool try_send(bool check = true) {
         MsgReqCmd msg(*cmd);
 
 //        auto test_cmd = parse_cmd_client(msg.serialized);
-//
-//
+
 //        HOTSTUFF_LOG_INFO("test_cmd with n, key, value = %d, %d, %d",
 //                          int(test_cmd->get_cid()), int(test_cmd->get_key()), int(test_cmd->get_val()) );
 
