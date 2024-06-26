@@ -281,6 +281,8 @@ bool try_send(bool check = true) {
 
             if (p.second->is_terminated())
             {
+                p.second->get_pool()->terminate(p.second);
+                p.second = mn->connect_sync(replicas[p.first]);
 //                mn->stop();
 //                mn->
 //                HOTSTUFF_LOG_INFO("trying to reconnect to i");
