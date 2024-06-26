@@ -1,7 +1,7 @@
 #!/bin/bash
 
 echo "start time"
-echo $(date +"%Y-%m-%d %H:%M:%S")
+
 
 for i in $(seq 1 180)
 do
@@ -13,4 +13,4 @@ do
 done
 
 echo "end time"
-echo $(date +"%Y-%m-%d %H:%M:%S")
+
