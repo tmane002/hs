@@ -3,7 +3,7 @@
 echo "start time"
 echo $(date +"%Y-%m-%d %H:%M:%S")
 
-for i in $(seq 1 37)
+for i in $(seq 1 370)
 do
     sudo killall hotstuff-app
     sleep 0.1
