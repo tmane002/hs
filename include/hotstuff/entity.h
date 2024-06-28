@@ -75,7 +75,7 @@ namespace hotstuff {
             if (it == replica_map.end())
             {
                 HOTSTUFF_LOG_INFO("rid not found, returning null");
-                return null;
+//                return nullptr;
 //                throw HotStuffError("rid %s not found",
 //                                    get_hex(rid).c_str());
             }
