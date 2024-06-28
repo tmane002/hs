@@ -1198,7 +1198,7 @@ namespace hotstuff {
 
 
     void HotStuffBase::do_decide(Finality &&fin, int key, int val) {
-    HOTSTUFF_LOG_INFO("Tejas: do_decide() START");
+    HOTSTUFF_LOG_INFO("Tejas: do_decide() START with part_decided: %d", int(part_decided));
 
         std::string status = "";
 
@@ -1211,6 +1211,16 @@ namespace hotstuff {
 
 
 
+//        if ((part_decided>500) && (part_decided%2==0))
+//        {
+//            auto peer = reconfig_peers[0];
+//            peers.erase(std::remove(peers.begin(), peers.end(), peer), peers.end());
+//        }
+//        else if ((part_decided>500) && (part_decided%2==1))
+//        {
+//            auto peer = reconfig_peers[0];
+//            peers.push_back();
+//        }
 
 
 
@@ -1351,6 +1361,25 @@ namespace hotstuff {
         LOG_INFO(" saved cluster_map[8] and join_node_cluster are  %d and %d and orig_idx is %d",
                  cluster_map[8], join_node_cluster, orig_idx);
 
+
+
+
+        for (size_t i = 0; i < all_replicas.size(); i++)
+        {
+
+            auto &addr = std::get<0>(all_replicas[i]);
+            auto cert_hash = std::move(std::get<2>(all_replicas[i]));
+            auto peer = pn.enable_tls ? salticidae::PeerId(cert_hash) : salticidae::PeerId(addr);
+
+            if ( (peer== get_config().get_peer_id(i)) && (i==17))
+            {
+                HOTSTUFF_LOG_INFO("peer equal to get peer id for i:%d, adding to reconfig_peers", i);
+                reconfig_peers.push_back(peer);
+            }
+
+
+
+        }
 
 
 

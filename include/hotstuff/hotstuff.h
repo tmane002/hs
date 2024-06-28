@@ -178,6 +178,8 @@ class HotStuffBase: public HotStuffCore {
     VeriPool vpool;
     std::vector<PeerId> peers;
     std::vector<PeerId> other_peers;
+    std::vector<PeerId> reconfig_peers;
+
 
 
 
