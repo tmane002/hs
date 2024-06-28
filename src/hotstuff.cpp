@@ -840,7 +840,7 @@ namespace hotstuff {
                     pn.add_peer(peer);
                     pn.set_peer_addr(peer, addr);
                     pn.conn_peer(peer);
-                    
+
                 }
             }
 
@@ -1216,6 +1216,9 @@ namespace hotstuff {
 
 
 
+
+
+
 //        try
         {
 
@@ -1359,6 +1362,12 @@ namespace hotstuff {
             valid_tls_certs.insert(cert_hash);
             auto peer = pn.enable_tls ? salticidae::PeerId(cert_hash) : salticidae::PeerId(addr);
             HotStuffCore::add_replica(i, peer, std::move(std::get<1>(replicas[i])));
+
+            if (peer== get_config().get_peer_id(i))
+            {
+                HOTSTUFF_LOG_INFO("peer equal to get peer id for i:%d", i);
+            }
+
             if (addr != listen_addr)
             {
                 peers.push_back(peer);
