@@ -73,8 +73,13 @@ namespace hotstuff {
         const ReplicaInfo &get_info(ReplicaID rid) const {
             auto it = replica_map.find(rid);
             if (it == replica_map.end())
-                throw HotStuffError("rid %s not found",
-                                    get_hex(rid).c_str());
+            {
+                HOTSTUFF_LOG_INFO("rid not found, returning null");
+                return null;
+//                throw HotStuffError("rid %s not found",
+//                                    get_hex(rid).c_str());
+            }
+
             return it->second;
         }
 
