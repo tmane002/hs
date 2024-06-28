@@ -1364,23 +1364,6 @@ namespace hotstuff {
 
 
 
-        for (size_t i = 0; i < all_replicas.size(); i++)
-        {
-
-            auto &addr = std::get<0>(all_replicas[i]);
-            auto cert_hash = std::move(std::get<2>(all_replicas[i]));
-            auto peer = pn.enable_tls ? salticidae::PeerId(cert_hash) : salticidae::PeerId(addr);
-
-            if ( (peer== get_config().get_peer_id(i)) && (i==17))
-            {
-                HOTSTUFF_LOG_INFO("peer equal to get peer id for i:%d, adding to reconfig_peers", i);
-                reconfig_peers.push_back(peer);
-            }
-
-
-
-        }
-
 
 
         for (size_t i = 0; i < replicas.size(); i++)
@@ -1424,6 +1407,25 @@ namespace hotstuff {
                 pn.conn_peer(peer);
             }
         }
+
+
+
+
+        for (size_t i = 0; i < all_replicas.size(); i++)
+        {
+
+            auto &addr = std::get<0>(all_replicas[i]);
+            auto cert_hash = std::move(std::get<2>(all_replicas[i]));
+            auto peer = pn.enable_tls ? salticidae::PeerId(cert_hash) : salticidae::PeerId(addr);
+
+            if ( (peer== get_config().get_peer_id(i)) && (i==17))
+            {
+                HOTSTUFF_LOG_INFO("peer equal to get peer id for i:%d, adding to reconfig_peers", i);
+                reconfig_peers.push_back(peer);
+            }
+        }
+
+        
 
 
 
