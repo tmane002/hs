@@ -840,6 +840,7 @@ namespace hotstuff {
                     pn.add_peer(peer);
                     pn.set_peer_addr(peer, addr);
                     pn.conn_peer(peer);
+                    
                 }
             }
 
