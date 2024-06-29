@@ -60,6 +60,8 @@ uint32_t cid;
 uint32_t cnt = 0;
 uint32_t nfaulty;
 
+bool flag_join = true;
+
 
 uint32_t n_clusters;
 
@@ -287,27 +289,11 @@ bool try_send(bool check = true) {
                 HOTSTUFF_LOG_INFO("After connection, is_terminated: %d", int(p.second->is_terminated()));
             }
 
-            auto flag_join = true;
-//            if ((cnt>200) && (cnt<241) &&(cnt%2==0)&& (int(p.first)==17))
-//            {
-//                flag_join = true;
-//            }
-//            if (((cnt/100)>200) && ((cnt/100)<400))
-//            {
-//                flag_join = false;
-//            }
 
-            if (int(p.first)==17)
-            {
-                flag_join = false;
-            }
-
-
-            if (flag_join)
-            {
+            if ((int(p.first) != 17) || (flag_join && int(p.first) == 17)) {
                 mn->send_msg(msg, p.second);
-
             }
+
             count++;
         }
 
@@ -344,6 +330,19 @@ void client_resp_cmd_handler(MsgRespCmd &&msg, const Net::conn_t &) {
     auto &fin = msg.fin;
     HOTSTUFF_LOG_INFO("got %s", std::string(msg.fin).c_str());
     const uint256_t &cmd_hash = fin.cmd_hash;
+
+    int temp_cmd_height = fin.cmd_height;
+
+
+    if ((temp_cmd_height>200) && (temp_cmd_height<220) && (temp_cmd_height%2==0))
+    {
+        to_join = false;
+    }
+
+    if ((temp_cmd_height>200) && (temp_cmd_height<220) && (temp_cmd_height%2==1))
+    {
+        to_join = true;
+    }
 
 
 

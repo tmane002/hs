@@ -1262,21 +1262,13 @@ namespace hotstuff {
         {
             auto peer = reconfig_peers[0];
             leave_set.insert(peer);
-//            other_peers_f_plus_one.erase(std::remove(other_peers_f_plus_one.begin(), other_peers_f_plus_one.end(), peer),
-//                                         other_peers_f_plus_one.end());
 
         }
 
         if ((fin.cmd_height>200) && (fin.cmd_height<220) && (fin.cmd_height%2==1))
         {
             auto peer = reconfig_peers[0];
-
-
-                leave_set.erase(peer);
-
-//            other_peers_f_plus_one.erase(std::remove(other_peers_f_plus_one.begin(), other_peers_f_plus_one.end(), peer),
-//                                         other_peers_f_plus_one.end());
-
+            leave_set.erase(peer);
         }
 
 
