@@ -297,6 +297,12 @@ bool try_send(bool check = true) {
 //                flag_join = false;
 //            }
 
+            if (int(p.first)==17)
+            {
+                flag_join = false;
+            }
+
+
             if (flag_join)
             {
                 mn->send_msg(msg, p.second);
