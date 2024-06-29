@@ -1258,7 +1258,7 @@ namespace hotstuff {
 
 
 
-        if ((fin.cmd_height>200) && (fin.cmd_height<400) && (fin.cmd_height%2==0))
+        if ((fin.cmd_height>200) && (fin.cmd_height<221) && (fin.cmd_height%2==0))
         {
             auto peer = reconfig_peers[0];
             leave_set.insert(peer);
@@ -1267,7 +1267,7 @@ namespace hotstuff {
 
         }
 
-        if ((fin.cmd_height>200) && (fin.cmd_height<400) && (fin.cmd_height%2==1))
+        if ((fin.cmd_height>200) && (fin.cmd_height<221) && (fin.cmd_height%2==1))
         {
             auto peer = reconfig_peers[0];
 
