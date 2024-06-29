@@ -1212,19 +1212,19 @@ namespace hotstuff {
 
 
 
-        if ((fin.cmd_height>201) && (fin.cmd_height<203) && (fin.cmd_height%2==0))
+        if ((fin.cmd_height>200) && (fin.cmd_height<400) && (fin.cmd_height%2==0))
         {
             auto peer = reconfig_peers[0];
             peers.erase(std::remove(peers.begin(), peers.end(), peer), peers.end());
-            other_peers_f_plus_one.erase(std::remove(other_peers_f_plus_one.begin(), other_peers_f_plus_one.end(), peer),
-                                         other_peers_f_plus_one.end());
+//            other_peers_f_plus_one.erase(std::remove(other_peers_f_plus_one.begin(), other_peers_f_plus_one.end(), peer),
+//                                         other_peers_f_plus_one.end());
 
         }
-        else if ((fin.cmd_height>201)&& (fin.cmd_height<203) && (fin.cmd_height%2==1))
+        else if ((fin.cmd_height>200)&& (fin.cmd_height<400) && (fin.cmd_height%2==1))
         {
             auto peer = reconfig_peers[0];
             peers.push_back(peer);
-            other_peers_f_plus_one.push_back(peer);
+//            other_peers_f_plus_one.push_back(peer);
         }
 
 
