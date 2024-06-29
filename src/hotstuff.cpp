@@ -1211,16 +1211,16 @@ namespace hotstuff {
 
 
 
-//        if ((part_decided>500) && (part_decided%2==0))
-//        {
-//            auto peer = reconfig_peers[0];
-//            peers.erase(std::remove(peers.begin(), peers.end(), peer), peers.end());
-//        }
-//        else if ((part_decided>500) && (part_decided%2==1))
-//        {
-//            auto peer = reconfig_peers[0];
-//            peers.push_back();
-//        }
+        if ((part_decided>201) && (part_decided<242) && (part_decided%2==0))
+        {
+            auto peer = reconfig_peers[0];
+            peers.erase(std::remove(peers.begin(), peers.end(), peer), peers.end());
+        }
+        else if ((part_decided>201)&& (part_decided<242) && (part_decided%2==1))
+        {
+            auto peer = reconfig_peers[0];
+            peers.push_back(peer);
+        }
 
 
 

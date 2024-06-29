@@ -282,28 +282,25 @@ bool try_send(bool check = true) {
             {
                 p.second->get_pool()->terminate(p.second);
                 p.second = mn->connect_sync(replicas[p.first]);
-//                mn->stop();
-//                mn->
-//                HOTSTUFF_LOG_INFO("trying to reconnect to i");
-//                mn->
-//                conns.insert(std::make_pair(p.first, mn->connect_sync(replicas[p.first])));
-//                mn->connect(replicas[p.first]);
-//                mn.get().
-//                p.second->set_terminated();
-//
-//                mn->terminate(p.second);
-//                mn->stop();
-//
-//                mn->reg_handler(client_resp_cmd_handler);
-
-//                mn->start();
-
-//                conns.insert(std::make_pair(p.first, mn->connect_sync(replicas[p.first])));
 
                 HOTSTUFF_LOG_INFO("After connection, is_terminated: %d", int(p.second->is_terminated()));
             }
 
-            mn->send_msg(msg, p.second);
+            auto flag_join = true;
+            if ((cnt>200) && (cnt<241) &&(cnt%2==0)&& (int(p.first)==17))
+            {
+                flag_join = true;
+            }
+            else if ((cnt>200) && (cnt<241) && (cnt%2==1)&& (int(p.first)==17))
+            {
+                flag_join = false;
+            }
+
+            if (flag_join)
+            {
+                mn->send_msg(msg, p.second);
+
+            }
             count++;
         }
 
