@@ -1422,6 +1422,10 @@ namespace hotstuff {
             {
                 HOTSTUFF_LOG_INFO("peer equal to get peer id for i:%d, adding to reconfig_peers", i);
                 reconfig_peers.push_back(peer);
+                if(peer==NULL)
+                {
+                    HOTSTUFF_LOG_INFO("peer is null for i=17");
+                }
             }
         }
 
