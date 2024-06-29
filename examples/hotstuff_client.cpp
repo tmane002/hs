@@ -60,7 +60,7 @@ uint32_t cid;
 uint32_t cnt = 0;
 uint32_t nfaulty;
 
-bool flag_join = true;
+bool to_join = true;
 
 
 uint32_t n_clusters;
@@ -290,7 +290,7 @@ bool try_send(bool check = true) {
             }
 
 
-            if ((int(p.first) != 17) || (flag_join && int(p.first) == 17)) {
+            if ((int(p.first) != 17) || (to_join && int(p.first) == 17)) {
                 mn->send_msg(msg, p.second);
             }
 
