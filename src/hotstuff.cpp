@@ -1220,12 +1220,12 @@ namespace hotstuff {
 //                                         other_peers_f_plus_one.end());
 
         }
-        else if ((fin.cmd_height>200)&& (fin.cmd_height<400) && (fin.cmd_height%2==1))
-        {
-            auto peer = reconfig_peers[0];
-            peers.push_back(peer);
-//            other_peers_f_plus_one.push_back(peer);
-        }
+//        else if ((fin.cmd_height>200)&& (fin.cmd_height<400) && (fin.cmd_height%2==1))
+//        {
+//            auto peer = reconfig_peers[0];
+//            peers.push_back(peer);
+////            other_peers_f_plus_one.push_back(peer);
+//        }
 
 
 

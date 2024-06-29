@@ -292,10 +292,10 @@ bool try_send(bool check = true) {
 //            {
 //                flag_join = true;
 //            }
-            if (((cnt/100)>200) && ((cnt/100)<400))
-            {
-                flag_join = false;
-            }
+//            if (((cnt/100)>200) && ((cnt/100)<400))
+//            {
+//                flag_join = false;
+//            }
 
             if (flag_join)
             {
