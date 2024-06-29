@@ -287,14 +287,14 @@ bool try_send(bool check = true) {
             }
 
             auto flag_join = true;
-            if ((cnt>200) && (cnt<241) &&(cnt%2==0)&& (int(p.first)==17))
-            {
-                flag_join = true;
-            }
-            else if ((cnt>200) && (cnt<241) && (cnt%2==1)&& (int(p.first)==17))
-            {
-                flag_join = false;
-            }
+//            if ((cnt>200) && (cnt<241) &&(cnt%2==0)&& (int(p.first)==17))
+//            {
+//                flag_join = true;
+//            }
+//            else if ((cnt>200) && (cnt<241) && (cnt%2==1)&& (int(p.first)==17))
+//            {
+//                flag_join = false;
+//            }
 
             if (flag_join)
             {
