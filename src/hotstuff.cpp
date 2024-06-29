@@ -1411,7 +1411,7 @@ namespace hotstuff {
 
 
 
-        for (size_t i = 0; i < all_replicas.size(); i++)
+        for (size_t i = 17; i < 18; i++)
         {
 
             auto &addr = std::get<0>(all_replicas[i]);
@@ -1422,9 +1422,9 @@ namespace hotstuff {
             {
                 HOTSTUFF_LOG_INFO("peer equal to get peer id for i:%d, adding to reconfig_peers", i);
                 reconfig_peers.push_back(peer);
-                if(peer==NULL)
+                if(peer!=NULL)
                 {
-                    HOTSTUFF_LOG_INFO("peer is null for i=17");
+                    HOTSTUFF_LOG_INFO("peer is not null for i=17");
                 }
             }
         }
