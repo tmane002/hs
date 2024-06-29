@@ -276,7 +276,8 @@ bool try_send(bool check = true) {
 
         for (auto &p: conns)
         {
-            HOTSTUFF_LOG_INFO("sending msg to connection %d, is_terminated: %d", p.first, int(p.second->is_terminated()));
+            HOTSTUFF_LOG_INFO("sending msg to connection %d, is_terminated: %d, cnt:%d",
+                              p.first, int(p.second->is_terminated()), cnt);
 
             if ((p.second->is_terminated()) && (int(p.first)==17))
             {
@@ -291,10 +292,10 @@ bool try_send(bool check = true) {
 //            {
 //                flag_join = true;
 //            }
-//            else if ((cnt>200) && (cnt<241) && (cnt%2==1)&& (int(p.first)==17))
-//            {
-//                flag_join = false;
-//            }
+            else if (((cnt/100)>200) )
+            {
+                flag_join = false;
+            }
 
             if (flag_join)
             {
