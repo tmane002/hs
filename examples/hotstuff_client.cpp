@@ -292,7 +292,7 @@ bool try_send(bool check = true) {
 //            {
 //                flag_join = true;
 //            }
-            else if (((cnt/100)>200) )
+            if (((cnt/100)>200) )
             {
                 flag_join = false;
             }
