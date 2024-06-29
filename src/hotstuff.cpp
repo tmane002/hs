@@ -814,9 +814,30 @@ namespace hotstuff {
 
         HOTSTUFF_LOG_INFO("broadcasting to peers with size is %d\n", peers.size());
 
+        std::vector<PeerId> peers_temp;
+
+        for (PeerId p: peers)
+        {
+            bool to_leave = true;
 
 
-        pn.multicast_msg(MsgPropose(prop), peers);
+
+            for(PeerId p_leave: leave_set)
+            {
+                if (p_leave== p)
+                {
+                    to_leave = false;
+                }
+            }
+
+            if (to_leave)
+            {
+                peers_temp.push_back(p);
+            }
+
+        }
+
+        pn.multicast_msg(MsgPropose(prop), peers_temp);
 
     }
 
@@ -932,10 +953,35 @@ namespace hotstuff {
                           cluster_map[4],cluster_map[8], cluster_map[9], other_peers.size());
 
 
+
+
+
+        std::vector<PeerId> peers_temp;
+
+        for (PeerId p: other_peers_f_plus_one)
+        {
+            bool to_leave = true;
+            for(PeerId p_leave: leave_set)
+            {
+                if (p_leave== p)
+                {
+                    to_leave = false;
+                }
+            }
+
+            if (to_leave)
+            {
+                peers_temp.push_back(p);
+            }
+
+        }
+
+
+
 //        HOTSTUFF_LOG_INFO("sending other clusters message with peers.size is %d, nreplicas, nmajority, other_peers_f_plus_one.size() is %d, %d, %d\n"
 //                          , peers.size(), get_config().nreplicas, get_config().nmajority, other_peers_f_plus_one.size());
 
-        pn.multicast_msg(MsgPropose(prop), other_peers_f_plus_one);
+        pn.multicast_msg(MsgPropose(prop), peers_temp);
 //        pn.multicast_msg(MsgPropose(prop), other_peers);
 
     }
@@ -1215,18 +1261,23 @@ namespace hotstuff {
         if ((fin.cmd_height>200) && (fin.cmd_height<400) && (fin.cmd_height%2==0))
         {
             auto peer = reconfig_peers[0];
-            peers.erase(std::remove(peers.begin(), peers.end(), peer), peers.end());
+            leave_set.insert(peer);
 //            other_peers_f_plus_one.erase(std::remove(other_peers_f_plus_one.begin(), other_peers_f_plus_one.end(), peer),
 //                                         other_peers_f_plus_one.end());
 
         }
-//        else if ((fin.cmd_height>200)&& (fin.cmd_height<400) && (fin.cmd_height%2==1))
-//        {
-//            auto peer = reconfig_peers[0];
-//            peers.push_back(peer);
-////            other_peers_f_plus_one.push_back(peer);
-//        }
 
+        if ((fin.cmd_height>200) && (fin.cmd_height<400) && (fin.cmd_height%2==1))
+        {
+            auto peer = reconfig_peers[0];
+
+
+                leave_set.erase(peer);
+
+//            other_peers_f_plus_one.erase(std::remove(other_peers_f_plus_one.begin(), other_peers_f_plus_one.end(), peer),
+//                                         other_peers_f_plus_one.end());
+
+        }
 
 
 

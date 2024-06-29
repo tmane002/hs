@@ -180,6 +180,11 @@ class HotStuffBase: public HotStuffCore {
     std::vector<PeerId> other_peers;
     std::vector<PeerId> reconfig_peers;
 
+    std::set<PeerId> join_set;
+    std::set<PeerId> leave_set;
+
+
+
 
 
 
