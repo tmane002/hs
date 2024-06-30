@@ -334,12 +334,12 @@ void client_resp_cmd_handler(MsgRespCmd &&msg, const Net::conn_t &) {
     int temp_cmd_height = fin.cmd_height;
 
 
-    if ((temp_cmd_height>200) && (temp_cmd_height<220) && (temp_cmd_height%2==0))
+    if ((temp_cmd_height>200) && (temp_cmd_height<520) && (temp_cmd_height%2==0))
     {
         to_join = false;
     }
 
-    if ((temp_cmd_height>200) && (temp_cmd_height<220) && (temp_cmd_height%2==1))
+    if ((temp_cmd_height>200) && (temp_cmd_height<520) && (temp_cmd_height%2==1))
     {
         to_join = true;
     }
