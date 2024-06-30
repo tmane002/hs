@@ -1258,14 +1258,14 @@ namespace hotstuff {
 
 
 
-        if ((fin.cmd_height>200) && (fin.cmd_height<520) && (fin.cmd_height%2==0))
+        if ((fin.cmd_height>200) && (fin.cmd_height<821) && (fin.cmd_height%2==0))
         {
             auto peer = reconfig_peers[0];
             leave_set.insert(peer);
 
         }
 
-        if ((fin.cmd_height>200) && (fin.cmd_height<520) && (fin.cmd_height%2==1))
+        if ((fin.cmd_height>200) && (fin.cmd_height<821) && (fin.cmd_height%2==1))
         {
             auto peer = reconfig_peers[0];
             leave_set.erase(peer);
