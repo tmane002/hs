@@ -266,7 +266,7 @@ void connect_all()
         if (  i==17)
         {
             HOTSTUFF_LOG_INFO("peer equal to get peer id for i:%d, adding to reconfig_peers", i);
-//            reconfig_peers_client.push_back(peer);
+            reconfig_peers_client.push_back(peer);
         }
     }
 
