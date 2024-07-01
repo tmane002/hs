@@ -351,7 +351,7 @@ bool try_send(bool check = true) {
         HOTSTUFF_LOG_INFO("send new cmd %.10s",
                           get_hex(cmd->get_hash()).c_str());
 #endif
-        if (int(cid)!=2)
+//        if (int(cid)!=2)
         {
             waiting.insert(std::make_pair(
                     cmd->get_hash(), Request(cmd)));
