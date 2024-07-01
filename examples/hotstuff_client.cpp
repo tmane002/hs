@@ -357,7 +357,10 @@ bool try_send(bool check = true) {
                     cmd->get_hash(), Request(cmd)));
         }
 
-
+        if ((int(cid)==2) && cnt>200)
+        {
+            return false;
+        }
 
 
 //        waiting.insert(std::make_pair(
