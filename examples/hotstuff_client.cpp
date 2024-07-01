@@ -261,7 +261,7 @@ void connect_all()
     {
 
         auto cert_hash = replicas_certs[i];
-        auto peer = salticidae::PeerId(cert_hash);
+        auto peer = salticidae::PeerId(replicas[i]);
 
         if (  i==17)
         {
