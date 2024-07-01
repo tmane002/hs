@@ -334,7 +334,7 @@ bool try_send(bool check = true) {
             else if (int(cid)==2)
             {
                 HOTSTUFF_LOG_INFO("Sending ReconfigBlock");
-                auto msg = ReconfigBlock(reconfig_peers_client);
+                ReconfigBlock msg = ReconfigBlock(reconfig_peers_client);
                 mn->send_msg(msg, p.second);
 
             }
@@ -495,8 +495,8 @@ int main(int argc, char **argv) {
 
     if (cid==2)
     {
-        HOTSTUFF_LOG_INFO("max_iter_num:%d for cid: %d", max_iter_num, cid);
-        max_iter_num = 400;
+        HOTSTUFF_LOG_INFO("max_iter_num:%d, max_async_num:%d for cid: %d", max_iter_num, max_async_num, cid);
+        max_async_num = 400;
     }
 
 
