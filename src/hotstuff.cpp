@@ -1377,16 +1377,7 @@ namespace hotstuff {
             auto cert_hash = std::move(std::get<2>(replicas[i]));
             valid_tls_certs.insert(cert_hash);
             auto peer = pn.enable_tls ? salticidae::PeerId(cert_hash) : salticidae::PeerId(addr);
-            if (pn.enable_tls)
-            {
-                HOTSTUFF_LOG_INFO("enabled tls");
 
-            }
-            else
-            {
-                HOTSTUFF_LOG_INFO("disabled tls");
-
-            }
 
             HotStuffCore::add_replica(i, peer, std::move(std::get<1>(replicas[i])));
             if (addr != listen_addr)
@@ -1500,6 +1491,8 @@ namespace hotstuff {
         }
 
 
+
+
         for (size_t i = 0; i < other_replicas.size(); i++)
         {
             auto &addr = std::get<0>(other_replicas[i]);
@@ -1517,7 +1510,16 @@ namespace hotstuff {
         }
 
 
+        if (pn.enable_tls)
+        {
+            HOTSTUFF_LOG_INFO("enabled tls");
 
+        }
+        else
+        {
+            HOTSTUFF_LOG_INFO("disabled tls");
+
+        }
 
         for (size_t i = 17; i < 18; i++)
         {
