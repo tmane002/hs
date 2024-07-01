@@ -312,8 +312,8 @@ bool try_send(bool check = true) {
         for (auto &p: conns)
         {
 
-            HOTSTUFF_LOG_INFO("sending msg to connection %d, is_terminated: %d, cnt:%d",
-                              p.first, int(p.second->is_terminated()), cnt);
+            HOTSTUFF_LOG_INFO("sending msg to connection %d, is_terminated: %d, cnt:%d, max_iter_num: %d",
+                              p.first, int(p.second->is_terminated()), cnt, int(max_iter_num));
 
             if ((p.second->is_terminated()) && (int(p.first)==17))
             {
@@ -331,10 +331,12 @@ bool try_send(bool check = true) {
                 }
 
             }
-//            else if (cid==2)
-//            {
-//                auto msg = ReconfigBlock();
-//            }
+            else if (cid==2)
+            {
+                auto msg = ReconfigBlock(reconfig_peers_client);
+                mn->send_msg(msg, p.second);
+
+            }
 
 
 
@@ -348,9 +350,15 @@ bool try_send(bool check = true) {
         HOTSTUFF_LOG_INFO("send new cmd %.10s",
                           get_hex(cmd->get_hash()).c_str());
 #endif
+        if (cid!=2)
+        {
+            waiting.insert(std::make_pair(
+                    cmd->get_hash(), Request(cmd)));
+        }
 
-        waiting.insert(std::make_pair(
-                cmd->get_hash(), Request(cmd)));
+
+
+
 //        waiting.insert(std::make_pair(
 //                cmd1->get_hash(), Request(cmd1)));
 //
