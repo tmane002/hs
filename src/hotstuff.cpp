@@ -1321,7 +1321,31 @@ namespace hotstuff {
 //        }
 
 
+        if ((fin.cmd_height>500) && (fin.cmd_height<1121) && (fin.cmd_height%2==0))
+        {
+            auto peer = reconfig_peers[0];
+            tentative_leave_set.insert(peer);
 
+        }
+
+        if ((fin.cmd_height>500) && (fin.cmd_height<1121) && (fin.cmd_height%2==1))
+        {
+            auto peer = reconfig_peers[0];
+
+            auto it = tentative_leave_set.find(peer);
+            if (it != tentative_leave_set.end()) {
+                tentative_leave_set.erase(it);
+            }
+
+            auto it2 = leave_set.find(peer);
+            if (it2 != leave_set.end()) {
+                leave_set.erase(it2);
+            }
+
+
+
+
+        }
 
 
 

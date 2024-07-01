@@ -331,13 +331,13 @@ bool try_send(bool check = true) {
                 }
 
             }
-            else if (int(cid)==2)
-            {
-                HOTSTUFF_LOG_INFO("Sending ReconfigBlock");
-                ReconfigBlock msg = ReconfigBlock(reconfig_peers_client);
-                mn->send_msg(msg, p.second);
-
-            }
+//            else if (int(cid)==2)
+//            {
+////                HOTSTUFF_LOG_INFO("Sending ReconfigBlock");
+////                ReconfigBlock msg = ReconfigBlock(reconfig_peers_client);
+////                mn->send_msg(msg, p.second);
+//
+//            }
 
 
 
@@ -392,15 +392,15 @@ void client_resp_cmd_handler(MsgRespCmd &&msg, const Net::conn_t &) {
     int temp_cmd_height = fin.cmd_height;
 
 
-//    if ((temp_cmd_height>500) && (temp_cmd_height<1120) && (temp_cmd_height%2==0))
-//    {
-//        to_join = false;
-//    }
-//
-//    if ((temp_cmd_height>500) && (temp_cmd_height<1120) && (temp_cmd_height%2==1))
-//    {
-//        to_join = true;
-//    }
+    if ((temp_cmd_height>500) && (temp_cmd_height<1121) && (temp_cmd_height%2==0))
+    {
+        to_join = false;
+    }
+
+    if ((temp_cmd_height>500) && (temp_cmd_height<1121) && (temp_cmd_height%2==1))
+    {
+        to_join = true;
+    }
 
 
 
