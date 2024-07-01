@@ -349,8 +349,9 @@ namespace hotstuff {
 
         if (prop.msg_type==6)
         {
+
             // sending tentative set to leader
-            Proposal prop_same_cluster(id, blk, nullptr, cluster_id, prop.cluster_number, prop.other_cluster_block_height, 7);
+            Proposal prop_same_cluster(id, blk, nullptr, cluster_id, prop.pre_amp_cluster_number, prop.other_cluster_block_height, 7);
             LOG_INFO("LatencyPlot: Received first message with new node info") ;
 
             do_broadcast_proposal(prop_same_cluster);
@@ -364,9 +365,18 @@ namespace hotstuff {
         {
             LOG_INFO("LatencyPlot: Leader received with tentative sets from all peer nodes") ;
             // Adding to tentative set
-            for (auto p: tentative_leave_set)
+
+            if (prop.pre_amp_cluster_number==0)
             {
-                leave_set.insert(p);
+                HOTSTUFF_LOG_INFO("Adding to leave set");
+
+                leave_set.insert(reconfig_peers[0]);
+            }
+
+            if (prop.pre_amp_cluster_number==1)
+            {
+                HOTSTUFF_LOG_INFO("Removing from leave set");
+                leave_set.erase(reconfig_peers[0]);
             }
 
             return;
@@ -1321,31 +1331,28 @@ namespace hotstuff {
 //        }
 
 
-        if ((fin.cmd_height>500) && (fin.cmd_height<1121) && (fin.cmd_height%2==0))
-        {
-            auto peer = reconfig_peers[0];
-            tentative_leave_set.insert(peer);
-
-        }
-
-        if ((fin.cmd_height>500) && (fin.cmd_height<1121) && (fin.cmd_height%2==1))
-        {
-            auto peer = reconfig_peers[0];
-
-            auto it = tentative_leave_set.find(peer);
-            if (it != tentative_leave_set.end()) {
-                tentative_leave_set.erase(it);
-            }
-
-            auto it2 = leave_set.find(peer);
-            if (it2 != leave_set.end()) {
-                leave_set.erase(it2);
-            }
-
-
-
-
-        }
+//        if ((fin.cmd_height>500) && (fin.cmd_height<1121) && (fin.cmd_height%2==0))
+//        {
+//            auto peer = reconfig_peers[0];
+//            tentative_leave_set.insert(peer);
+//
+//        }
+//
+//        if ((fin.cmd_height>500) && (fin.cmd_height<1121) && (fin.cmd_height%2==1))
+//        {
+//            auto peer = reconfig_peers[0];
+//
+//            auto it = tentative_leave_set.find(peer);
+//            if (it != tentative_leave_set.end()) {
+//                tentative_leave_set.erase(it);
+//            }
+//
+//            auto it2 = leave_set.find(peer);
+//            if (it2 != leave_set.end()) {
+//                leave_set.erase(it2);
+//            }
+//
+//        }
 
 
 
