@@ -110,6 +110,10 @@ std::unordered_map<int, int> cluster_map;
 
 std::unordered_map<const uint256_t, Request> waiting;
 std::vector<NetAddr> replicas;
+
+std::vector<std::string> replicas_certs;
+
+
 std::vector<std::pair<struct timeval, double>> elapsed;
 std::unique_ptr<Net> mn;
 
@@ -253,19 +257,18 @@ void connect_all()
 
 
 
-//    for (size_t i = 17; i < 18; i++)
-//    {
-//
-//        auto &addr = std::get<0>(replicas[i]);
-//        auto cert_hash = std::move(std::get<2>(replicas[i]));
-//        auto peer = pn.enable_tls ? salticidae::PeerId(cert_hash) : salticidae::PeerId(addr);
-//
-//        if (  i==17)
-//        {
-//            HOTSTUFF_LOG_INFO("peer equal to get peer id for i:%d, adding to reconfig_peers", i);
-//            reconfig_peers_client.push_back(peer);
-//        }
-//    }
+    for (size_t i = 17; i < 18; i++)
+    {
+
+        auto cert_hash = replicas_certs[i];
+        auto peer = salticidae::PeerId(cert_hash);
+
+        if (  i==17)
+        {
+            HOTSTUFF_LOG_INFO("peer equal to get peer id for i:%d, adding to reconfig_peers", i);
+            reconfig_peers_client.push_back(peer);
+        }
+    }
 
 
 
@@ -453,6 +456,7 @@ int main(int argc, char **argv) {
     join_client = opt_join_client->get();
     max_async_num = opt_max_async_num->get();
     std::vector<std::string> raw;
+    std::vector<std::string> raw_cert;
 
     int countt = 0;
     for (const auto &s: opt_replicas->get())
@@ -467,6 +471,8 @@ int main(int argc, char **argv) {
             HOTSTUFF_LOG_INFO("pushed countt %d to raw with cluster_map[countt] = %d and int(cid percent 2) = %d",
                               countt,cluster_map[countt], int(cid%2));
             raw.push_back(res[0]);
+
+            raw_cert.push_back(res[1]);
         }
 
         countt++;
@@ -483,6 +489,14 @@ int main(int argc, char **argv) {
         size_t _;
         replicas.push_back(NetAddr(NetAddr(_p.first).ip, htons(stoi(_p.second, &_))));
     }
+
+
+    for (const auto &p: raw_cert)
+    {
+        replicas_certs.push_back(p);
+    }
+
+
     HOTSTUFF_LOG_INFO("CHECK replicas size = %d, raw size = %d", replicas.size(), raw.size());
 
     nfaulty = 1;//(replicas.size() - 1) / 3;
