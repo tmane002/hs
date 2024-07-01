@@ -261,8 +261,8 @@ void connect_all()
     {
 
         auto cert_hash = replicas_certs[i];
-//        auto peer = salticidae::PeerId(replicas[i]);
-        auto peer = salticidae::PeerId(cert_hash);
+        auto peer = salticidae::PeerId(replicas[i]);
+//        auto peer = salticidae::PeerId(cert_hash);
 
         if (  i==17)
         {
@@ -461,7 +461,7 @@ int main(int argc, char **argv) {
     config.add_opt("max-cli-msg", opt_max_cli_msg, Config::SET_VAL, 'S', "the maximum client message size");
     config.parse(argc, argv);
     auto idx = opt_idx->get();
-    max_iter_num = opt_max_iter_num->get();
+    max_iter_num = 400;//opt_max_iter_num->get();
     join_client = opt_join_client->get();
     max_async_num = opt_max_async_num->get();
     std::vector<std::string> raw;
