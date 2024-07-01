@@ -312,8 +312,8 @@ bool try_send(bool check = true) {
         for (auto &p: conns)
         {
 
-            HOTSTUFF_LOG_INFO("sending msg to connection %d, is_terminated: %d, cnt:%d, max_iter_num: %d",
-                              p.first, int(p.second->is_terminated()), cnt, int(max_iter_num));
+            HOTSTUFF_LOG_INFO("sending msg to connection %d, is_terminated: %d, cnt:%d, max_iter_num: %d, cid:%d",
+                              p.first, int(p.second->is_terminated()), cnt, int(max_iter_num), int(cid));
 
             if ((p.second->is_terminated()) && (int(p.first)==17))
             {
@@ -323,7 +323,7 @@ bool try_send(bool check = true) {
                 HOTSTUFF_LOG_INFO("After connection, is_terminated: %d", int(p.second->is_terminated()));
             }
 
-            if (cid!=2)
+            if (int(cid)!=2)
             {
 
                 if ((int(p.first) != 17) || (to_join && int(p.first) == 17)) {
@@ -331,8 +331,9 @@ bool try_send(bool check = true) {
                 }
 
             }
-            else if (cid==2)
+            else if (int(cid)==2)
             {
+                HOTSTUFF_LOG_INFO("Sending ReconfigBlock");
                 auto msg = ReconfigBlock(reconfig_peers_client);
                 mn->send_msg(msg, p.second);
 
@@ -350,7 +351,7 @@ bool try_send(bool check = true) {
         HOTSTUFF_LOG_INFO("send new cmd %.10s",
                           get_hex(cmd->get_hash()).c_str());
 #endif
-        if (cid!=2)
+        if (int(cid)!=2)
         {
             waiting.insert(std::make_pair(
                     cmd->get_hash(), Request(cmd)));

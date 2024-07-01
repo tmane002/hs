@@ -705,7 +705,7 @@ namespace hotstuff {
 
     void HotStuffBase::reconfig_handler(ReconfigBlock &&msg, const Net::conn_t &) {
 
-        LOG_INFO("got ReconfigBlock");
+        HOTSTUFF_LOG_INFO("got ReconfigBlock");
 
         for (const auto &p: msg.leaving_nodes)
         {
