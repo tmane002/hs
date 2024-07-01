@@ -207,7 +207,7 @@ void HotStuffCore::update(const block_t &nblk) {
         if ((temp_blk_height>500) && (temp_blk_height<1121) && (temp_blk_height%2==0))
         {
             int joining_node = 0;
-            Proposal prop_join_tent(id, blk, nullptr, cluster_id, joining_node, blk->height, 6);
+            Proposal prop_join_tent(id, nullptr, nullptr, cluster_id, joining_node, blk->height, 6);
             LOG_INFO("LatencyPlot: new node sending join request message") ;
             do_broadcast_proposal_other_clusters(prop_join_tent);
         }
@@ -215,7 +215,7 @@ void HotStuffCore::update(const block_t &nblk) {
         if ((temp_blk_height>500) && (temp_blk_height<1121) && (temp_blk_height%2==1))
         {
             int joining_node = 1;
-            Proposal prop_join_tent(id, blk, nullptr, cluster_id, joining_node, blk->height, 6);
+            Proposal prop_join_tent(id, nullptr, nullptr, cluster_id, joining_node, blk->height, 6);
             LOG_INFO("LatencyPlot: new node sending join request message") ;
             do_broadcast_proposal_other_clusters(prop_join_tent);
         }
