@@ -25,11 +25,15 @@
 #include "hotstuff/in_memory_db.cpp"
 #include "hotstuff/helper.h"
 
+#include "hotstuff/hotstuff.h"
+
 
 #include "salticidae/type.h"
 #include "salticidae/netaddr.h"
 #include "salticidae/network.h"
 #include "salticidae/util.h"
+
+#include "salticidae/msg.h"
 
 #include "hotstuff/util.h"
 #include "hotstuff/type.h"
@@ -39,12 +43,15 @@
 #define CPU_FREQ 2.2
 
 using salticidae::Config;
+using salticidae::PeerId;
 
 using hotstuff::ReplicaID;
 using hotstuff::NetAddr;
 using hotstuff::EventContext;
 using hotstuff::MsgReqCmd;
 using hotstuff::MsgRespCmd;
+using hotstuff::ReconfigBlock;
+
 using hotstuff::CommandDummy;
 using hotstuff::HotStuffError;
 using hotstuff::uint256_t;
@@ -106,6 +113,8 @@ std::vector<NetAddr> replicas;
 std::vector<std::pair<struct timeval, double>> elapsed;
 std::unique_ptr<Net> mn;
 
+
+std::vector<PeerId> reconfig_peers_client;
 
 
 
@@ -240,6 +249,26 @@ void connect_all()
             conns.insert(std::make_pair(i, mn->connect_sync(replicas[i])));
         }
     }
+
+
+
+
+//    for (size_t i = 17; i < 18; i++)
+//    {
+//
+//        auto &addr = std::get<0>(replicas[i]);
+//        auto cert_hash = std::move(std::get<2>(replicas[i]));
+//        auto peer = pn.enable_tls ? salticidae::PeerId(cert_hash) : salticidae::PeerId(addr);
+//
+//        if (  i==17)
+//        {
+//            HOTSTUFF_LOG_INFO("peer equal to get peer id for i:%d, adding to reconfig_peers", i);
+//            reconfig_peers_client.push_back(peer);
+//        }
+//    }
+
+
+
     nfaulty = (nfaulty - 1)/3;
     HOTSTUFF_LOG_INFO("CHECK Set nfaulty = %zu, replicas.size() = %d", nfaulty, replicas.size());
 
@@ -278,6 +307,7 @@ bool try_send(bool check = true) {
 
         for (auto &p: conns)
         {
+
             HOTSTUFF_LOG_INFO("sending msg to connection %d, is_terminated: %d, cnt:%d",
                               p.first, int(p.second->is_terminated()), cnt);
 
@@ -289,10 +319,22 @@ bool try_send(bool check = true) {
                 HOTSTUFF_LOG_INFO("After connection, is_terminated: %d", int(p.second->is_terminated()));
             }
 
+            if (cid!=2)
+            {
 
-            if ((int(p.first) != 17) || (to_join && int(p.first) == 17)) {
-                mn->send_msg(msg, p.second);
+                if ((int(p.first) != 17) || (to_join && int(p.first) == 17)) {
+                    mn->send_msg(msg, p.second);
+                }
+
             }
+            else if (cid==2)
+            {
+                auto msg = ReconfigBlock();
+            }
+
+
+
+
 
             count++;
         }

@@ -202,7 +202,7 @@ void HotStuffCore::update(const block_t &nblk) {
 
         do_consensus(blk);
 
-        if (int(blk->height)==3000)
+        if (get_tentative_leave_set_size()>0)
         {
             int joining_node = 8;
             Proposal prop_join_tent(id, blk, nullptr, cluster_id, joining_node, blk->height, 6);

@@ -140,6 +140,7 @@ public:
      * itself. */
     virtual void do_broadcast_proposal(const Proposal &prop) = 0;
     virtual void join_nodes() = 0;
+    virtual int get_tentative_leave_set_size() = 0;
 
     virtual void do_broadcast_proposal_to_leader(const Proposal &prop) = 0;
 

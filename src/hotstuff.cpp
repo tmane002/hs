@@ -98,9 +98,26 @@ namespace hotstuff {
             _blk.unserialize(serialized, hsc);
             HOTSTUFF_LOG_INFO("MsgRespBlock::postponed_parse: _blk.get_height() is %d",
                               int(_blk.get_height()) );
-
             blk = hsc->storage->add_blk(std::move(_blk), hsc->get_config());
         }
+    }
+
+
+
+    const opcode_t ReconfigBlock::opcode;
+    ReconfigBlock::ReconfigBlock(const std::vector<PeerId> &PeerIds) {
+        serialized << htole((uint32_t)PeerIds.size());
+        for (const auto &h: PeerIds)
+            serialized << h;
+    }
+
+
+    ReconfigBlock::ReconfigBlock(DataStream &&s) {
+        uint32_t size;
+        s >> size;
+        size = letoh(size);
+        leaving_nodes.resize(size);
+        for (auto &h: leaving_nodes) s >> h;
     }
 
 // TODO: improve this function
@@ -337,6 +354,9 @@ namespace hotstuff {
             LOG_INFO("LatencyPlot: Received first message with new node info") ;
 
             do_broadcast_proposal(prop_same_cluster);
+
+
+
             return;
         }
 
@@ -344,8 +364,11 @@ namespace hotstuff {
         {
             LOG_INFO("LatencyPlot: Leader received with tentative sets from all peer nodes") ;
             // Adding to tentative set
+            for (auto p: tentative_leave_set)
+            {
+                leave_set.insert(p);
+            }
 
-            tentative_join_set[int(prop.cluster_number)] = prop.pre_amp_cluster_number;
             return;
         }
 
@@ -676,6 +699,25 @@ namespace hotstuff {
         }
     }
 
+
+
+
+
+    void HotStuffBase::reconfig_handler(ReconfigBlock &&msg, const Net::conn_t &) {
+
+        LOG_INFO("got ReconfigBlock");
+
+        for (const auto &p: msg.leaving_nodes)
+        {
+//            tentative_leave_set.insert(p);
+        }
+    }
+
+
+
+
+
+
     bool HotStuffBase::conn_handler(const salticidae::ConnPool::conn_t &conn, bool connected) {
         if (connected)
         {
@@ -791,6 +833,9 @@ namespace hotstuff {
         pn.reg_handler(salticidae::generic_bind(&HotStuffBase::propose_handler, this, _1, _2));
         pn.reg_handler(salticidae::generic_bind(&HotStuffBase::vote_handler, this, _1, _2));
         pn.reg_handler(salticidae::generic_bind(&HotStuffBase::req_blk_handler, this, _1, _2));
+
+        pn.reg_handler(salticidae::generic_bind(&HotStuffBase::reconfig_handler, this, _1, _2));
+
         pn.reg_handler(salticidae::generic_bind(&HotStuffBase::resp_blk_handler, this, _1, _2));
         pn.reg_conn_handler(salticidae::generic_bind(&HotStuffBase::conn_handler, this, _1, _2));
 
@@ -845,35 +890,41 @@ namespace hotstuff {
     void HotStuffBase::join_nodes() {
         HOTSTUFF_LOG_INFO("Tentative set size %d\n", tentative_join_set.size());
 
-        for (auto& element : tentative_join_set) {
-            int i = element.second;
-            int cls_no = element.first;
-            if (cls_no==cluster_id)
-            {
-                auto &addr = std::get<0>(all_replicas_h[i]);
-                auto cert_hash = std::move(std::get<2>(all_replicas_h[i]));
-                valid_tls_certs.insert(cert_hash);
-                auto peer = pn.enable_tls ? salticidae::PeerId(cert_hash) : salticidae::PeerId(addr);
-                HotStuffCore::add_replica(i, peer, std::move(std::get<1>(all_replicas_h[i])));
-                if (addr != listen_addr)
-                {
-                    peers.push_back(peer);
-                    pn.add_peer(peer);
-                    pn.set_peer_addr(peer, addr);
-                    pn.conn_peer(peer);
-
-                }
-            }
-
-
-        }
-
-
+//        for (auto& element : tentative_join_set) {
+//            int i = element.second;
+//            int cls_no = element.first;
+//            if (cls_no==cluster_id)
+//            {
+//                auto &addr = std::get<0>(all_replicas_h[i]);
+//                auto cert_hash = std::move(std::get<2>(all_replicas_h[i]));
+//                valid_tls_certs.insert(cert_hash);
+//                auto peer = pn.enable_tls ? salticidae::PeerId(cert_hash) : salticidae::PeerId(addr);
+//                HotStuffCore::add_replica(i, peer, std::move(std::get<1>(all_replicas_h[i])));
+//                if (addr != listen_addr)
+//                {
+//                    peers.push_back(peer);
+//                    pn.add_peer(peer);
+//                    pn.set_peer_addr(peer, addr);
+//                    pn.conn_peer(peer);
+//
+//                }
+//            }
+//
+//
+//        }
 
 
-        tentative_join_set = std::unordered_map<int,int>();
+
+
+//        tentative_join_set = std::unordered_map<int,int>();
     }
 
+
+    int HotStuffBase::get_tentative_leave_set_size() {
+
+        return (int) tentative_leave_set.size();
+
+    }
 
     void HotStuffBase::do_broadcast_proposal_to_leader(const Proposal &prop) {
         pn.send_msg(MsgPropose(prop), peers[pmaker->get_proposer()]);

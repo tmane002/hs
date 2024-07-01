@@ -96,6 +96,17 @@ struct MsgRespBlock {
 
 
 
+    struct ReconfigBlock {
+        static const opcode_t opcode = 0x6;
+        DataStream serialized;
+        std::vector<PeerId> leaving_nodes;
+        ReconfigBlock() = default;
+        ReconfigBlock(const std::vector<PeerId> &PeerIds);
+        ReconfigBlock(DataStream &&s);
+    };
+
+
+
 
 
 using promise::promise_t;
@@ -249,12 +260,15 @@ class HotStuffBase: public HotStuffCore {
     inline void req_blk_handler(MsgReqBlock &&, const Net::conn_t &);
     /** receives a block */
     inline void resp_blk_handler(MsgRespBlock &&, const Net::conn_t &);
+    inline void reconfig_handler(ReconfigBlock &&, const Net::conn_t &);
 
     inline bool conn_handler(const salticidae::ConnPool::conn_t &, bool);
 
     void do_broadcast_proposal(const Proposal &) override;
 
     void join_nodes() override;
+    int get_tentative_leave_set_size() override;
+
     void do_broadcast_proposal_to_leader(const Proposal &) override;
     void do_broadcast_proposal_other_clusters(const Proposal &) override;
     void do_inform_reconfig(int cluster_no, int node_id, int orig_node_id) override;
@@ -342,13 +356,13 @@ class HotStuffBase: public HotStuffCore {
     std::unordered_map<int, std::vector<int>> times_tracker;
 
 
-    std::unordered_map<int, int> tentative_join_set;
+    std::set<PeerId> tentative_join_set;
 
 //    std::unordered_map<uint256_t, std::pair<int, int>> key_val_store;
 
     std::vector<std::tuple<NetAddr, pubkey_bt, uint256_t>> all_replicas_h;
 
-    std::set<int> tentative_leave_set;
+    std::set<PeerId> tentative_leave_set;
 
     std::set<int> finished_update_cids;
 
