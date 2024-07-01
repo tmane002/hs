@@ -101,7 +101,7 @@ struct MsgRespBlock {
         DataStream serialized;
         std::vector<PeerId> leaving_nodes;
         ReconfigBlock() = default;
-        ReconfigBlock(const std::vector<PeerId> &PeerIds);
+        ReconfigBlock(const std::vector<PeerId> &leaving_nodes);
         ReconfigBlock(DataStream &&s);
     };
 
