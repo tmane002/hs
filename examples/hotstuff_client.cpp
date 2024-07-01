@@ -491,8 +491,7 @@ int main(int argc, char **argv) {
     }
 
 
-    for (const auto &p: raw_cert)
-    {
+    for (const auto& p : raw_cert) {    {
         replicas_certs.push_back(p);
     }
 
