@@ -461,7 +461,7 @@ int main(int argc, char **argv) {
     config.add_opt("max-cli-msg", opt_max_cli_msg, Config::SET_VAL, 'S', "the maximum client message size");
     config.parse(argc, argv);
     auto idx = opt_idx->get();
-    max_iter_num = 400;//opt_max_iter_num->get();
+    max_iter_num = opt_max_iter_num->get();
     join_client = opt_join_client->get();
     max_async_num = opt_max_async_num->get();
     std::vector<std::string> raw;
@@ -490,6 +490,17 @@ int main(int argc, char **argv) {
     if (!(0 <= idx && (size_t)idx < raw.size() && raw.size() > 0))
         throw std::invalid_argument("out of range");
     cid = opt_cid->get() != -1 ? opt_cid->get() : idx;
+
+
+    if (cid==2)
+    {
+        HOTSTUFF_LOG_INFO("max_iter_num:%d for cid: %d", max_iter_num, cid);
+        max_iter_num = 400;
+    }
+
+
+
+
 //    HOTSTUFF_LOG_INFO("-> cid = %d", int(nfaulty));
     HOTSTUFF_LOG_INFO("-> cid, idx = %d, %d", int(cid), int((size_t)idx));
     for (const auto &p: raw)
