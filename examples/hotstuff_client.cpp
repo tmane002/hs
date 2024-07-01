@@ -330,10 +330,10 @@ bool try_send(bool check = true) {
                 }
 
             }
-            else if (cid==2)
-            {
-                auto msg = ReconfigBlock();
-            }
+//            else if (cid==2)
+//            {
+//                auto msg = ReconfigBlock();
+//            }
 
 
 
