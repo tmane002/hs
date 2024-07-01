@@ -255,20 +255,20 @@ void connect_all()
     }
 
 
+    HOTSTUFF_LOG_INFO("replicas.size() is %d", int(replicas.size()));
 
-//
-//    for (size_t i = 17; i < 18; i++)
-//    {
-//
-//        auto cert_hash = replicas_certs[i];
-//        auto peer = salticidae::PeerId(cert_hash);
-//
-//        if (  i==17)
-//        {
-//            HOTSTUFF_LOG_INFO("peer equal to get peer id for i:%d, adding to reconfig_peers", i);
+    for (size_t i = 17; i < 18; i++)
+    {
+
+        auto cert_hash = replicas_certs[i];
+        auto peer = salticidae::PeerId(cert_hash);
+
+        if (  i==17)
+        {
+            HOTSTUFF_LOG_INFO("peer equal to get peer id for i:%d, adding to reconfig_peers", i);
 //            reconfig_peers_client.push_back(peer);
-//        }
-//    }
+        }
+    }
 
 
 
