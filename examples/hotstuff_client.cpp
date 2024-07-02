@@ -386,20 +386,31 @@ bool try_send(bool check = true) {
 
 void client_resp_cmd_handler(MsgRespCmd &&msg, const Net::conn_t &) {
     auto &fin = msg.fin;
-    HOTSTUFF_LOG_INFO("got %s", std::string(msg.fin).c_str());
     const uint256_t &cmd_hash = fin.cmd_hash;
 
     int temp_cmd_height = fin.cmd_height;
 
-
-    if ((temp_cmd_height>500) && (temp_cmd_height<1120) && (temp_cmd_height%2==0))
+    bool to_print = true;
+    if ((temp_cmd_height>500) && (temp_cmd_height<1121) && (temp_cmd_height%2==0))
     {
         to_join = false;
+        to_print = false;
+        HOTSTUFF_LOG_INFO("to_print false");
+
     }
 
-    if ((temp_cmd_height>500) && (temp_cmd_height<1120) && (temp_cmd_height%2==1))
+    if ((temp_cmd_height>500) && (temp_cmd_height<1121) && (temp_cmd_height%2==1))
     {
         to_join = true;
+        to_print = false;
+
+        HOTSTUFF_LOG_INFO("to_print false");
+    }
+
+    if (to_print)
+    {
+        HOTSTUFF_LOG_INFO("got %s", std::string(msg.fin).c_str());
+
     }
 
 
@@ -415,6 +426,8 @@ void client_resp_cmd_handler(MsgRespCmd &&msg, const Net::conn_t &) {
 //                      int(it->second.cmd->get_cid()));
     if (++it->second.confirmed <= nfaulty) return; // wait for f + 1 ack
 //#ifndef HOTSTUFF_ENABLE_BENCHMARK
+
+
     HOTSTUFF_LOG_INFO("%.6f ",
                       std::string(fin).c_str(),
                       et.elapsed_sec);
