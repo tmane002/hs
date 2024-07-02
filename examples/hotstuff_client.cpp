@@ -434,7 +434,11 @@ void client_resp_cmd_handler(MsgRespCmd &&msg, const Net::conn_t &) {
     struct timeval tv;
     gettimeofday(&tv, nullptr);
 
-    elapsed.push_back(std::make_pair(tv, et.elapsed_sec));
+    if (to_print)
+    {
+        elapsed.push_back(std::make_pair(tv, et.elapsed_sec));
+        
+    }
 
 
 //#endif
