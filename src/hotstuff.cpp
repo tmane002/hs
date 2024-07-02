@@ -1321,7 +1321,6 @@ namespace hotstuff {
         {
             auto peer = reconfig_peers[0];
             leave_set.insert(peer);
-
         }
 
         if ((fin.cmd_height>500) && (fin.cmd_height<1120) && (fin.cmd_height%2==1))
