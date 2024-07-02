@@ -204,26 +204,26 @@ void HotStuffCore::update(const block_t &nblk) {
 
         int temp_blk_height = int(blk->height);
 //
-        if ((temp_blk_height>600) && (temp_blk_height<921) && (temp_blk_height%2==0))
-        {
-            int joining_node = 0;
-            Proposal prop_join_tent(id, blk, nullptr, cluster_id, joining_node, blk->height, 6);
-            LOG_INFO("LatencyPlot: new node sending join request message") ;
-
-            bool leader_check = check_leader();
-            if (leader_check)
-                do_broadcast_proposal_other_clusters(prop_join_tent);
-        }
-
-        if ((temp_blk_height>600) && (temp_blk_height<921) && (temp_blk_height%2==1))
-        {
-            int joining_node = 1;
-            Proposal prop_join_tent(id, blk, nullptr, cluster_id, joining_node, blk->height, 6);
-            LOG_INFO("LatencyPlot: new node sending join request message") ;
-            bool leader_check = check_leader();
-            if (leader_check)
-                do_broadcast_proposal_other_clusters(prop_join_tent);
-        }
+//        if ((temp_blk_height>600) && (temp_blk_height<921) && (temp_blk_height%2==0))
+//        {
+//            int joining_node = 0;
+//            Proposal prop_join_tent(id, blk, nullptr, cluster_id, joining_node, blk->height, 6);
+//            LOG_INFO("LatencyPlot: new node sending join request message") ;
+//
+//            bool leader_check = check_leader();
+//            if (leader_check)
+//                do_broadcast_proposal_other_clusters(prop_join_tent);
+//        }
+//
+//        if ((temp_blk_height>600) && (temp_blk_height<921) && (temp_blk_height%2==1))
+//        {
+//            int joining_node = 1;
+//            Proposal prop_join_tent(id, blk, nullptr, cluster_id, joining_node, blk->height, 6);
+//            LOG_INFO("LatencyPlot: new node sending join request message") ;
+//            bool leader_check = check_leader();
+//            if (leader_check)
+//                do_broadcast_proposal_other_clusters(prop_join_tent);
+//        }
 
 
         if (int(blk->height)==6000) LOG_INFO("LatencyPlot: before initial join message") ;
