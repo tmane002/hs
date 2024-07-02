@@ -323,7 +323,7 @@ bool try_send(bool check = true) {
                 HOTSTUFF_LOG_INFO("After connection, is_terminated: %d", int(p.second->is_terminated()));
             }
 
-            if (int(cid)!=2)
+//            if (int(cid)!=2)
             {
 
                 if ((int(p.first) != 17) || (to_join && int(p.first) == 17)) {
@@ -394,16 +394,22 @@ void client_resp_cmd_handler(MsgRespCmd &&msg, const Net::conn_t &) {
     if ((temp_cmd_height>500) && (temp_cmd_height<1121) && (temp_cmd_height%2==0))
     {
         to_join = false;
-        to_print = false;
+
+        if(cid==2)
+        {
+            to_print = false;
+        }
         HOTSTUFF_LOG_INFO("to_print false");
 
     }
 
-    if ((temp_cmd_height>500) && (temp_cmd_height<1121) && (temp_cmd_height%2==1))
+    if ((temp_cmd_height>500) && (temp_cmd_height<1121) && (temp_cmd_height%2==1)&&(cid==2))
     {
         to_join = true;
-        to_print = false;
-
+        if(cid==2)
+        {
+            to_print = false;
+        }
         HOTSTUFF_LOG_INFO("to_print false");
     }
 
@@ -437,7 +443,7 @@ void client_resp_cmd_handler(MsgRespCmd &&msg, const Net::conn_t &) {
     if (to_print)
     {
         elapsed.push_back(std::make_pair(tv, et.elapsed_sec));
-        
+
     }
 
 
