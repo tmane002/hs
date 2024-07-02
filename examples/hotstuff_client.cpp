@@ -357,10 +357,10 @@ bool try_send(bool check = true) {
                     cmd->get_hash(), Request(cmd)));
         }
 
-        if ((int(cid)==2) && cnt>200)
-        {
-            return false;
-        }
+//        if ((int(cid)==2) && cnt>200)
+//        {
+//            return false;
+//        }
 
 
 //        waiting.insert(std::make_pair(
@@ -413,7 +413,6 @@ void client_resp_cmd_handler(MsgRespCmd &&msg, const Net::conn_t &) {
         HOTSTUFF_LOG_INFO("to_print false");
     }
 
-//    if (to_print)
     {
         HOTSTUFF_LOG_INFO("got %s", std::string(msg.fin).c_str());
     }
