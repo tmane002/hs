@@ -391,7 +391,7 @@ void client_resp_cmd_handler(MsgRespCmd &&msg, const Net::conn_t &) {
     int temp_cmd_height = fin.cmd_height;
 
     bool to_print = true;
-    if ((temp_cmd_height>900) && (temp_cmd_height<1521) && (temp_cmd_height%2==0))
+    if ((temp_cmd_height>3000) && (temp_cmd_height<3521) && (temp_cmd_height%2==0))
     {
         to_join = false;
 
@@ -403,7 +403,7 @@ void client_resp_cmd_handler(MsgRespCmd &&msg, const Net::conn_t &) {
 
     }
 
-    if ((temp_cmd_height>900) && (temp_cmd_height<1521) && (temp_cmd_height%2==1)&&(cid==2))
+    if ((temp_cmd_height>3000) && (temp_cmd_height<3521) && (temp_cmd_height%2==1)&&(cid==2))
     {
         to_join = true;
 //        if(cid==2)
