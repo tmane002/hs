@@ -395,10 +395,10 @@ void client_resp_cmd_handler(MsgRespCmd &&msg, const Net::conn_t &) {
     {
         to_join = false;
 
-        if(cid==2)
-        {
-            to_print = false;
-        }
+//        if(cid==2)
+//        {
+//            to_print = false;
+//        }
         HOTSTUFF_LOG_INFO("to_print false");
 
     }
@@ -406,10 +406,10 @@ void client_resp_cmd_handler(MsgRespCmd &&msg, const Net::conn_t &) {
     if ((temp_cmd_height>500) && (temp_cmd_height<1121) && (temp_cmd_height%2==1)&&(cid==2))
     {
         to_join = true;
-        if(cid==2)
-        {
-            to_print = false;
-        }
+//        if(cid==2)
+//        {
+//            to_print = false;
+//        }
         HOTSTUFF_LOG_INFO("to_print false");
     }
 
