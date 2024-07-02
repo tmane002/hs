@@ -407,10 +407,9 @@ void client_resp_cmd_handler(MsgRespCmd &&msg, const Net::conn_t &) {
         HOTSTUFF_LOG_INFO("to_print false");
     }
 
-    if (to_print)
+//    if (to_print)
     {
         HOTSTUFF_LOG_INFO("got %s", std::string(msg.fin).c_str());
-
     }
 
 
@@ -434,7 +433,10 @@ void client_resp_cmd_handler(MsgRespCmd &&msg, const Net::conn_t &) {
 //#else
     struct timeval tv;
     gettimeofday(&tv, nullptr);
+
     elapsed.push_back(std::make_pair(tv, et.elapsed_sec));
+
+
 //#endif
 //    HOTSTUFF_LOG_INFO("got response for cid:%d", int(it->second.cmd->get_cid()));
 
