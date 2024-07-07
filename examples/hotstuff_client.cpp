@@ -357,11 +357,6 @@ bool try_send(bool check = true) {
                     cmd->get_hash(), Request(cmd)));
         }
 
-//        if ((int(cid)==2) && cnt>200)
-//        {
-//            return false;
-//        }
-
 
 //        waiting.insert(std::make_pair(
 //                cmd1->get_hash(), Request(cmd1)));
@@ -396,10 +391,10 @@ void client_resp_cmd_handler(MsgRespCmd &&msg, const Net::conn_t &) {
         to_join = false;
 
         // for txt join
-//        if(cid==2)
-//        {
-//            to_print = false;
-//        }
+        if(cid==2)
+        {
+            to_print = false;
+        }
 //        HOTSTUFF_LOG_INFO("to_print false");
 
     }
@@ -408,10 +403,10 @@ void client_resp_cmd_handler(MsgRespCmd &&msg, const Net::conn_t &) {
     {
         to_join = true;
         // for txt join
-//        if(cid==2)
-//        {
-//            to_print = false;
-//        }
+        if(cid==2)
+        {
+            to_print = false;
+        }
 //        HOTSTUFF_LOG_INFO("to_print false");
     }
 
