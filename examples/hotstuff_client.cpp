@@ -312,15 +312,15 @@ bool try_send(bool check = true) {
         for (auto &p: conns)
         {
 
-            HOTSTUFF_LOG_INFO("sending msg to connection %d, is_terminated: %d, cnt:%d, max_iter_num: %d, cid:%d",
-                              p.first, int(p.second->is_terminated()), cnt, int(max_iter_num), int(cid));
+//            HOTSTUFF_LOG_INFO("sending msg to connection %d, is_terminated: %d, cnt:%d, max_iter_num: %d, cid:%d",
+//                              p.first, int(p.second->is_terminated()), cnt, int(max_iter_num), int(cid));
 
             if ((p.second->is_terminated()) && (int(p.first)==17))
             {
                 p.second->get_pool()->terminate(p.second);
                 p.second = mn->connect_sync(replicas[p.first]);
 
-                HOTSTUFF_LOG_INFO("After connection, is_terminated: %d", int(p.second->is_terminated()));
+//                HOTSTUFF_LOG_INFO("After connection, is_terminated: %d", int(p.second->is_terminated()));
             }
 
 //            if (int(cid)!=2)
@@ -394,13 +394,13 @@ void client_resp_cmd_handler(MsgRespCmd &&msg, const Net::conn_t &) {
     if ((temp_cmd_height>1400) && (temp_cmd_height<1721) && (temp_cmd_height%2==0))
     {
         to_join = false;
-        
+
         // for txt join
 //        if(cid==2)
 //        {
 //            to_print = false;
 //        }
-        HOTSTUFF_LOG_INFO("to_print false");
+//        HOTSTUFF_LOG_INFO("to_print false");
 
     }
 
@@ -412,7 +412,7 @@ void client_resp_cmd_handler(MsgRespCmd &&msg, const Net::conn_t &) {
 //        {
 //            to_print = false;
 //        }
-        HOTSTUFF_LOG_INFO("to_print false");
+//        HOTSTUFF_LOG_INFO("to_print false");
     }
 
     {
