@@ -204,7 +204,7 @@ void HotStuffCore::update(const block_t &nblk) {
 
         int temp_blk_height = int(blk->height);
 
-        if ((temp_blk_height>2000) && (temp_blk_height<2221) && (temp_blk_height%2==0))
+        if ((temp_blk_height>2000) && (temp_blk_height<2220) && (temp_blk_height%2==0))
         {
             int joining_node = 0;
             Proposal prop_join_tent(id, blk, nullptr, cluster_id, joining_node, blk->height, 6);
@@ -215,7 +215,7 @@ void HotStuffCore::update(const block_t &nblk) {
                 do_broadcast_proposal_other_clusters(prop_join_tent);
         }
 
-        if ((temp_blk_height>2000) && (temp_blk_height<2221) && (temp_blk_height%2==1))
+        if ((temp_blk_height>2000) && (temp_blk_height<2220) && (temp_blk_height%2==1))
         {
             int joining_node = 1;
             Proposal prop_join_tent(id, blk, nullptr, cluster_id, joining_node, blk->height, 6);
