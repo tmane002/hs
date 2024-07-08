@@ -1317,13 +1317,13 @@ namespace hotstuff {
         state_machine_execute(fin);
 
 
-        if ((fin.cmd_height>1400) && (fin.cmd_height<1721) && (fin.cmd_height%2==0))
+        if ((fin.cmd_height>2000) && (fin.cmd_height<2221) && (fin.cmd_height%2==0))
         {
             auto peer = reconfig_peers[0];
             leave_set.insert(peer);
         }
 
-        if ((fin.cmd_height>1400) && (fin.cmd_height<1721) && (fin.cmd_height%2==1))
+        if ((fin.cmd_height>2000) && (fin.cmd_height<2221) && (fin.cmd_height%2==1))
         {
             auto peer = reconfig_peers[0];
             leave_set.erase(peer);
