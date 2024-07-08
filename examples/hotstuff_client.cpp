@@ -391,10 +391,10 @@ void client_resp_cmd_handler(MsgRespCmd &&msg, const Net::conn_t &) {
         to_join = false;
 
         // for txt join
-        if(cid==2)
-        {
-            to_print = false;
-        }
+//        if(cid==2)
+//        {
+//            to_print = false;
+//        }
 //        HOTSTUFF_LOG_INFO("to_print false");
 
     }
@@ -403,10 +403,10 @@ void client_resp_cmd_handler(MsgRespCmd &&msg, const Net::conn_t &) {
     {
         to_join = true;
         // for txt join
-        if(cid==2)
-        {
-            to_print = false;
-        }
+//        if(cid==2)
+//        {
+//            to_print = false;
+//        }
 //        HOTSTUFF_LOG_INFO("to_print false");
     }
 
