@@ -69,7 +69,7 @@ uint32_t nfaulty;
 
 bool to_join = true;
 
-
+uint32_t reconfig_client = 2;
 uint32_t n_clusters;
 
 
@@ -257,19 +257,19 @@ void connect_all()
 
     HOTSTUFF_LOG_INFO("replicas.size() is %d", int(replicas.size()));
 
-    for (size_t i = 17; i < 18; i++)
-    {
-
-        auto cert_hash = replicas_certs[i];
-        auto peer = salticidae::PeerId(replicas[i]);
-//        auto peer = salticidae::PeerId(cert_hash);
-
-        if (  i==17)
-        {
-            HOTSTUFF_LOG_INFO("peer equal to get peer id for i:%d, adding to reconfig_peers", i);
-            reconfig_peers_client.push_back(peer);
-        }
-    }
+    // commented reconfig code
+//    for (size_t i = 17; i < 18; i++)
+//    {
+//        auto cert_hash = replicas_certs[i];
+//        auto peer = salticidae::PeerId(replicas[i]);
+////        auto peer = salticidae::PeerId(cert_hash);
+//
+//        if (  i==17)
+//        {
+//            HOTSTUFF_LOG_INFO("peer equal to get peer id for i:%d, adding to reconfig_peers", i);
+//            reconfig_peers_client.push_back(peer);
+//        }
+//    }
 
 
 
@@ -315,18 +315,25 @@ bool try_send(bool check = true) {
 //            HOTSTUFF_LOG_INFO("sending msg to connection %d, is_terminated: %d, cnt:%d, max_iter_num: %d, cid:%d",
 //                              p.first, int(p.second->is_terminated()), cnt, int(max_iter_num), int(cid));
 
-            if ((p.second->is_terminated()) && (int(p.first)==17))
-            {
-                p.second->get_pool()->terminate(p.second);
-                p.second = mn->connect_sync(replicas[p.first]);
 
-//                HOTSTUFF_LOG_INFO("After connection, is_terminated: %d", int(p.second->is_terminated()));
-            }
+// commented reconfig code
+//            if ((p.second->is_terminated()) && (int(p.first)==17))
+//            {
+//                p.second->get_pool()->terminate(p.second);
+//                p.second = mn->connect_sync(replicas[p.first]);
+//
+////                HOTSTUFF_LOG_INFO("After connection, is_terminated: %d", int(p.second->is_terminated()));
+//            }
+
+
+
+
 
 //            if (int(cid)!=2)
             {
 
-                if ((int(p.first) != 17) || (to_join && int(p.first) == 17)) {
+//                if ((int(p.first) != 17) || (to_join && int(p.first) == 17))
+                {
                     mn->send_msg(msg, p.second);
                 }
 
@@ -383,32 +390,42 @@ void client_resp_cmd_handler(MsgRespCmd &&msg, const Net::conn_t &) {
     auto &fin = msg.fin;
     const uint256_t &cmd_hash = fin.cmd_hash;
 
-    int temp_cmd_height = fin.cmd_height;
 
-    bool to_print = true;
-    if ((temp_cmd_height>-1) && (temp_cmd_height<2220) && (temp_cmd_height%2==0))
-    {
-        to_join = false;
 
-        // for txt join
-//        if(cid==2)
-//        {
-//            to_print = false;
-//        }
-//        HOTSTUFF_LOG_INFO("to_print false");
+    //commented reconfig code
+//    int temp_cmd_height = fin.cmd_height;
+//
+//
+//
+//
+//
+//    bool to_print = true;
+//    if ((temp_cmd_height>-1) && (temp_cmd_height<2220) && (temp_cmd_height%2==0))
+//    {
+//        to_join = false;
+//
+//        // for txt join
+////        if(cid==2)
+////        {
+////            to_print = false;
+////        }
+////        HOTSTUFF_LOG_INFO("to_print false");
+//
+//    }
+//
+//    if ((temp_cmd_height>-1) && (temp_cmd_height<2220) && (temp_cmd_height%2==1)&&(cid==2))
+//    {
+//        to_join = true;
+//        // for txt join
+////        if(cid==2)
+////        {
+////            to_print = false;
+////        }
+////        HOTSTUFF_LOG_INFO("to_print false");
+//    }
 
-    }
 
-    if ((temp_cmd_height>-1) && (temp_cmd_height<2220) && (temp_cmd_height%2==1)&&(cid==2))
-    {
-        to_join = true;
-        // for txt join
-//        if(cid==2)
-//        {
-//            to_print = false;
-//        }
-//        HOTSTUFF_LOG_INFO("to_print false");
-    }
+
 
     {
         HOTSTUFF_LOG_INFO("got %s", std::string(msg.fin).c_str());
@@ -436,7 +453,9 @@ void client_resp_cmd_handler(MsgRespCmd &&msg, const Net::conn_t &) {
     struct timeval tv;
     gettimeofday(&tv, nullptr);
 
-    if (to_print)
+
+    // commented reconfig print block code
+//    if (to_print)
     {
         elapsed.push_back(std::make_pair(tv, et.elapsed_sec));
 
@@ -517,11 +536,12 @@ int main(int argc, char **argv) {
     cid = opt_cid->get() != -1 ? opt_cid->get() : idx;
 
 
-    if (cid==2)
-    {
-        HOTSTUFF_LOG_INFO("max_iter_num:%d, max_async_num:%d for cid: %d", max_iter_num, max_async_num, cid);
-        max_async_num = 400;
-    }
+    // commented reconfig code possibly useless
+//    if (cid==2)
+//    {
+//        HOTSTUFF_LOG_INFO("max_iter_num:%d, max_async_num:%d for cid: %d", max_iter_num, max_async_num, cid);
+//        max_async_num = 400;
+//    }
 
 
 
