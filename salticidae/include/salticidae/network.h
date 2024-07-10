@@ -214,7 +214,7 @@ class MsgNetwork: public ConnPool {
                                         get_hex(msg.get_opcode()).c_str());
                 else /* call the handler */
                 {
-                    SALTICIDAE_LOG_INFO("got message %s from %s",
+                    SALTICIDAE_LOG_DEBUG("got message %s from %s",
                             std::string(msg).c_str(),
                             std::string(*conn).c_str());
 #ifdef SALTICIDAE_MSG_STAT
