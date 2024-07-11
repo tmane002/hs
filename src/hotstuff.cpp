@@ -1317,6 +1317,30 @@ namespace hotstuff {
         state_machine_execute(fin);
 
 // commented reconfig code
+
+
+        if ((fin.cmd_height<2000) && (fin.cmd_height%2==0))
+        {
+            auto peer = reconfig_peers[0];
+            leave_set.insert(peer);
+            peer = reconfig_peers[1];
+            leave_set.insert(peer);
+            peer = reconfig_peers[2];
+            leave_set.insert(peer);
+
+        }
+
+
+//        if ((fin.cmd_height<2000)  && (fin.cmd_height%2==1))
+//        {
+//            auto peer = reconfig_peers[0];
+//            leave_set.erase(peer);
+//        }
+
+
+
+
+//
 //        if ((fin.cmd_height>2000) && (fin.cmd_height<2221) && (fin.cmd_height%2==0))
 //        {
 //            auto peer = reconfig_peers[0];

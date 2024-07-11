@@ -68,6 +68,10 @@ uint32_t cnt = 0;
 uint32_t nfaulty;
 
 bool to_join = true;
+bool to_join2 = true;
+bool to_join3 = true;
+
+
 
 uint32_t reconfig_client = 4;
 uint32_t n_clusters;
@@ -258,18 +262,30 @@ void connect_all()
     HOTSTUFF_LOG_INFO("replicas.size() is %d", int(replicas.size()));
 
     // commented reconfig code
-//    for (size_t i = 17; i < 18; i++)
-//    {
-//        auto cert_hash = replicas_certs[i];
-//        auto peer = salticidae::PeerId(replicas[i]);
-////        auto peer = salticidae::PeerId(cert_hash);
-//
-//        if (  i==17)
-//        {
-//            HOTSTUFF_LOG_INFO("peer equal to get peer id for i:%d, adding to reconfig_peers", i);
-//            reconfig_peers_client.push_back(peer);
-//        }
-//    }
+    for (size_t i = 17; i < 20; i++)
+    {
+        auto cert_hash = replicas_certs[i];
+        auto peer = salticidae::PeerId(replicas[i]);
+//        auto peer = salticidae::PeerId(cert_hash);
+
+        if (  i==17)
+        {
+            HOTSTUFF_LOG_INFO("peer equal to get peer id for i:%d, adding to reconfig_peers", i);
+            reconfig_peers_client.push_back(peer);
+        }
+
+        if (  i==18)
+        {
+            HOTSTUFF_LOG_INFO("peer equal to get peer id for i:%d, adding to reconfig_peers", i);
+            reconfig_peers_client.push_back(peer);
+        }
+
+        if (  i==19)
+        {
+            HOTSTUFF_LOG_INFO("peer equal to get peer id for i:%d, adding to reconfig_peers", i);
+            reconfig_peers_client.push_back(peer);
+        }
+    }
 
 
 
@@ -332,10 +348,22 @@ bool try_send(bool check = true) {
 //            if (int(cid)!=2)
             {
 
-//                if ((int(p.first) != 17) || (to_join && int(p.first) == 17))
+                if ((int(p.first) < 17) || (to_join && int(p.first) == 17))
                 {
                     mn->send_msg(msg, p.second);
                 }
+
+                if ((int(p.first) < 17) || (to_join2 && int(p.first) == 18))
+                {
+                    mn->send_msg(msg, p.second);
+                }
+
+                if ((int(p.first) < 17) || (to_join3 && int(p.first) == 19))
+                {
+                    mn->send_msg(msg, p.second);
+                }
+
+
 
             }
 //            else if (int(cid)==2)
@@ -393,30 +421,44 @@ void client_resp_cmd_handler(MsgRespCmd &&msg, const Net::conn_t &) {
 
 
     //commented reconfig code
-//    int temp_cmd_height = fin.cmd_height;
-//
-//
-//
-//
-//
-//    bool to_print = true;
+    int temp_cmd_height = fin.cmd_height;
+
+
+
+
+
+    bool to_print = true;
 //    if ((temp_cmd_height>-1) && (temp_cmd_height<2220) && (temp_cmd_height%2==0))
-//    {
-//        to_join = false;
-//
-//        // for txt join
-////        if(cid==2)
-////        {
-////            to_print = false;
-////        }
-////        HOTSTUFF_LOG_INFO("to_print false");
-//
-//    }
-//
+    if ((temp_cmd_height<1100))
+
+    {
+        to_join = false;
+
+        // for txn join
+//        if(cid==2)
+//        {
+//            to_print = false;
+//        }
+//        HOTSTUFF_LOG_INFO("to_print false");
+
+    }
+
+
+    if ((temp_cmd_height<1650))
+    {
+        to_join2 = false;
+    }
+
+    if ((temp_cmd_height<2220))
+    {
+        to_join2 = false;
+    }
+
+
 //    if ((temp_cmd_height>-1) && (temp_cmd_height<2220) && (temp_cmd_height%2==1)&&(cid==2))
 //    {
 //        to_join = true;
-//        // for txt join
+//        // for txn join
 ////        if(cid==2)
 ////        {
 ////            to_print = false;
