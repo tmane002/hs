@@ -341,29 +341,30 @@ bool try_send(bool check = true) {
 ////                HOTSTUFF_LOG_INFO("After connection, is_terminated: %d", int(p.second->is_terminated()));
 //            }
 
-
-
-
-
-//            if (int(cid)!=2)
-            {
-
-                if ((int(p.first) < 17) || (to_join && int(p.first) == 17))
+                if (int(p.first) < 17)
                 {
-                    mn->send_msg(msg, p.second);
+
+
                 }
 
-                if ((int(p.first) < 17) || (to_join2 && int(p.first) == 18))
+                else
+
                 {
-                    mn->send_msg(msg, p.second);
-                }
 
-                if ((int(p.first) < 17) || (to_join3 && int(p.first) == 19))
-                {
-                    mn->send_msg(msg, p.second);
-                }
+                    if ( (to_join && int(p.first) == 17))
+                    {
+                        mn->send_msg(msg, p.second);
+                    }
 
+                    if ( (to_join2 && int(p.first) == 18))
+                    {
+                        mn->send_msg(msg, p.second);
+                    }
 
+                    if ((to_join3 && int(p.first) == 19))
+                    {
+                        mn->send_msg(msg, p.second);
+                    }
 
             }
 //            else if (int(cid)==2)
@@ -442,18 +443,29 @@ void client_resp_cmd_handler(MsgRespCmd &&msg, const Net::conn_t &) {
 //        HOTSTUFF_LOG_INFO("to_print false");
 
     }
+    else
+    {
+        to_join = true;
+    }
 
 
     if ((temp_cmd_height<1650))
     {
         to_join2 = false;
     }
-
-    if ((temp_cmd_height<2220))
+    else
     {
-        to_join2 = false;
+        to_join2 = true;
     }
 
+    if ((temp_cmd_height<2200))
+    {
+        to_join3 = false;
+    }
+    else
+    {
+        to_join3 = true;
+    }
 
 //    if ((temp_cmd_height>-1) && (temp_cmd_height<2220) && (temp_cmd_height%2==1)&&(cid==2))
 //    {
