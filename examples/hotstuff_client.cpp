@@ -262,30 +262,30 @@ void connect_all()
     HOTSTUFF_LOG_INFO("replicas.size() is %d", int(replicas.size()));
 
     // commented reconfig code
-    for (size_t i = 17; i < 20; i++)
-    {
-        auto cert_hash = replicas_certs[i];
-        auto peer = salticidae::PeerId(replicas[i]);
-//        auto peer = salticidae::PeerId(cert_hash);
-
-        if (  i==17)
-        {
-            HOTSTUFF_LOG_INFO("peer equal to get peer id for i:%d, adding to reconfig_peers", i);
-            reconfig_peers_client.push_back(peer);
-        }
-
-        if (  i==18)
-        {
-            HOTSTUFF_LOG_INFO("peer equal to get peer id for i:%d, adding to reconfig_peers", i);
-            reconfig_peers_client.push_back(peer);
-        }
-
-        if (  i==19)
-        {
-            HOTSTUFF_LOG_INFO("peer equal to get peer id for i:%d, adding to reconfig_peers", i);
-            reconfig_peers_client.push_back(peer);
-        }
-    }
+//    for (size_t i = 17; i < 20; i++)
+//    {
+//        auto cert_hash = replicas_certs[i];
+//        auto peer = salticidae::PeerId(replicas[i]);
+////        auto peer = salticidae::PeerId(cert_hash);
+//
+//        if (  i==17)
+//        {
+//            HOTSTUFF_LOG_INFO("peer equal to get peer id for i:%d, adding to reconfig_peers", i);
+//            reconfig_peers_client.push_back(peer);
+//        }
+//
+//        if (  i==18)
+//        {
+//            HOTSTUFF_LOG_INFO("peer equal to get peer id for i:%d, adding to reconfig_peers", i);
+//            reconfig_peers_client.push_back(peer);
+//        }
+//
+//        if (  i==19)
+//        {
+//            HOTSTUFF_LOG_INFO("peer equal to get peer id for i:%d, adding to reconfig_peers", i);
+//            reconfig_peers_client.push_back(peer);
+//        }
+//    }
 
 
 
@@ -341,33 +341,35 @@ bool try_send(bool check = true) {
 ////                HOTSTUFF_LOG_INFO("After connection, is_terminated: %d", int(p.second->is_terminated()));
 //            }
 
-                if (int(p.first) < 17)
+//                if (int(p.first) < 17)
                 {
 
                     mn->send_msg(msg, p.second);
 
                 }
+//
+//                else
+//
+//                {
+//
+//                    if ( (to_join && int(p.first) == 17))
+//                    {
+//                        mn->send_msg(msg, p.second);
+//                    }
+//
+//                    if ( (to_join2 && int(p.first) == 18))
+//                    {
+//                        mn->send_msg(msg, p.second);
+//                    }
+//
+//                    if ((to_join3 && int(p.first) == 19))
+//                    {
+//                        mn->send_msg(msg, p.second);
+//                    }
+//
+//                }
 
-                else
 
-                {
-
-                    if ( (to_join && int(p.first) == 17))
-                    {
-                        mn->send_msg(msg, p.second);
-                    }
-
-                    if ( (to_join2 && int(p.first) == 18))
-                    {
-                        mn->send_msg(msg, p.second);
-                    }
-
-                    if ((to_join3 && int(p.first) == 19))
-                    {
-                        mn->send_msg(msg, p.second);
-                    }
-
-            }
 //            else if (int(cid)==2)
 //            {
 ////                HOTSTUFF_LOG_INFO("Sending ReconfigBlock");
