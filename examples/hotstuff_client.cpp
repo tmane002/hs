@@ -69,7 +69,7 @@ uint32_t nfaulty;
 
 bool to_join = true;
 
-uint32_t reconfig_client = 2;
+uint32_t reconfig_client = 4;
 uint32_t n_clusters;
 
 
