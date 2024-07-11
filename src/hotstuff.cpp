@@ -1318,41 +1318,41 @@ namespace hotstuff {
 
 // commented reconfig code
 
-
-        if ((fin.cmd_height<1100))
-        {
-            auto peer = reconfig_peers[0];
-            leave_set.insert(peer);
-        }
-        else
-        {
-            auto peer = reconfig_peers[0];
-            leave_set.erase(peer);
-        }
-
-
-        if ((fin.cmd_height<1650))
-        {
-            auto peer = reconfig_peers[1];
-            leave_set.insert(peer);
-        }
-        else
-        {
-            auto peer = reconfig_peers[1];
-            leave_set.erase(peer);
-        }
-
-
-        if ((fin.cmd_height<2200))
-        {
-            auto peer = reconfig_peers[2];
-            leave_set.insert(peer);
-        }
-        else
-        {
-            auto peer = reconfig_peers[2];
-            leave_set.erase(peer);
-        }
+//
+//        if ((fin.cmd_height<1100))
+//        {
+//            auto peer = reconfig_peers[0];
+//            leave_set.insert(peer);
+//        }
+//        else
+//        {
+//            auto peer = reconfig_peers[0];
+//            leave_set.erase(peer);
+//        }
+//
+//
+//        if ((fin.cmd_height<1650))
+//        {
+//            auto peer = reconfig_peers[1];
+//            leave_set.insert(peer);
+//        }
+//        else
+//        {
+//            auto peer = reconfig_peers[1];
+//            leave_set.erase(peer);
+//        }
+//
+//
+//        if ((fin.cmd_height<2200))
+//        {
+//            auto peer = reconfig_peers[2];
+//            leave_set.insert(peer);
+//        }
+//        else
+//        {
+//            auto peer = reconfig_peers[2];
+//            leave_set.erase(peer);
+//        }
 
 
 

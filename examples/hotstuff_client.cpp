@@ -428,45 +428,44 @@ void client_resp_cmd_handler(MsgRespCmd &&msg, const Net::conn_t &) {
 
 
 
-
-    bool to_print = true;
-//    if ((temp_cmd_height>-1) && (temp_cmd_height<2220) && (temp_cmd_height%2==0))
-    if ((temp_cmd_height<1100))
-
-    {
-        to_join = false;
-
-        // for txn join
-//        if(cid==2)
-//        {
-//            to_print = false;
-//        }
-//        HOTSTUFF_LOG_INFO("to_print false");
-
-    }
-    else
-    {
-        to_join = true;
-    }
-
-
-    if ((temp_cmd_height<1650))
-    {
-        to_join2 = false;
-    }
-    else
-    {
-        to_join2 = true;
-    }
-
-    if ((temp_cmd_height<2200))
-    {
-        to_join3 = false;
-    }
-    else
-    {
-        to_join3 = true;
-    }
+//
+//    bool to_print = true;
+////    if ((temp_cmd_height>-1) && (temp_cmd_height<2220) && (temp_cmd_height%2==0))
+//    if ((temp_cmd_height<1100))
+//    {
+//        to_join = false;
+//
+//        // for txn join
+////        if(cid==2)
+////        {
+////            to_print = false;
+////        }
+////        HOTSTUFF_LOG_INFO("to_print false");
+//
+//    }
+//    else
+//    {
+//        to_join = true;
+//    }
+//
+//
+//    if ((temp_cmd_height<1650))
+//    {
+//        to_join2 = false;
+//    }
+//    else
+//    {
+//        to_join2 = true;
+//    }
+//
+//    if ((temp_cmd_height<2200))
+//    {
+//        to_join3 = false;
+//    }
+//    else
+//    {
+//        to_join3 = true;
+//    }
 
 //    if ((temp_cmd_height>-1) && (temp_cmd_height<2220) && (temp_cmd_height%2==1)&&(cid==2))
 //    {
